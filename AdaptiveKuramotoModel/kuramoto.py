@@ -4,6 +4,7 @@ import numpy as np
 from scipy.integrate import odeint
 import typing
 import timeit
+from matplotlib import colors
 import matplotlib.pyplot as plt
 
 
@@ -138,9 +139,6 @@ class AdaptiveKuramoto():
         A = array[self.N:, :].reshape(self.N, self.N, len(self.tvec))
         return u, A
 
-    def plot_matrix(self):
-        pass
-
     def plot_phase(self):
         pass
 
@@ -150,6 +148,14 @@ class AdaptiveKuramoto():
     def plot_order_parameter(self):
         pass
 
+def plot_matrix(A, t):
+    """ Plots a matrix on a 2D  grid at timestep t
+    
+    """
+    colormap = colors.ListedColormap(["red","blue"])
+    matrix = A[:,:,t]
+    plt.imshow(matrix, cmap=colormap)
+    plt.show()
 
 def main():
 
@@ -161,7 +167,7 @@ def main():
     
     obj = AdaptiveKuramoto(w, K0, dt=0.1, epsilon=0)
     u, A = obj.solve(u0)
-    print(A[:, :, 4])
+    plot_matrix(A, 1)
 
 
 
