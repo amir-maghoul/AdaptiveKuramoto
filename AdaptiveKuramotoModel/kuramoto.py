@@ -122,6 +122,18 @@ class AdaptiveKuramoto():
         return self._unpack_array(kode)
 
     def _unpack_array(self, array):
+        """ Unpacks the output of the ode solver method.
+        
+        Parameters
+        ----------
+        array : np.ndarray of shape (N**2+N,)
+
+        Returns
+        -------
+        u : np.ndarray of shape (N,)
+        A : np.ndarray of shape (N, N)
+        
+        """
         u = array[0:self.N, :]
         A = array[self.N:, :].reshape(self.N, self.N, len(self.tvec))
         return u, A
