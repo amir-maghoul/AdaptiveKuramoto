@@ -3,6 +3,8 @@
 import numpy as np
 from scipy.integrate import odeint
 import typing
+import timeit
+from utils import array_stack
 
 class AdaptiveKuramoto():
 
@@ -72,12 +74,15 @@ class AdaptiveKuramoto():
         phi_dot = self.w + (self.ro*(A*np.sin(interaction + a)).sum(axis=1)/self.N) 
         A_dot = -self.epsilon(A + np.sin(interaction + b))
 
-        return np.vstack(u, np.reshape(A, (self.N,)))
+        u[0:self.N] = phi_dot
+        u[self.N:self.N*self.N+self.N] = A_dot
+
+        return u
 
 
 
 
-    def solver(self, u_0, alpha, beta):
+    def solver(self, u0, K0, alpha, beta):
         """ Solves the dynamics ODE"""
         return
 
@@ -101,9 +106,10 @@ class AdaptiveKuramoto():
 def main():
     u = np.array([1, 2, 3])
     diff = u[:, None] - u
-    print(diff)
-    print(diff.sum(axis=1))
-
+    A = np.random.rand(3, 3)
+    print(u)
+    print(A.reshape((9,)))
+    print(array_stack(u, A.reshape((9,))))
     
 
 if __name__=="__main__":
