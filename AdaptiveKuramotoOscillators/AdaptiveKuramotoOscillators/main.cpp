@@ -14,12 +14,11 @@ int main(int argc, char **argv)
 		{0.3, 0.9, 0}
 
 	};
+	DiscreteKuramoto empty;
 
-	DiscreteKuramoto object{w, K0};
-	cout << "[";
-	for(int i=0;i<w.size();i++){
-		cout << w[i] << " ";
-		};
-	cout << "]";
-	cout << endl;
+	DiscreteKuramoto object{w, K0, 0.01, 0.3};
+	w = {20, 11, 10};
+	object.w = w;
+
+
 }
