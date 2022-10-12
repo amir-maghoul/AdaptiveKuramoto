@@ -13,6 +13,7 @@ public:
 	double epsilon;							///< Slow dynamics coefficient
 	double dt;								///< Integration time step
 
+	// Empty Constructor and Constructor overloading
 	DiscreteKuramoto();
 	DiscreteKuramoto(std::vector<double> w_in, 
 					 std::vector<std::vector<double>> K0_in, 
@@ -20,7 +21,9 @@ public:
 					 double t0_in		= 0,
 					 double t_end_in	= 40,
 					 double epsilon_in	= 0.01,
-					 double dt_in		= 0.01);	
+					 double dt_in		= 0.01);
+	
+	// Deconstructor
 	~DiscreteKuramoto();
 	
 };
