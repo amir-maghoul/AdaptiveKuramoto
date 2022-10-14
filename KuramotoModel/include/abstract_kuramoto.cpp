@@ -5,18 +5,26 @@
 /*
  * *******************Abstract Class *********************
  * The empty constructor and the constructor overloading
+ * 
+ * @param
  * *******************************************************
 */
 AbstractModel::AbstractModel(){};
-AbstractModel::AbstractModel(Eigen::VectorXd w_in, 
-							 Eigen::MatrixXd K0_in, 
+AbstractModel::AbstractModel(Eigen::VectorXd W_IN, 
+							 Eigen::MatrixXd K0_IN, 
 							 double ro_in, 
 							 double t0_in,
 							 double t_end_in,
 							 double epsilon_in,
 							 double dt_in)
-	:	w{w_in}, K0{K0_in}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, dt{dt_in}{
+	:	W{W_IN}, K0{K0_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, dt{dt_in}{
 };
+
+
+
+
+
+
 /*
 **********************************************************
  * Deconstructor

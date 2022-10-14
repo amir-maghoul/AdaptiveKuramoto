@@ -15,15 +15,16 @@ int main(int argc, char **argv)
 		  0.3, 	0.9, 	0;
 
 
-	AbstractModel empty;
-	AbstractModel object{w, K0, 0.01, 0.3};
+	AbstractModel *empty;
+	std::cout << empty->w<< std::endl;
 
-	object.w = w;
-	std::cout << object.w << std::endl;
+	AdaptiveKuramoto object{w, K0, 0.01, 0.3};
 	std::cout << K0 << std::endl;
 
 	Eigen::Matrix<double, 3, 1> v {28, 19, 11};
 	std::cout << v << std::endl;
+
+	// a = object.dynamics();
 
 
 

@@ -5,18 +5,27 @@
 
 class AbstractModel {
 public:
-	Eigen::VectorXd w;						///< Natural frequencies
-	Eigen::MatrixXd K0;						///< Initial adjacency matrix/Inital topology
-	double ro;								///< Coupling strength
-	double t0;								///< Initial integration time
-	double t_end;							///< Final integration time
-	double epsilon;							///< Slow dynamics coefficient
-	double dt;								///< Integration time step
+
+	// Attributes
+	Eigen::VectorXd W;			///< Natural frequencies
+	Eigen::MatrixXd K0;			///< Initial adjacency matrix/Inital topology
+	double ro;					///< Coupling strength
+	double t0;					///< Initial integration time
+	double t_end;				///< Final integration time
+	double epsilon;				///< Slow dynamics coefficient
+	double dt;					///< Integration time step
+
+	// Methods
+	// virtual Eigen::Matrix dynamics();
+
+
+
+
 
 	// Empty Constructor and Constructor overloading
 	AbstractModel();
-	AbstractModel(Eigen::VectorXd w_in, 
-				  Eigen::MatrixXd K0_in, 
+	AbstractModel(Eigen::VectorXd W_IN, 
+				  Eigen::MatrixXd K0_IN, 
 				  double ro_in 		= 0.2, 
 				  double t0_in		= 0,
 				  double t_end_in	= 40,

@@ -8,10 +8,15 @@
 class AdaptiveKuramoto : public AbstractModel{
 public:
 
+	// Methods
+	// virtual Eigen::Matrix dynamics();
+
+
+
 	// Empty Constructor and Constructor overloading
 	AdaptiveKuramoto();
-	AdaptiveKuramoto(Eigen::VectorXd w_in, 
-					 Eigen::MatrixXd K0_in, 
+	AdaptiveKuramoto(Eigen::VectorXd W_IN, 
+					 Eigen::MatrixXd K0_IN, 
 					 double ro_in 		= 0.2, 
 					 double t0_in		= 0,
 					 double t_end_in	= 40,
