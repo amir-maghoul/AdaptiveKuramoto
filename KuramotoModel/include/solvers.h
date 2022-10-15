@@ -23,7 +23,8 @@ public:
 ***************************************************************
 */
     ExplicitRungeKutta();
-    ExplicitRungeKutta(const Eigen::MatrixXd &B_IN, const Eigen::VectorXd &C_IN, double t0=0, double tend=10) : B{B_IN}, C{C_IN}, t0{t0}, tend{tend},num_steps{B.cols()}, dt{(tend-t0)/num_steps}{};
+    ExplicitRungeKutta(const Eigen::MatrixXd &B_IN, const Eigen::VectorXd &C_IN, double t0=0, double tend=10) 
+            : B{B_IN}, C{C_IN}, t0{t0}, tend{tend},num_steps{B.cols()}, dt{(tend-t0)/num_steps}{};
     ~ExplicitRungeKutta(){};
 
 /*
@@ -58,9 +59,8 @@ public:
             for(unsigned int j = 0; j < m; j++){
                 steps += dt*B(m,j)*K[j];
             }
-            K.push_back(f(steps));            ///< Save the m-th slope
+            K.push_back(f(steps));              ///< Save the m-th slope
         }
-
         // Summing the product of slopes with their corresponding Butcher weight
         for(unsigned int i = 0; i < num_steps; i++){
             X1 += dt*C(i)*K[i];
@@ -75,7 +75,7 @@ public:
      * @param f     the right hand side function of the ODE.
      * @param X0    the initial value of the ODE.
      * 
-     * @return      Eigen::Matrix of integrated ODE solution.
+     * @return      std::vector of Eigen::VectorXd of integrated ODE solution.
     */
     template<typename Function>
     std::vector<Eigen::VectorXd> solve(Function &&f, Eigen::VectorXd &X0)
@@ -88,9 +88,7 @@ public:
 
             Solutions.push_back(CalculateRKSummand(f,Solutions.back(),dt));
         }
-        
         return Solutions;
-
     };
 
 };
