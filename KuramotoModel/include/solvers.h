@@ -78,7 +78,7 @@ public:
      * @return      Eigen::Matrix of integrated ODE solution.
     */
     template<typename Function>
-    std::vector<Eigen::VectorXd> SolvesODEByRungeKutta(Function &&f, Eigen::VectorXd &X0)
+    std::vector<Eigen::VectorXd> solve(Function &&f, Eigen::VectorXd &X0)
     {
         std::vector<Eigen::VectorXd> Solutions;             ///< Create empty the solution vector
         Solutions.push_back(X0);                            ///< Start by initial conditions

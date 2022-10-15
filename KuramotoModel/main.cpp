@@ -43,9 +43,10 @@ int main(){
     ExplicitRungeKutta RK(K0, w);
     cout << RK.dt << endl;
 
-    Eigen::Vector<double, 1> X0 {1};
-    Eigen::Vector<double, 1> X;
-    X = RK.SolvesODEByRungeKutta(f, X0);
+    Eigen::VectorXd X0 {6, 3};
+    std::vector<Eigen::VectorXd> X;
+    X = RK.solve(f, X0);
+    
 
 
 
