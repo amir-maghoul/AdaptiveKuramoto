@@ -2,14 +2,16 @@
 #include "include/abstract_kuramoto.h"
 #include <iostream>
 
+using namespace Eigen;
+
 /********************************************************
  * Methods
 ********************************************************/
-// virtual Eigen::Matrix AdaptiveKuramoto::dynamics(){
+// Matrix AdaptiveKuramoto::dynamics(){
 // 	Vector2d a(5.0, 6.0);
 // 	std::cout << a << std::endl;
 // 	return a;
-// }
+// };
 
 /*
  * *******************Adaptive Kuramoto *******************

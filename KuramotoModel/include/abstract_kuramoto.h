@@ -16,10 +16,7 @@ public:
 	double dt;					///< Integration time step
 
 	// Methods
-	// virtual Eigen::Matrix dynamics();
-
-
-
+	//virtual Eigen::Matrix dynamics() = 0; //Solution: Template classes?
 
 
 	// Empty Constructor and Constructor overloading
@@ -33,7 +30,7 @@ public:
 				  double dt_in		= 0.01);
 
 	// Deconstructor
-	~AbstractModel();
+	virtual ~AbstractModel();
 };
 
 

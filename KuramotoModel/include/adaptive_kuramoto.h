@@ -4,8 +4,7 @@
 #include <include/abstract_kuramoto.h>
 #include <Eigen/Dense>
 
-
-class AdaptiveKuramoto : public AbstractModel{
+class AdaptiveKuramoto final : public AbstractModel{
 public:
 
 	// Methods
@@ -24,7 +23,7 @@ public:
 					 double dt_in		= 0.01);
 
 	// Deconstructor
-	~AdaptiveKuramoto();
+	virtual ~AdaptiveKuramoto();
 	
 };
 

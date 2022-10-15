@@ -5,8 +5,6 @@
 /*
  * *******************Abstract Class *********************
  * The empty constructor and the constructor overloading
- * 
- * @param
  * *******************************************************
 */
 AbstractModel::AbstractModel(){};
@@ -19,6 +17,11 @@ AbstractModel::AbstractModel(Eigen::VectorXd W_IN,
 							 double dt_in)
 	:	W{W_IN}, K0{K0_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, dt{dt_in}{
 };
+
+/**********************************************************
+ * Methods
+**********************************************************/
+// Eigen::Matrix dynamics(){};
 
 
 
