@@ -7,11 +7,11 @@
 class AdaptiveKuramoto final : public AbstractModel{
 public:
 
-	// Methods
-	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics();
-
-
-	// Empty Constructor and Constructor overloading
+/*
+ * ******************* Abstract Class *******************************
+ * The empty constructor, constructor overloading and deconstructor *
+ * ******************************************************************
+*/
 	AdaptiveKuramoto();
 	AdaptiveKuramoto(Eigen::VectorXd W_IN, 
 					 Eigen::MatrixXd K0_IN, 
@@ -21,8 +21,16 @@ public:
 					 double epsilon_in	= 0.01,
 					 double dt_in		= 0.01);
 
-	// Deconstructor
 	virtual ~AdaptiveKuramoto();
+
+/*
+**********************************************************************
+ * Methods
+**********************************************************************
+*/
+	//documentation here
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics();
+
 	
 };
 

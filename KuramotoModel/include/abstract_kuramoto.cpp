@@ -3,9 +3,9 @@
 #include <Eigen/Dense>
 
 /*
- * *******************Abstract Class *********************
- * The empty constructor and the constructor overloading
- * *******************************************************
+ * ******************* Abstract Class *******************************
+ * The empty constructor, constructor overloading and deconstructor *
+ * ******************************************************************
 */
 AbstractModel::AbstractModel(){};
 AbstractModel::AbstractModel(Eigen::VectorXd W_IN, 
@@ -17,23 +17,13 @@ AbstractModel::AbstractModel(Eigen::VectorXd W_IN,
 							 double dt_in)
 	:	W{W_IN}, K0{K0_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, dt{dt_in}{
 };
-
-/**********************************************************
- * Methods
-**********************************************************/
-// Eigen::Matrix dynamics(){};
-
-
-
-
-
-
-/*
-**********************************************************
- * Deconstructor
-**********************************************************
-*/
 AbstractModel::~AbstractModel(){
 	std::cout << "The class destructor was called for Abstract class." << std::endl;
 	};
+
+/*******************************************************************
+ * Methods
+********************************************************************/
+// documentation here
+Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> AbstractModel::dynamics(){};
 

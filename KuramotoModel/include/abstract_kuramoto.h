@@ -2,7 +2,6 @@
 #define _KURAMOTO_ABSTRACT_H_
 
 #include <Eigen/Dense>
-#include <vector>
 
 class AbstractModel {
 public:
@@ -16,11 +15,11 @@ public:
 	double epsilon;				///< Slow dynamics coefficient
 	double dt;					///< Integration time step
 
-	// Methods
-	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics() = 0;
-
-
-	// Empty Constructor and Constructor overloading
+/*
+***************************************************************
+ * Empty constructor, constructor overloading and deconstructor
+***************************************************************
+*/
 	AbstractModel();
 	AbstractModel(Eigen::VectorXd W_IN, 
 				  Eigen::MatrixXd K0_IN, 
@@ -29,9 +28,17 @@ public:
 				  double t_end_in	= 40,
 				  double epsilon_in	= 0.01,
 				  double dt_in		= 0.01);
-
-	// Deconstructor
 	virtual ~AbstractModel();
+
+/*
+****************************************************************
+ * Methods
+****************************************************************
+*/
+
+	//documentation here
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics();
+
 };
 
 
