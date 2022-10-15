@@ -13,12 +13,12 @@ The following naming convention is used throughout the project:
 3. Link the Eigen library to the project by adding `AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}Eigen CTR_SOURCES)` or something similar to the CMakeLists.txt of the Eigen subfolder.
 4. Build the project using `cmake`. If the "build" subdirectory does not exist, create one and then use:
 ```
->>> cd build
->>> cmake ..
->>> cd ..
+$ cd build
+$ cmake ..
+$ cd ..
 ```
 After first time doing so, you can compile and run the project by
 ```
->>> cmake --build build
->>> ./build/main
+$ cmake --build build
+$ ./build/main
 ```
