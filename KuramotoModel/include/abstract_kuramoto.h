@@ -31,7 +31,7 @@ public:
 				  double dt_in		= 0.01);
 
 	// Deconstructor
-	~AbstractModel();
+	virtual ~AbstractModel();
 };
 
 
