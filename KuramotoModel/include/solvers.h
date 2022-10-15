@@ -1,3 +1,9 @@
+/**
+ * Runge Kutta implementation for arbitrary dimensions.
+ * This is a modified version (and slightly optimized) of the implementation in:
+ * https://github.com/davidrzs/Runge-Kutta-ODE-Solver
+*/
+
 #ifndef _SOLVERS_H_
 #define _SOLVERS_H_
 
