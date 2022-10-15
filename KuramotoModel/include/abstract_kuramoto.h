@@ -2,6 +2,7 @@
 #define _KURAMOTO_ABSTRACT_H_
 
 #include <Eigen/Dense>
+#include <vector>
 
 class AbstractModel {
 public:
@@ -16,7 +17,7 @@ public:
 	double dt;					///< Integration time step
 
 	// Methods
-	//virtual Eigen::Matrix dynamics() = 0; //Solution: Template classes?
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics() = 0;
 
 
 	// Empty Constructor and Constructor overloading
@@ -30,7 +31,7 @@ public:
 				  double dt_in		= 0.01);
 
 	// Deconstructor
-	virtual ~AbstractModel();
+	~AbstractModel();
 };
 
 

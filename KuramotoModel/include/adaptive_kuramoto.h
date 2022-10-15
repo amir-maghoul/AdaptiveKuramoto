@@ -4,12 +4,11 @@
 #include <include/abstract_kuramoto.h>
 #include <Eigen/Dense>
 
-class AdaptiveKuramoto final : public AbstractModel{
+class AdaptiveKuramoto : public AbstractModel{
 public:
 
 	// Methods
-	// virtual Eigen::Matrix dynamics();
-
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics();
 
 
 	// Empty Constructor and Constructor overloading
@@ -23,7 +22,7 @@ public:
 					 double dt_in		= 0.01);
 
 	// Deconstructor
-	virtual ~AdaptiveKuramoto();
+	~AdaptiveKuramoto();
 	
 };
 

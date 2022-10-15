@@ -15,7 +15,8 @@ int main(){
 
     AdaptiveKuramoto empty(w, K0);
     cout << empty.W << endl;
-    // Eigen::Matrix a = empty.dynamics();
+    Eigen::MatrixXd a = empty.dynamics();
+    std::cout << a << std::endl;
 
 
 

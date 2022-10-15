@@ -145,7 +145,6 @@ CMakeFiles/main.dir/main.cpp.o: \
  /usr/include/c++/11/bits/basic_ios.tcc \
  /usr/include/c++/11/bits/ostream.tcc /usr/include/c++/11/istream \
  /usr/include/c++/11/bits/istream.tcc \
- /home/amir/AdaptiveKuramoto/KuramotoModel/include/adaptive_kuramoto.h \
  /home/amir/AdaptiveKuramoto/KuramotoModel/include/abstract_kuramoto.h \
  /home/amir/AdaptiveKuramoto/KuramotoModel/Eigen/Dense \
  /home/amir/AdaptiveKuramoto/KuramotoModel/Eigen/Core \
@@ -403,4 +402,4 @@ CMakeFiles/main.dir/main.cpp.o: \
  /home/amir/AdaptiveKuramoto/KuramotoModel/Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
  /home/amir/AdaptiveKuramoto/KuramotoModel/Eigen/src/Eigenvalues/./RealQZ.h \
  /home/amir/AdaptiveKuramoto/KuramotoModel/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
- /home/amir/AdaptiveKuramoto/KuramotoModel/include/abstract_kuramoto.h
+ /home/amir/AdaptiveKuramoto/KuramotoModel/include/adaptive_kuramoto.h

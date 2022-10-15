@@ -1098,7 +1098,6 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11/bits/ostream.tcc \
   /usr/include/c++/11/istream \
   /usr/include/c++/11/bits/istream.tcc \
-  ../include/adaptive_kuramoto.h \
   ../include/abstract_kuramoto.h \
   ../Eigen/Dense \
   ../Eigen/Core \
@@ -1372,7 +1371,7 @@ CMakeFiles/main.dir/main.cpp.o: ../main.cpp \
   ../Eigen/src/Eigenvalues/GeneralizedEigenSolver.h \
   ../Eigen/src/Eigenvalues/RealQZ.h \
   ../Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
-  ../include/abstract_kuramoto.h
+  ../include/adaptive_kuramoto.h
 
 
 ../main.cpp:
