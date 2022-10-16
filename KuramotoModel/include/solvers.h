@@ -1,102 +1,89 @@
-/**
- * Runge Kutta implementation for arbitrary dimensions.
- * This is a modified version (and slightly optimized) of the implementation in:
- * https://github.com/davidrzs/Runge-Kutta-ODE-Solver
-*/
+#include "runge_kutta.h"
 
-#ifndef _SOLVERS_H_
-#define _SOLVERS_H_
+namespace ExplicitRKSolvers{
 
-#include <Eigen/Dense>
-#include <iostream>
-#include <vector>
-
-
-// template <class StepSolution> 
-class ExplicitRungeKutta {
-public:
-    const Eigen::MatrixXd B;            ///< The Butcher Tableau of the coefficients
-    const Eigen::VectorXd C;            ///< The weight vector in corresponding to elements of Butcher Tableau
-    const double t0;                    ///< Initial time
-    const double tend;                  ///< End time
-    const Eigen::Index num_steps;       ///< Number of steps in the integration
-    const double dt;                    ///< Timestep
-
-
-/*
-***************************************************************
- * Empty constructor, constructor overloading and deconstructor
-***************************************************************
-*/
-    ExplicitRungeKutta();
-    ExplicitRungeKutta(const Eigen::MatrixXd &B_IN, const Eigen::VectorXd &C_IN, double t0=0, double tend=10) 
-            : B{B_IN}, C{C_IN}, t0{t0}, tend{tend},num_steps{B.cols()}, dt{(tend-t0)/num_steps}{};
-    ~ExplicitRungeKutta(){};
-
-/*
-****************************************************************
- * Methods
-****************************************************************
-*/  
-
-    /**
-     * Calculates the main Runge Kutta summand using the Butcher Tableau, i.e. sum(h*c_i*k_i) where
-     * c_i are the weights and k_i are the main Runge Kutta coefficients
-     * 
-     * @param f     the right hand side function of the ODE.
-     * @param X0    the initial value of the ODE.
-     * @param dt    the timestep
-     * 
-     * @return      One time step of Runge Kutta algorithm.
-    */
-    template<typename Function>
-    // StepSolution CalculateRKSummand(Function &&f, const StepSolution &X0, const double dt)
-    Eigen::VectorXd CalculateRKSummand(Function &&f, const Eigen::VectorXd &X0)
+    // Explicit Euler Method
+    template <typename Function> 
+    std::vector<Eigen::VectorXd> ExplicitEulerRule(Function f, const Eigen::VectorXd &X0, unsigned int num_steps, double t0=0, double tend=1)
     {
-        Eigen::VectorXd X1 = X0;               ///< Current state as previous state in the iteration
-        std::vector<Eigen::VectorXd> K;        ///< Vector of m-th Runge Kutta slope k.
+        Eigen::MatrixXd B(1,1);             ///< Butcher Tableau slope matrix
+        B << 0;
+        
+        Eigen::VectorXd C(1);               ///< Butcher Tableau coefficient matrix
+        C << 1;
 
-        // calculating Runge Kutta summand 
-        for(unsigned int m = 0; m < num_steps; ++m){
+        ExplicitRungeKutta ERK(B, C, num_steps, t0, tend);
+        return ERK.solve(f, X0);
 
-            Eigen::VectorXd steps = X0;         ///< Initialization of summands
-            
-            // Loop to calculate the m-th slope
-            for(unsigned int j = 0; j < m; j++){
-                steps += dt*B(m,j)*K[j];
-            }
-            K.push_back(f(steps));              ///< Save the m-th slope
-        }
-        // Summing the product of slopes with their corresponding Butcher weight
-        for(unsigned int i = 0; i < num_steps; i++){
-            X1 += dt*C(i)*K[i];
-        }
-        return X1;
+    }
+
+    // Explicit Trapizoidal Rule
+    template <typename Function> 
+    std::vector<Eigen::VectorXd> ExplicitTrapezoidalRule(Function f, const Eigen::VectorXd &X0, unsigned int num_steps, double t0=0, double tend=1)
+    {
+        Eigen::MatrixXd B(2,2);                ///< Butcher Tableau slope matrix
+        B << 0, 0,
+             1, 0;
+        
+        Eigen::VectorXd C(2);                  ///< Butcher Tableau coefficient matrix
+        C << 0.5, 0.5;
+
+        ExplicitRungeKutta ERK(B, C, num_steps, t0, tend);
+        return ERK.solve(f, X0);
 
     };
 
-    /**
-     * The Runge Kutta solver. Uses CalculateRKSummand to solve the ODE at different time steps
-     *
-     * @param f     the right hand side function of the ODE.
-     * @param X0    the initial value of the ODE.
-     * 
-     * @return      std::vector of Eigen::VectorXd of integrated ODE solution.
-    */
-    template<typename Function>
-    std::vector<Eigen::VectorXd> solve(Function &&f, Eigen::VectorXd &X0)
+    // Explicit Midpoint Rule
+    template <typename Function>
+    std::vector<Eigen::VectorXd> ExplicitMidPointRule(Function f, const Eigen::VectorXd &X0, unsigned int num_steps, double t0=0, double tend=1)
     {
-        std::vector<Eigen::VectorXd> Solutions;             ///< Create empty the solution vector
-        Solutions.push_back(X0);                            ///< Start by initial conditions
+        Eigen::MatrixXd B(2,2);                 ///< Butcher Tableau slope matrix
+        B << 0,   0,
+             0.5, 0;
+        
+        Eigen::VectorXd C(2);                   ///< Butcher Tableau coefficient matrix
+        C << 0, 1;
 
-        // Loop over time steps to create solution at each new timestep
-        for(unsigned int i = 0; i < num_steps; i++){
+        ExplicitRungeKutta ERK(B, C, num_steps, t0, tend);
+        return ERK.solve(f, X0);
 
-            Solutions.push_back(CalculateRKSummand(f,Solutions.back(),dt));
-        }
-        return Solutions;
+    };
+
+    // Classical 4th Order Runge Kutta
+    template <typename Function>
+    std::vector<Eigen::VectorXd> Explicit4thOrderRK(Function f, const Eigen::VectorXd &X0, unsigned int num_steps, double t0=0, double tend=1)
+    {
+        Eigen::MatrixXd B(4, 4);                 ///< Butcher Tableau slope matrix   
+        B << 0,     0,      0,      0,
+             0.5,   0,      0,      0,
+             0,     0.5,    0,      0,
+             0,     0,      1,      0;
+        
+        Eigen::VectorXd C(4);
+        C << 1.0/6, 2.0/6, 2.0/6, 1.0/6;
+
+        ExplicitRungeKutta ERK(B, C, num_steps, t0, tend);
+        return ERK.solve(f, X0);
+
+    };
+
+    // Runge Kutta's 3/8-Rule
+    template <typename Function>
+    std::vector<Eigen::VectorXd> RK38thRule(Function f, const Eigen::VectorXd &X0, unsigned int num_steps, double t0=0, double tend=1)
+    {
+        Eigen::MatrixXd B(4,4);
+        B << 0,         0,      0,      0,
+             1.0/3,     0,      0,      0,
+            -1.0/3,     1,      0,      0,
+             1,        -1,      1,      0;
+        
+        Eigen::VectorXd C(4);
+        C << 1.0/8, 3.0/8, 3.0/8, 1.0/8;
+
+        ExplicitRungeKutta ERK(B, C, num_steps, t0, tend);
+        return ERK.solve(f, X0);
+
     };
 
 };
 
-#endif

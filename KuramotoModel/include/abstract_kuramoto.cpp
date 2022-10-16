@@ -1,6 +1,6 @@
-#include "abstract_kuramoto.h"
+#include "include/abstract_kuramoto.h"
 #include <iostream>
-#include <Eigen/Dense>
+// #include <Eigen/Dense>
 
 /*
  * ******************* Abstract Class *******************************
@@ -25,5 +25,5 @@ AbstractModel::~AbstractModel(){
  * Methods
 ********************************************************************/
 // documentation here
-Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> AbstractModel::dynamics(){};
+// Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> AbstractModel::dynamics(){};
 

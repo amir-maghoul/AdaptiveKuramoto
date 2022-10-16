@@ -37,7 +37,7 @@ public:
 */
 
 	//documentation here
-	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics();
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics()=0;
 
 };
 
