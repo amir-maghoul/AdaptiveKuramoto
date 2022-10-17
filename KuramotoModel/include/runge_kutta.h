@@ -4,8 +4,8 @@
  * https://github.com/davidrzs/Runge-Kutta-ODE-Solver
 */
 
-#ifndef _SOLVERS_H_
-#define _SOLVERS_H_
+#ifndef _RUNGE_KUTTA_H_
+#define _RUNGE_KUTTA_H_
 
 #include <Eigen/Dense>
 #include <iostream>

@@ -8,7 +8,7 @@ class AdaptiveKuramoto final : public AbstractModel{
 public:
 
 /*
- * ******************* Abstract Class *******************************
+ * ******************* **********************************************
  * The empty constructor, constructor overloading and deconstructor *
  * ******************************************************************
 */
@@ -28,8 +28,31 @@ public:
  * Methods
 **********************************************************************
 */
+
+	/**
+	 * Tiles a matrix with a given vector row-wise
+	 * 
+	 * @param U Eigen::MatrixXd The row vector from which the matrix is created 
+	 * 
+	 * @return Eigen::MatrixXd The tiled matrix
+	*/
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> TileRows(
+						const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U);
+	
+	/**
+	 * Tiles a matrix with a given vector column-wise
+	 * 
+	 * @param U Eigen::MatrixXd The column vector from which the matrix is created
+	 * 
+	 * @return Eigen::MatrixXd The tiled matrix
+	*/
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> TileCols(
+						const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U);
+
+	
 	//documentation here
-	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics();
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> Dynamics(
+						const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U);
 
 	
 };

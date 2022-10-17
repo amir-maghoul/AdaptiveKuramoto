@@ -1,3 +1,7 @@
+#ifndef _SOLVERS_H_
+#define _SOLVERS_H_
+
+
 #include "runge_kutta.h"
 
 namespace ExplicitRKSolvers{
@@ -86,4 +90,4 @@ namespace ExplicitRKSolvers{
     };
 
 };
-
+#endif

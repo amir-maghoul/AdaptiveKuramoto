@@ -35,9 +35,30 @@ public:
  * Methods
 ****************************************************************
 */
+	/**
+	 * Tiles a matrix with a given vector row-wise
+	 * 
+	 * @param U Eigen::MatrixXd The vector from which the matrix is created
+	 * 
+	 * @return Eigen::MatrixXd The tiled matrix
+	*/
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> TileRows(
+							const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U)=0;
+
+	/**
+	 * Tiles a matrix with a given vector column-wise
+	 * 
+	 * @param U Eigen::MatrixXd The vector from which the matrix is created
+	 * 
+	 * @return Eigen::MatrixXd The tiled matrix
+	*/
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> TileCols(
+							const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U)=0;
+
 
 	//documentation here
-	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> dynamics()=0;
+	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> Dynamics(
+						const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U)=0;
 
 };
 
