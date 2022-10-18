@@ -4,8 +4,7 @@
 #include <include/abstract_kuramoto.h>
 #include <Eigen/Dense>
 
-class AdaptiveKuramoto final : public AbstractModel{
-public:
+struct AdaptiveKuramoto final : public AbstractModel{
 
 /*
  * ******************************************************************

@@ -13,8 +13,8 @@
 
 
 // template <class StepSolution> 
-class ExplicitRungeKutta {
-public:
+struct ExplicitRungeKutta {
+
     const Eigen::MatrixXd B;            ///< The Butcher Tableau of the coefficients
     const Eigen::VectorXd C;            ///< The weight vector in corresponding to elements of Butcher Tableau
     const unsigned int num_steps;       ///< Number of steps in the integration
@@ -55,7 +55,6 @@ public:
     {
         Eigen::VectorXd X1 = X0;               ///< Current state as previous state in the iteration
         std::vector<Eigen::VectorXd> K;        ///< Vector of m-th Runge Kutta slope k.
-
 
         unsigned int order = B.cols();         ///< Specifying the mth order of Runge Kutta
 

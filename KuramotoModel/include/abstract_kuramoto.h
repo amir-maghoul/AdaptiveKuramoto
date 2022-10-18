@@ -3,8 +3,7 @@
 
 #include <Eigen/Dense>
 
-class AbstractModel {
-public:
+struct AbstractModel {
 
 	// Attributes
 	Eigen::VectorXd W;			///< Natural frequencies
