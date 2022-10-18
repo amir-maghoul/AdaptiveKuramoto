@@ -13,7 +13,7 @@ struct AbstractModel {
 	double t0;					///< Initial integration time
 	double t_end;				///< Final integration time
 	double epsilon;				///< Slow dynamics coefficient
-	double dt;					///< Integration time step
+	double num_steps;			///< Number of steps of the integration
 	long n;						///< Number of oscillators
 
 
@@ -23,7 +23,7 @@ struct AbstractModel {
 				  double t0_in			= 0,
 				  double t_end_in		= 40,
 				  double epsilon_in		= 0.01,
-				  double dt_in			= 0.01);
+				  double num_steps		= 100);
 	virtual ~AbstractModel();
 
 /*****************************************************************
@@ -62,7 +62,7 @@ struct AbstractModel {
 	/**
 	 * Template to solve the problem specified dynamical system
 	*/
-	virtual std::vector<Eigen::VectorXd> run(Eigen::VectorXd &X0, const double &a, const double &b)=0;
+	virtual std::vector<Eigen::VectorXd> run(const Eigen::VectorXd &X0, const double &a, const double &b)=0;
 
 };
 

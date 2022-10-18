@@ -53,20 +53,20 @@ struct ExplicitRungeKutta {
     // StepSolution CalculateRKSummand(Function &&f, const StepSolution &X0, const double dt)
     Eigen::VectorXd CalculateRKSummand(Function &&f, const Eigen::VectorXd &X0)
     {
-        Eigen::VectorXd X1 = X0;               ///< Current state as previous state in the iteration
-        std::vector<Eigen::VectorXd> K;        ///< Vector of m-th Runge Kutta slope k.
+        Eigen::VectorXd X1 = X0;                            ///< Current state as previous state in the iteration
+        std::vector<Eigen::VectorXd> K;                     ///< Vector of m-th Runge Kutta slope k.
 
-        unsigned int order = B.cols();         ///< Specifying the mth order of Runge Kutta
+        unsigned int order = B.cols();                      ///< Specifying the mth order of Runge Kutta
 
         // calculating Runge Kutta summand 
         for(unsigned int m = 0; m < order; m++){
             
-            Eigen::VectorXd steps = X0;         ///< Initialization of the summands
+            Eigen::VectorXd steps = X0;                     ///< Initialization of the summands
             
             // Loop to calculate the m-th slope
             for(unsigned int j = 0; j < m; j++) steps += dt*B(m,j)*K[j];
 
-            K.push_back(f(steps));              ///< Save the m-th slope
+            K.push_back(f(steps));                          ///< Save the m-th slope
         }
         // Summing the product of slopes with their corresponding Butcher weight
         for(unsigned int i = 0; i < order; i++){

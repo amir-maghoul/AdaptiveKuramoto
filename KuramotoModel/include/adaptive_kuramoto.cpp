@@ -1,7 +1,9 @@
 #include "include/adaptive_kuramoto.h"
 #include "include/abstract_kuramoto.h"
+#include "include/solvers.h"
 #include <iostream>
 #include <cmath>
+#include <algorithm>
 
 /**
  * Empty Constructor
@@ -11,8 +13,8 @@ AdaptiveKuramoto::AdaptiveKuramoto(){};
 /**
  * Overloaded Constructor
 */
-AdaptiveKuramoto::AdaptiveKuramoto(Eigen::VectorXd W_IN, Eigen::MatrixXd K0_IN, double ro_in, double t0_in, double t_end_in, double epsilon_in, double dt_in)
-	:	AbstractModel(W_IN, K0_IN, ro_in, t0_in, t_end_in, epsilon_in, dt_in){};
+AdaptiveKuramoto::AdaptiveKuramoto(Eigen::VectorXd W_IN, Eigen::MatrixXd K0_IN, double ro_in, double t0_in, double t_end_in, double epsilon_in, double num_steps_in)
+	:	AbstractModel(W_IN, K0_IN, ro_in, t0_in, t_end_in, epsilon_in, num_steps_in){};
 
 /**
  * Destructor
@@ -151,19 +153,23 @@ Eigen::VectorXd AdaptiveKuramoto::Dynamics(Eigen::VectorXd &U, const double &a, 
  * 
  * @return std::vector<Eigen::VectorXd> the state of the system at each timestep
 */
-std::vector<Eigen::VectorXd> AdaptiveKuramoto::run(Eigen::VectorXd &X0, const double &a, const double &b)
+std::vector<Eigen::VectorXd> AdaptiveKuramoto::run(const Eigen::VectorXd &X0, const double &a, const double &b)
 {
 // Packing the input of the dyanamics
-	Eigen::VectorXd U(n*n+n, 1);
-	FlatConcatenate(U, X0, K0);										///< Put together the inital phases and flattend inital weight matrix
+	Eigen::VectorXd U0(n*n+n, 1);
+	FlatConcatenate(U0, X0, K0);										///< Put together the inital phases and flattend inital weight matrix
 
 // Wrapping the dynamics for the given independent parameters a and b
-	auto WrappedODE = [a, b] (Eigen::VectorXd &U)
+	auto WrappedODE = [this, a, b] (Eigen::VectorXd &U)
 	{
-		return AdaptiveKuramoto::Dynamics(U, a, b);
+		return Dynamics(U, a, b);
 	};
-	std::vector<Eigen::VectorXd> c {U};
-	return c;
+	std::vector<Eigen::VectorXd> result = ExplicitRKSolvers::Explicit4thOrderRK(WrappedODE, U0, num_steps, t0, t_end);
+
+	// TODO:
+	// Write an unpacking function with for_each algorthm to store the phases and matrices in different vectors
+	// New functionality: change num_steps from within the method
+	return result;
 };
 
 

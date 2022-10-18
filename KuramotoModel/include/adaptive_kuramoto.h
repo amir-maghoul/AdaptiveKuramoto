@@ -12,7 +12,7 @@ struct AdaptiveKuramoto final : public AbstractModel{
 					 double t0_in			= 0,
 					 double t_end_in		= 40,
 					 double epsilon_in		= 0.01,
-					 double dt_in			= 0.01);
+					 double num_steps_in	= 100);
 
 	virtual ~AdaptiveKuramoto();
 
@@ -32,7 +32,7 @@ struct AdaptiveKuramoto final : public AbstractModel{
 
 	virtual Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a=0, const double &b=0);
 
-	virtual std::vector<Eigen::VectorXd> run(Eigen::VectorXd &X0, const double &a, const double &b);
+	virtual std::vector<Eigen::VectorXd> run(const Eigen::VectorXd &X0, const double &a, const double &b);
 
 };
 

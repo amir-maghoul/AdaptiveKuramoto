@@ -14,8 +14,8 @@ AbstractModel::AbstractModel(Eigen::VectorXd W_IN,
 							 double t0_in,
 							 double t_end_in,
 							 double epsilon_in,
-							 double dt_in)
-	:	W{W_IN}, K0{K0_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, dt{dt_in}, n{W.size()}{
+							 double num_steps_in)
+	:	W{W_IN}, K0{K0_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, num_steps{num_steps_in}, n{W.size()}{
 };
 AbstractModel::~AbstractModel(){
 	std::cout << "The class destructor was called for Abstract class." << std::endl;
