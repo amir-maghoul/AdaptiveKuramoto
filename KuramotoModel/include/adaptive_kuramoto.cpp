@@ -3,28 +3,28 @@
 #include <iostream>
 #include <cmath>
 
-/*
- * *******************Abstract Class ********************************
- * The empty constructor, constructor overloading and deconstructor *
- * ******************************************************************
+/**
+ * Empty Constructor
 */
 AdaptiveKuramoto::AdaptiveKuramoto(){};
-AdaptiveKuramoto::AdaptiveKuramoto(Eigen::VectorXd W_IN, 
-								   Eigen::MatrixXd K0_IN, 
-								   double ro_in, 
-								   double t0_in,
-								   double t_end_in,
-								   double epsilon_in,
-								   double dt_in)
-	:	AbstractModel(W_IN, K0_IN, ro_in, t0_in, t_end_in, epsilon_in, dt_in){
-};
+
+/**
+ * Overloaded Constructor
+*/
+AdaptiveKuramoto::AdaptiveKuramoto(Eigen::VectorXd W_IN, Eigen::MatrixXd K0_IN, double ro_in, double t0_in, double t_end_in, double epsilon_in, double dt_in)
+	:	AbstractModel(W_IN, K0_IN, ro_in, t0_in, t_end_in, epsilon_in, dt_in){};
+
+/**
+ * Destructor
+*/
 AdaptiveKuramoto::~AdaptiveKuramoto(){
 	std::cout << "The class destructor was called for AdaptiveKuramoto." << std::endl;
 	};
 
 /*******************************************************************
  * Methods
-********************************************************************/
+*/
+
 /**
  * Packs a vector and a flattend matrix to create a long vector
  * 
@@ -140,5 +140,30 @@ Eigen::VectorXd AdaptiveKuramoto::Dynamics(Eigen::VectorXd &U, const double &a, 
 	return U;
 };
 
+/**
+ * Solves the problem specified dynamics and stores the results of each timestep in a vector. 
+ * The initial adjacency matrix is the same as initial topology of the system, therefore the 
+ * class attribute K0.
+ * 
+ * @param U0 Eigen::VectorXd the initial state of the system
+ * @param a double coupling phase lag
+ * @param b double coupling adaptation lag
+ * 
+ * @return std::vector<Eigen::VectorXd> the state of the system at each timestep
+*/
+std::vector<Eigen::VectorXd> AdaptiveKuramoto::run(Eigen::VectorXd &X0, const double &a, const double &b)
+{
+// Packing the input of the dyanamics
+	Eigen::VectorXd U(n*n+n, 1);
+	FlatConcatenate(U, X0, K0);										///< Put together the inital phases and flattend inital weight matrix
+
+// Wrapping the dynamics for the given independent parameters a and b
+	auto WrappedODE = [a, b] (Eigen::VectorXd &U)
+	{
+		return AdaptiveKuramoto::Dynamics(U, a, b);
+	};
+	std::vector<Eigen::VectorXd> c {U};
+	return c;
+};
 
 

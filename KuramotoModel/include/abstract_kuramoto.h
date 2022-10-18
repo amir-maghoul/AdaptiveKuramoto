@@ -2,6 +2,7 @@
 #define _KURAMOTO_ABSTRACT_H_
 
 #include <Eigen/Dense>
+#include <vector>
 
 struct AbstractModel {
 
@@ -16,25 +17,17 @@ struct AbstractModel {
 	long n;						///< Number of oscillators
 
 
-/*
-***************************************************************
- * Empty constructor, constructor overloading and deconstructor
-***************************************************************
-*/
 	AbstractModel();
-	AbstractModel(Eigen::VectorXd W_IN, 
-				  Eigen::MatrixXd K0_IN, 
-				  double ro_in 		= 0.2, 
-				  double t0_in		= 0,
-				  double t_end_in	= 40,
-				  double epsilon_in	= 0.01,
-				  double dt_in		= 0.01);
+	AbstractModel(Eigen::VectorXd W_IN, Eigen::MatrixXd K0_IN, 
+				  double ro_in 			= 0.2, 
+				  double t0_in			= 0,
+				  double t_end_in		= 40,
+				  double epsilon_in		= 0.01,
+				  double dt_in			= 0.01);
 	virtual ~AbstractModel();
 
-/*
-****************************************************************
+/*****************************************************************
  * Methods
-****************************************************************
 */
 	/**
 	 * Template to pack a vector and a flattend matrix to create a long vector
@@ -65,6 +58,11 @@ struct AbstractModel {
 	 * Template to calculate the dynamics ODE of the adaptive Kuramoto system
 	*/
 	virtual Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a, const double &b)=0;
+
+	/**
+	 * Template to solve the problem specified dynamical system
+	*/
+	virtual std::vector<Eigen::VectorXd> run(Eigen::VectorXd &X0, const double &a, const double &b)=0;
 
 };
 

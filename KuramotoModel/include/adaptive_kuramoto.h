@@ -6,14 +6,8 @@
 
 struct AdaptiveKuramoto final : public AbstractModel{
 
-/*
- * ******************************************************************
- * The empty constructor, constructor overloading and deconstructor *
- * ******************************************************************
-*/
 	AdaptiveKuramoto();
-	AdaptiveKuramoto(Eigen::VectorXd W_IN, 
-					 Eigen::MatrixXd K0_IN,
+	AdaptiveKuramoto(Eigen::VectorXd W_IN, Eigen::MatrixXd K0_IN,
 					 double ro_in 			= 0.2, 
 					 double t0_in			= 0,
 					 double t_end_in		= 40,
@@ -22,11 +16,10 @@ struct AdaptiveKuramoto final : public AbstractModel{
 
 	virtual ~AdaptiveKuramoto();
 
-/*
-**********************************************************************
+/***********************************************************************
  * Methods
-**********************************************************************
 */
+
 	virtual Eigen::VectorXd FlatConcatenate(Eigen::VectorXd &U, const Eigen::VectorXd &V, const Eigen::MatrixXd &A);
 
 	virtual Eigen::VectorXd UnpackPhases(const Eigen::VectorXd &U);
@@ -38,6 +31,8 @@ struct AdaptiveKuramoto final : public AbstractModel{
 	virtual Eigen::MatrixXd TileCols(const Eigen::VectorXd &U);
 
 	virtual Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a=0, const double &b=0);
+
+	virtual std::vector<Eigen::VectorXd> run(Eigen::VectorXd &X0, const double &a, const double &b);
 
 };
 
