@@ -14,6 +14,8 @@ public:
 	double t_end;				///< Final integration time
 	double epsilon;				///< Slow dynamics coefficient
 	double dt;					///< Integration time step
+	long n;						///< Number of oscillators
+
 
 /*
 ***************************************************************
@@ -36,29 +38,34 @@ public:
 ****************************************************************
 */
 	/**
-	 * Tiles a matrix with a given vector row-wise
-	 * 
-	 * @param U Eigen::MatrixXd The vector from which the matrix is created
-	 * 
-	 * @return Eigen::MatrixXd The tiled matrix
+	 * Template to pack a vector and a flattend matrix to create a long vector
 	*/
-	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> TileRows(
-							const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U)=0;
+	virtual Eigen::VectorXd FlatConcatenate(Eigen::VectorXd &U, const Eigen::VectorXd &V, const Eigen::MatrixXd &A)=0;
 
 	/**
-	 * Tiles a matrix with a given vector column-wise
-	 * 
-	 * @param U Eigen::MatrixXd The vector from which the matrix is created
-	 * 
-	 * @return Eigen::MatrixXd The tiled matrix
+	 * Template to unpack phases from the long vector of adaptation input
 	*/
-	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> TileCols(
-							const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U)=0;
+	virtual Eigen::VectorXd UnpackPhases(const Eigen::VectorXd &U)=0;
 
+	/**
+	 * Template to unpack the adjacency matrix from the long vector of adaptation input
+	*/
+	virtual Eigen::MatrixXd UnpackWeights(const Eigen::VectorXd &U)=0;
 
-	//documentation here
-	virtual Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> Dynamics(
-						const Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic> &U)=0;
+	/**
+	 * Template to create a square matrix by copying the row of the input vector as rows of the matrix
+	*/
+	virtual Eigen::MatrixXd TileRows(const Eigen::VectorXd &U)=0;
+
+	/**
+	 * Template to create a square matrix by copying the columns of the input vector as columns of the matrix
+	*/
+	virtual Eigen::MatrixXd TileCols(const Eigen::VectorXd &U)=0;
+
+	/**
+	 * Template to calculate the dynamics ODE of the adaptive Kuramoto system
+	*/
+	virtual Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a, const double &b)=0;
 
 };
 

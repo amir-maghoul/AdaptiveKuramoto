@@ -20,7 +20,7 @@ return df;
 
 
 int main(){
-    Eigen::Matrix<double, 3, 1> w {5, 4, 3};
+    Eigen::Matrix<double, 3, 1> w {M_PI/6, M_PI, M_PI/2};
     Eigen::Matrix3d K0;
     K0 <<  0,   0.2,  1.1,
            0.5, 0,   -0.7,
@@ -46,11 +46,21 @@ int main(){
     cout << M << endl;
     cout << "))))))))))))))))))))))))))))" << endl;
 
+    Matrix<double, Dynamic, Dynamic> M2(size,size);
     AdaptiveKuramoto empty(w, K0);
     M = empty.TileRows(w.transpose());
-    cout << M << endl;
-    // Eigen::MatrixXd a = empty.Dynamics(U);
-    // std::cout << a << std::endl;
+    M2 = empty.TileCols(w);
+    // M = M2 - M;
+    // M = M.array().sin().matrix();
+    cout << 2*K0 << endl;
+    cout << "=================================="<< endl;
+    Eigen::MatrixXd a = empty.Dynamics(U);
+    std::cout << a << std::endl;
+
+    cout << empty.n << endl;
+
+
+ 
 
 
 
