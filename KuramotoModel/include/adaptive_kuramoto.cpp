@@ -75,13 +75,14 @@ Eigen::MatrixXd AdaptiveKuramoto::UnpackWeights(const Eigen::VectorXd &U)
 */
 std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::UnpackSolveOutput(std::vector<Eigen::VectorXd> &U)
 {
-	std::vector<Eigen::MatrixXd> PHI;
-	std::vector<Eigen::MatrixXd> K;
+	std::vector<Eigen::MatrixXd> PHI;								///< Declaring the phase variable		
+	std::vector<Eigen::MatrixXd> K;									///< Declaring the weight variable
 	std::vector<std::vector<Eigen::MatrixXd>> output;
-	for (unsigned int i=0; i < U.size(); i++)
+
+	for (unsigned int i=0; i < U.size(); i++)						///< For loop to divide up each vector in the input
 	{
-		PHI.push_back(U[i].head(n));
-		K.push_back((U[i].tail(n*n)).reshaped(n, n));
+		PHI.push_back(U[i].head(n));								///< First n entries of the input vector are phases
+		K.push_back((U[i].tail(n*n)).reshaped(n, n));				///< Last n*n entries of the input vector are flattend weights
 	};
 	output.push_back(PHI);
 	output.push_back(K);
@@ -133,7 +134,6 @@ Eigen::MatrixXd AdaptiveKuramoto::TileCols(const Eigen::VectorXd &U)
  * 
  * @return Eigen::MatrixXd The concatenated vector of derivatives of phases and flattened derivative of adjacency matrix
 */
-
 Eigen::VectorXd AdaptiveKuramoto::Dynamics(Eigen::VectorXd &U, const double &a, const double &b)
 {
 // Unpacking the input vector
