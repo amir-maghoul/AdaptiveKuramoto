@@ -1,12 +1,12 @@
 #include <iostream>
-#include <include/abstract_kuramoto.h>
-#include <include/adaptive_kuramoto.h>
-#include <include/runge_kutta.h>
-#include <include/solvers.h>
+#include "include/abstract_kuramoto.h"
+#include "include/adaptive_kuramoto.h"
+#include "include/runge_kutta.h"
+#include "include/solvers.h"
 #include <Eigen/Dense>
 #include <vector>
 #include <typeinfo>
-#include <visualization/visualization.h>
+#include "visualization/visualization.h"
 // #include <arrayobject.h>
 using namespace std;
 using namespace Eigen;
@@ -48,22 +48,23 @@ int main(){
 
     Matrix<double, Dynamic, Dynamic> M2(size,size);
     AdaptiveKuramoto empty(w, K0);
-    M = empty.TileRows(w.transpose());
-    M2 = empty.TileCols(w);
-    // M = M2 - M;
-    // M = M.array().sin().matrix();
-    cout << 2*K0 << endl;
-    cout << "=================================="<< endl;
-    Eigen::MatrixXd a = empty.Dynamics(U);
-    std::cout << a << std::endl;
+    cout << empty.num_steps << endl;
+    empty.num_steps = 100;
+    cout << empty.num_steps << endl;
+    // M = empty.TileRows(w.transpose());
+    // M2 = empty.TileCols(w);
+    // // M = M2 - M;
+    // // M = M.array().sin().matrix();
+    // cout << 2*K0 << endl;
+    // cout << "=================================="<< endl;
+    // Eigen::MatrixXd a = empty.Dynamics(U);
+    // std::cout << a << std::endl;
 
-    cout << empty.n << endl;
-
-
- 
-
-
-
+    Eigen::Vector3d X0(M_PI, M_PI/2, M_PI/6);
+    // std::vector<Eigen::VectorXd> b = empty.run(X0, 1, 3);
+    std::vector<std::vector<Eigen::MatrixXd>> d = empty.run(X0, 1, 2);
+    cout << "////////////////////////////////////////" << endl;
+    // cout << d[0][1] << endl;
 
 
 

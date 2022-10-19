@@ -67,6 +67,28 @@ Eigen::MatrixXd AdaptiveKuramoto::UnpackWeights(const Eigen::VectorXd &U)
 };
 
 /**
+ * Unpacks the output of solve() method into a nested vector of phases and matrices
+ * 
+ * @param U Eigen::VectorXd the long vector of phases and flattened matrices
+ * 
+ * @return std::vector<std::vector> nested vector of phases and matrices
+*/
+std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::UnpackSolveOutput(std::vector<Eigen::VectorXd> &U)
+{
+	std::vector<Eigen::MatrixXd> PHI;
+	std::vector<Eigen::MatrixXd> K;
+	std::vector<std::vector<Eigen::MatrixXd>> output;
+	for (unsigned int i=0; i < U.size(); i++)
+	{
+		PHI.push_back(U[i].head(n));
+		K.push_back((U[i].tail(n*n)).reshaped(n, n));
+	};
+	output.push_back(PHI);
+	output.push_back(K);
+	return output;
+};
+
+/**
  * Creates a square matrix by copying the row of the input vector as rows of the matrix
  * The number of rows is equal to the number of columns of the vector.
  * 
@@ -166,10 +188,12 @@ std::vector<Eigen::VectorXd> AdaptiveKuramoto::run(const Eigen::VectorXd &X0, co
 	};
 	std::vector<Eigen::VectorXd> result = ExplicitRKSolvers::Explicit4thOrderRK(WrappedODE, U0, num_steps, t0, t_end);
 
+// Unpack results into two vectors
+	std::vector<std::vector<Eigen::MatrixXd>> output = UnpackSolveOutput(result);
+
 	// TODO:
-	// Write an unpacking function with for_each algorthm to store the phases and matrices in different vectors
 	// New functionality: change num_steps from within the method
-	return result;
+	return output;
 };
 
 

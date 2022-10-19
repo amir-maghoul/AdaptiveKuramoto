@@ -1,7 +1,7 @@
 #ifndef _ADAPTIVE_KURAMOTO_H_
 #define _ADAPTIVE_KURAMOTO_H_
 
-#include <include/abstract_kuramoto.h>
+#include "include/abstract_kuramoto.h"
 #include <Eigen/Dense>
 
 struct AdaptiveKuramoto final : public AbstractModel{
@@ -19,6 +19,7 @@ struct AdaptiveKuramoto final : public AbstractModel{
 /***********************************************************************
  * Methods
 */
+	std::vector<std::vector<Eigen::MatrixXd>> UnpackSolveOutput(std::vector<Eigen::VectorXd> &U);
 
 	virtual Eigen::VectorXd FlatConcatenate(Eigen::VectorXd &U, const Eigen::VectorXd &V, const Eigen::MatrixXd &A);
 
