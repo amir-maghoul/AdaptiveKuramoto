@@ -1,4 +1,51 @@
-#include <visualization/visualization.h>
+#include "visualization/visualization.h"
+#include "include/adaptive_kuramoto.h"
+#include <Eigen/Dense>
+using namespace std;
+
+void adaptiveKuramoto(){
+
+    Eigen::Vector3d w {28, 19, 11};
+    Eigen::Matrix3d K0;
+    K0 <<  0,   0.2,  1.1,
+           0.5, 0,   -0.7,
+           0.3, 0.9,  0;
+    
+    AdaptiveKuramoto obj(w, K0);
+    obj.num_steps = 1000;
+    obj.epsilon = 0;
+    obj.ro = 1;
+    Eigen::Vector3d X0(0, M_PI, 0);
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = obj.run(X0, 0, 0);
+
+    std::vector<double> t(obj.num_steps-1);
+    std::vector<double> u0(obj.num_steps-1);
+    std::vector<double> u1(obj.num_steps-1);
+    std::vector<double> u2(obj.num_steps-1);
+    std::vector<Eigen::Vector3d> PHI_DOT(obj.num_steps);
+    double h = (obj.t_end - obj.t0)/(double) obj.num_steps;
+
+    for(size_t i = 0; i < t.size(); i++) {
+        t[i] = i*h;
+        PHI_DOT[i] = (output[0][i+1] - output[0][i])*(1.0/h);
+    };
+
+
+    for(size_t i = 0; i < t.size(); i++) {
+        u0[i] = PHI_DOT[i](0);
+        u1[i] = PHI_DOT[i](1);
+        u2[i] = PHI_DOT[i](2);
+    };
+
+    plt::title("Adaptive Kuramoto Model Phases");
+    plt::named_plot("Phase Velocity",t, u1);
+    plt::xlabel("Time");
+    plt::ylabel("Phase Velocity");
+    plt::legend();
+    plt::save("AdaptiveKuramotoPhaseVelocity.png");
+
+};
 
 void LotkaVolterra(){
 
@@ -39,7 +86,7 @@ void LotkaVolterra(){
         t[i] = i*(tend-t0 / (double) steps);
         prey[i] = result[i](0);
         predator[i] = result[i](1);
-    }
+    };
     plt::title("Lotka-Volterra Integration Example");
     plt::named_plot("Prey Population",t, prey);
     plt::named_plot("Predator Population",t,predator);
@@ -56,7 +103,7 @@ void LotkaVolterra(){
     plt::save("lotkaVolterraPhaseSpace.png");
 
   
-}
+};
 
 void LorenzAttractor(){
 
@@ -101,7 +148,7 @@ void LorenzAttractor(){
         x[i] = result[i](0);
         y[i] = result[i](1);
         z[i] = result[i](2);
-    }
+    };
     plt::plot3(x, y, z);
 
     plt::xlabel("x");
@@ -112,7 +159,7 @@ void LorenzAttractor(){
     plt::title("Lorenz Attractor Integration Example");
     plt::save("lorenzAttractorSolved.png");
   
-}
+};
 
 
 

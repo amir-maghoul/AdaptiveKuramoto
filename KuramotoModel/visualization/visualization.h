@@ -8,6 +8,7 @@
 
 namespace plt = matplotlibcpp;
 
+void adaptiveKuramoto();
 void LotkaVolterra();
 void LorenzAttractor();
 
