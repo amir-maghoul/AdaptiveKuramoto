@@ -62,7 +62,7 @@ struct AbstractModel {
 	/**
 	 * Template to solve the problem specified dynamical system
 	*/
-	virtual std::vector<Eigen::VectorXd> run(const Eigen::VectorXd &X0, const double &a, const double &b)=0;
+	virtual std::vector<std::vector<Eigen::MatrixXd>>  run(const Eigen::VectorXd &X0, const double &a, const double &b)=0;
 
 };
 

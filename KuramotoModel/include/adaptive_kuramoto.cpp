@@ -175,7 +175,7 @@ Eigen::VectorXd AdaptiveKuramoto::Dynamics(Eigen::VectorXd &U, const double &a, 
  * 
  * @return std::vector<Eigen::VectorXd> the state of the system at each timestep
 */
-std::vector<Eigen::VectorXd> AdaptiveKuramoto::run(const Eigen::VectorXd &X0, const double &a, const double &b)
+std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::run(const Eigen::VectorXd &X0, const double &a, const double &b)
 {
 // Packing the input of the dyanamics
 	Eigen::VectorXd U0(n*n+n, 1);

@@ -33,7 +33,7 @@ struct AdaptiveKuramoto final : public AbstractModel{
 
 	virtual Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a=0, const double &b=0);
 
-	virtual std::vector<Eigen::VectorXd> run(const Eigen::VectorXd &X0, const double &a, const double &b);
+	virtual std::vector<std::vector<Eigen::MatrixXd>>  run(const Eigen::VectorXd &X0, const double &a, const double &b);
 
 };
 
