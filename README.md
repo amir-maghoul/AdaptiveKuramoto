@@ -10,7 +10,14 @@ The following naming convention is used throughout the project:
 ** How to use the code **
 1. Download the Eigen header library in a folder named "Eigen" in the project directory
 2. Create a CMakeList.txt file in the Eigen directory
-3. Link the Eigen library to the project by adding `AUX_SOURCE_DIRECTORY(${PROJECT_SOURCE_DIR}Eigen CTR_SOURCES)` or something similar to the CMakeLists.txt of the Eigen subfolder.
+3. Link the Eigen library to the project. This can be done by adding the following commands to the projects CMakeLists.txt:
+```
+set(EIGEN3_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/<path-to-Eigen-directory-in-project-tree>/" )
+add_executable(<main-project-name>)
+target_sources(<main-project-name> PUBLIC "<main-source>.cpp")
+target_link_libraries(main ${EIGEN3_INCLUDE_DIR} <other-linked-libraries>)
+
+```
 4. Build the project using `cmake`. If the "build" subdirectory does not exist, create one and then use:
 ```
 $ cd build
