@@ -28,9 +28,12 @@ if(NOT EIGEN3_INCLUDE_DIR )
 endif()
 message(STATUS "    Eigen3 directory: ${EIGEN3_INCLUDE_DIR}")
 
+set(MATPLOTLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Matplotlib/" )
+
+
 add_executable(main)
 target_sources(main PUBLIC "main.cpp")
-target_link_libraries(main pNumpy ${EIGEN3_INCLUDE_DIR})
+target_link_libraries(main pNumpy ${EIGEN3_INCLUDE_DIR} ${MATPLOTLIB_INCLUDE_DIR})
 target_include_directories(main PUBLIC ${PROJECT_SOURCE_DIR})
 add_subdirectory("include")
 # add_subdirectory("Eigen")
