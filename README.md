@@ -18,7 +18,8 @@ target_sources(<main-project-name> PUBLIC "<main-source>.cpp")
 target_link_libraries(main ${EIGEN3_INCLUDE_DIR} <other-linked-libraries>)
 
 ```
-4. Build the project using `cmake`. If the "build" subdirectory does not exist, create one and then use:
+4. Take the similar steps as last step to link `matplotlibcpp.h` to the project.
+5. Build the project using `cmake`. If the "build" subdirectory does not exist, create one and then use:
 ```
 $ cd build
 $ cmake ..
