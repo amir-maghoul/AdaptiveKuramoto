@@ -8,11 +8,12 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/amir/AdaptiveKuramoto/KuramotoModel/include/abstract_kuramoto.cpp" "CMakeFiles/main.dir/include/abstract_kuramoto.cpp.o" "gcc" "CMakeFiles/main.dir/include/abstract_kuramoto.cpp.o.d"
-  "/home/amir/AdaptiveKuramoto/KuramotoModel/include/adaptive_kuramoto.cpp" "CMakeFiles/main.dir/include/adaptive_kuramoto.cpp.o" "gcc" "CMakeFiles/main.dir/include/adaptive_kuramoto.cpp.o.d"
-  "/home/amir/AdaptiveKuramoto/KuramotoModel/include/continuum_limit.cpp" "CMakeFiles/main.dir/include/continuum_limit.cpp.o" "gcc" "CMakeFiles/main.dir/include/continuum_limit.cpp.o.d"
-  "/home/amir/AdaptiveKuramoto/KuramotoModel/include/solvers.cpp" "CMakeFiles/main.dir/include/solvers.cpp.o" "gcc" "CMakeFiles/main.dir/include/solvers.cpp.o.d"
+  "/home/amir/AdaptiveKuramoto/KuramotoModel/Examples/examples.cpp" "CMakeFiles/main.dir/Examples/examples.cpp.o" "gcc" "CMakeFiles/main.dir/Examples/examples.cpp.o.d"
+  "/home/amir/AdaptiveKuramoto/KuramotoModel/include/ContinuumModel/continuum_limit.cpp" "CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o" "gcc" "CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o.d"
+  "/home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/abstract_kuramoto.cpp" "CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o" "gcc" "CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o.d"
+  "/home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/adaptive_kuramoto.cpp" "CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o" "gcc" "CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o.d"
   "/home/amir/AdaptiveKuramoto/KuramotoModel/main.cpp" "CMakeFiles/main.dir/main.cpp.o" "gcc" "CMakeFiles/main.dir/main.cpp.o.d"
+  "/home/amir/AdaptiveKuramoto/KuramotoModel/visualization/visualization.cpp" "CMakeFiles/main.dir/visualization/visualization.cpp.o" "gcc" "CMakeFiles/main.dir/visualization/visualization.cpp.o.d"
   )
 
 # Targets to which this target links.

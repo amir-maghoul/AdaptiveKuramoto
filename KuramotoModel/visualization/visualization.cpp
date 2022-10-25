@@ -1,5 +1,4 @@
 #include "visualization/visualization.h"
-#include "include/adaptive_kuramoto.h"
 #include <Eigen/Dense>
 using namespace std;
 
@@ -13,7 +12,7 @@ void adaptiveKuramoto(){
     
     AdaptiveKuramoto obj(w, K0);
     obj.num_steps = 1000;
-    obj.epsilon = 0;
+    obj.epsilon = 0.2;
     obj.ro = 1;
     Eigen::Vector3d X0(0, M_PI, 0);
 

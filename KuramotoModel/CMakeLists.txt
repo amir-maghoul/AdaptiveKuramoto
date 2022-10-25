@@ -22,21 +22,21 @@ target_link_libraries(pNumpy INTERFACE
 )
 add_definitions(-DWITHOUT_NUMPY)
 
+
 set(EIGEN3_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Eigen/" )
-if(NOT EIGEN3_INCLUDE_DIR )
-    message(FATAL_ERROR "Please point the variable EIGEN3_INCLUDE_DIR to the include directory of your Eigen3 installation.")
-endif()
-message(STATUS "    Eigen3 directory: ${EIGEN3_INCLUDE_DIR}")
+add_library(Eigen INTERFACE)
+target_link_libraries(Eigen INTERFACE ${EIGEN3_INCLUDE_DIR})
 
 set(MATPLOTLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Matplotlib/" )
-
+add_library(Matplotlib INTERFACE)
+target_link_libraries(Eigen INTERFACE ${MATPLOTLIB_INCLUDE_DIR})
 
 add_executable(main)
 target_sources(main PUBLIC "main.cpp")
-target_link_libraries(main pNumpy ${EIGEN3_INCLUDE_DIR} ${MATPLOTLIB_INCLUDE_DIR})
+target_link_libraries(main pNumpy Eigen Matplotlib)
 target_include_directories(main PUBLIC ${PROJECT_SOURCE_DIR})
 add_subdirectory("include")
-# add_subdirectory("Eigen")
+add_subdirectory("Examples")
 add_subdirectory("visualization")
 install(TARGETS main)
 set(CMAKE_C_FLAGS_DEBUG "-g -DDEBUG")

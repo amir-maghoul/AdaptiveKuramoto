@@ -174,101 +174,101 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
-include/abstract_kuramoto.o: include/abstract_kuramoto.cpp.o
-.PHONY : include/abstract_kuramoto.o
+Examples/examples.o: Examples/examples.cpp.o
+.PHONY : Examples/examples.o
 
 # target to build an object file
-include/abstract_kuramoto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/abstract_kuramoto.cpp.o
-.PHONY : include/abstract_kuramoto.cpp.o
+Examples/examples.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Examples/examples.cpp.o
+.PHONY : Examples/examples.cpp.o
 
-include/abstract_kuramoto.i: include/abstract_kuramoto.cpp.i
-.PHONY : include/abstract_kuramoto.i
+Examples/examples.i: Examples/examples.cpp.i
+.PHONY : Examples/examples.i
 
 # target to preprocess a source file
-include/abstract_kuramoto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/abstract_kuramoto.cpp.i
-.PHONY : include/abstract_kuramoto.cpp.i
+Examples/examples.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Examples/examples.cpp.i
+.PHONY : Examples/examples.cpp.i
 
-include/abstract_kuramoto.s: include/abstract_kuramoto.cpp.s
-.PHONY : include/abstract_kuramoto.s
+Examples/examples.s: Examples/examples.cpp.s
+.PHONY : Examples/examples.s
 
 # target to generate assembly for a file
-include/abstract_kuramoto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/abstract_kuramoto.cpp.s
-.PHONY : include/abstract_kuramoto.cpp.s
+Examples/examples.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Examples/examples.cpp.s
+.PHONY : Examples/examples.cpp.s
 
-include/adaptive_kuramoto.o: include/adaptive_kuramoto.cpp.o
-.PHONY : include/adaptive_kuramoto.o
+include/ContinuumModel/continuum_limit.o: include/ContinuumModel/continuum_limit.cpp.o
+.PHONY : include/ContinuumModel/continuum_limit.o
 
 # target to build an object file
-include/adaptive_kuramoto.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/adaptive_kuramoto.cpp.o
-.PHONY : include/adaptive_kuramoto.cpp.o
+include/ContinuumModel/continuum_limit.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o
+.PHONY : include/ContinuumModel/continuum_limit.cpp.o
 
-include/adaptive_kuramoto.i: include/adaptive_kuramoto.cpp.i
-.PHONY : include/adaptive_kuramoto.i
+include/ContinuumModel/continuum_limit.i: include/ContinuumModel/continuum_limit.cpp.i
+.PHONY : include/ContinuumModel/continuum_limit.i
 
 # target to preprocess a source file
-include/adaptive_kuramoto.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/adaptive_kuramoto.cpp.i
-.PHONY : include/adaptive_kuramoto.cpp.i
+include/ContinuumModel/continuum_limit.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.i
+.PHONY : include/ContinuumModel/continuum_limit.cpp.i
 
-include/adaptive_kuramoto.s: include/adaptive_kuramoto.cpp.s
-.PHONY : include/adaptive_kuramoto.s
+include/ContinuumModel/continuum_limit.s: include/ContinuumModel/continuum_limit.cpp.s
+.PHONY : include/ContinuumModel/continuum_limit.s
 
 # target to generate assembly for a file
-include/adaptive_kuramoto.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/adaptive_kuramoto.cpp.s
-.PHONY : include/adaptive_kuramoto.cpp.s
+include/ContinuumModel/continuum_limit.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.s
+.PHONY : include/ContinuumModel/continuum_limit.cpp.s
 
-include/continuum_limit.o: include/continuum_limit.cpp.o
-.PHONY : include/continuum_limit.o
+include/DiscreteModel/abstract_kuramoto.o: include/DiscreteModel/abstract_kuramoto.cpp.o
+.PHONY : include/DiscreteModel/abstract_kuramoto.o
 
 # target to build an object file
-include/continuum_limit.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/continuum_limit.cpp.o
-.PHONY : include/continuum_limit.cpp.o
+include/DiscreteModel/abstract_kuramoto.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o
+.PHONY : include/DiscreteModel/abstract_kuramoto.cpp.o
 
-include/continuum_limit.i: include/continuum_limit.cpp.i
-.PHONY : include/continuum_limit.i
+include/DiscreteModel/abstract_kuramoto.i: include/DiscreteModel/abstract_kuramoto.cpp.i
+.PHONY : include/DiscreteModel/abstract_kuramoto.i
 
 # target to preprocess a source file
-include/continuum_limit.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/continuum_limit.cpp.i
-.PHONY : include/continuum_limit.cpp.i
+include/DiscreteModel/abstract_kuramoto.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.i
+.PHONY : include/DiscreteModel/abstract_kuramoto.cpp.i
 
-include/continuum_limit.s: include/continuum_limit.cpp.s
-.PHONY : include/continuum_limit.s
+include/DiscreteModel/abstract_kuramoto.s: include/DiscreteModel/abstract_kuramoto.cpp.s
+.PHONY : include/DiscreteModel/abstract_kuramoto.s
 
 # target to generate assembly for a file
-include/continuum_limit.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/continuum_limit.cpp.s
-.PHONY : include/continuum_limit.cpp.s
+include/DiscreteModel/abstract_kuramoto.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.s
+.PHONY : include/DiscreteModel/abstract_kuramoto.cpp.s
 
-include/solvers.o: include/solvers.cpp.o
-.PHONY : include/solvers.o
+include/DiscreteModel/adaptive_kuramoto.o: include/DiscreteModel/adaptive_kuramoto.cpp.o
+.PHONY : include/DiscreteModel/adaptive_kuramoto.o
 
 # target to build an object file
-include/solvers.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/solvers.cpp.o
-.PHONY : include/solvers.cpp.o
+include/DiscreteModel/adaptive_kuramoto.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o
+.PHONY : include/DiscreteModel/adaptive_kuramoto.cpp.o
 
-include/solvers.i: include/solvers.cpp.i
-.PHONY : include/solvers.i
+include/DiscreteModel/adaptive_kuramoto.i: include/DiscreteModel/adaptive_kuramoto.cpp.i
+.PHONY : include/DiscreteModel/adaptive_kuramoto.i
 
 # target to preprocess a source file
-include/solvers.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/solvers.cpp.i
-.PHONY : include/solvers.cpp.i
+include/DiscreteModel/adaptive_kuramoto.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.i
+.PHONY : include/DiscreteModel/adaptive_kuramoto.cpp.i
 
-include/solvers.s: include/solvers.cpp.s
-.PHONY : include/solvers.s
+include/DiscreteModel/adaptive_kuramoto.s: include/DiscreteModel/adaptive_kuramoto.cpp.s
+.PHONY : include/DiscreteModel/adaptive_kuramoto.s
 
 # target to generate assembly for a file
-include/solvers.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/solvers.cpp.s
-.PHONY : include/solvers.cpp.s
+include/DiscreteModel/adaptive_kuramoto.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.s
+.PHONY : include/DiscreteModel/adaptive_kuramoto.cpp.s
 
 main.o: main.cpp.o
 .PHONY : main.o
@@ -294,6 +294,30 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/main.cpp.s
 .PHONY : main.cpp.s
 
+visualization/visualization.o: visualization/visualization.cpp.o
+.PHONY : visualization/visualization.o
+
+# target to build an object file
+visualization/visualization.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/visualization/visualization.cpp.o
+.PHONY : visualization/visualization.cpp.o
+
+visualization/visualization.i: visualization/visualization.cpp.i
+.PHONY : visualization/visualization.i
+
+# target to preprocess a source file
+visualization/visualization.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/visualization/visualization.cpp.i
+.PHONY : visualization/visualization.cpp.i
+
+visualization/visualization.s: visualization/visualization.cpp.s
+.PHONY : visualization/visualization.s
+
+# target to generate assembly for a file
+visualization/visualization.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/visualization/visualization.cpp.s
+.PHONY : visualization/visualization.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -307,21 +331,24 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... main"
-	@echo "... include/abstract_kuramoto.o"
-	@echo "... include/abstract_kuramoto.i"
-	@echo "... include/abstract_kuramoto.s"
-	@echo "... include/adaptive_kuramoto.o"
-	@echo "... include/adaptive_kuramoto.i"
-	@echo "... include/adaptive_kuramoto.s"
-	@echo "... include/continuum_limit.o"
-	@echo "... include/continuum_limit.i"
-	@echo "... include/continuum_limit.s"
-	@echo "... include/solvers.o"
-	@echo "... include/solvers.i"
-	@echo "... include/solvers.s"
+	@echo "... Examples/examples.o"
+	@echo "... Examples/examples.i"
+	@echo "... Examples/examples.s"
+	@echo "... include/ContinuumModel/continuum_limit.o"
+	@echo "... include/ContinuumModel/continuum_limit.i"
+	@echo "... include/ContinuumModel/continuum_limit.s"
+	@echo "... include/DiscreteModel/abstract_kuramoto.o"
+	@echo "... include/DiscreteModel/abstract_kuramoto.i"
+	@echo "... include/DiscreteModel/abstract_kuramoto.s"
+	@echo "... include/DiscreteModel/adaptive_kuramoto.o"
+	@echo "... include/DiscreteModel/adaptive_kuramoto.i"
+	@echo "... include/DiscreteModel/adaptive_kuramoto.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... visualization/visualization.o"
+	@echo "... visualization/visualization.i"
+	@echo "... visualization/visualization.s"
 .PHONY : help
 
 

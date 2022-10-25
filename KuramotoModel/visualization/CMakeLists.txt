@@ -1,3 +1,3 @@
-target_sources(main PRIVATE matplotlibcpp.h visualization.cpp visualization.h)
+target_sources(main PRIVATE visualization.cpp visualization.h)
 
 

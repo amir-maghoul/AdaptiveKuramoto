@@ -49,7 +49,12 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/amir/AdaptiveKuramoto/KuramotoModel/build/Eigen/cmake_install.cmake")
+  include("/home/amir/AdaptiveKuramoto/KuramotoModel/build/Examples/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/home/amir/AdaptiveKuramoto/KuramotoModel/build/visualization/cmake_install.cmake")
 endif()
 
 if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
