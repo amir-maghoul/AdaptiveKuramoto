@@ -25,19 +25,23 @@ struct AdaptiveKuramoto final : public AbstractModel{
 */
 	std::vector<std::vector<Eigen::MatrixXd>> UnpackSolveOutput(std::vector<Eigen::VectorXd> &U);
 
+	void PlotMatrix(std::vector<Eigen::MatrixXd> &M);
+
 	virtual Eigen::VectorXd FlatConcatenate(Eigen::VectorXd &U, const Eigen::VectorXd &V, const Eigen::MatrixXd &A);
 
 	virtual Eigen::VectorXd UnpackPhases(const Eigen::VectorXd &U);
 
 	virtual Eigen::MatrixXd UnpackWeights(const Eigen::VectorXd &U);
 
-	virtual Eigen::MatrixXd TileRows(const Eigen::VectorXd &U);
-	
 	virtual Eigen::MatrixXd TileCols(const Eigen::VectorXd &U);
+
+	virtual Eigen::MatrixXd TileRows(const Eigen::VectorXd &U);
+
+	virtual Eigen::MatrixXd DistanceMatrix(const Eigen::VectorXd &U);
 
 	virtual Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a=0, const double &b=0);
 
-	virtual std::vector<std::vector<Eigen::MatrixXd>>  run(const Eigen::VectorXd &X0, const double &a, const double &b);
+	virtual std::vector<std::vector<Eigen::MatrixXd>> run(const Eigen::VectorXd &X0, const double &a, const double &b);
 
 
 };

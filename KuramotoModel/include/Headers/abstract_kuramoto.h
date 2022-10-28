@@ -45,15 +45,13 @@ struct AbstractModel {
 	*/
 	virtual Eigen::MatrixXd UnpackWeights(const Eigen::VectorXd &U)=0;
 
-	/**
-	 * Template to create a square matrix by copying the row of the input vector as rows of the matrix
-	*/
 	virtual Eigen::MatrixXd TileRows(const Eigen::VectorXd &U)=0;
+	virtual Eigen::MatrixXd TileCols(const Eigen::VectorXd &U)=0;
 
 	/**
-	 * Template to create a square matrix by copying the columns of the input vector as columns of the matrix
+	 * Template to calculate the dynamics ODE of the adaptive Kuramoto system
 	*/
-	virtual Eigen::MatrixXd TileCols(const Eigen::VectorXd &U)=0;
+	virtual Eigen::MatrixXd DistanceMatrix(const Eigen::VectorXd &U)=0;
 
 	/**
 	 * Template to calculate the dynamics ODE of the adaptive Kuramoto system
@@ -63,7 +61,7 @@ struct AbstractModel {
 	/**
 	 * Template to solve the problem specified dynamical system
 	*/
-	virtual std::vector<std::vector<Eigen::MatrixXd>>  run(const Eigen::VectorXd &X0, const double &a, const double &b)=0;
+	virtual std::vector<std::vector<Eigen::MatrixXd>> run(const Eigen::VectorXd &X0, const double &a, const double &b)=0;
 
 };
 

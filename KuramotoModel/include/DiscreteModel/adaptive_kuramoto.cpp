@@ -23,6 +23,43 @@ AdaptiveKuramoto::~AdaptiveKuramoto(){
 */
 
 /**
+ * Unpacks the output of solve() method into a nested vector of phases and matrices.
+ * First element is the vector of phases.
+ * Second element is the vector of weights.
+ * 
+ * @param U Eigen::VectorXd the long vector of phases and flattened matrices
+ * 
+ * @return std::vector<std::vector> nested vector of phases and matrices
+*/
+std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::UnpackSolveOutput(std::vector<Eigen::VectorXd> &U)
+{
+	std::vector<Eigen::MatrixXd> PHI;								///< Declaring the phase variable		
+	std::vector<Eigen::MatrixXd> K;									///< Declaring the weight variable
+	std::vector<std::vector<Eigen::MatrixXd>> output;
+
+	for (unsigned int i=0; i < U.size(); i++)						///< For loop to divide up each vector in the input
+	{
+		PHI.push_back(U[i].head(n));								///< First n entries of the input vector are phases
+		K.push_back((U[i].tail(n*n)).reshaped(n, n));				///< Last n*n entries of the input vector are flattend weights
+	};
+	output.push_back(PHI);
+	output.push_back(K);
+	return output;
+};
+
+/**
+ * Plots the given vector of matrices at a given position (time position)
+ * 
+ * @param M std::vector<Eigen::MatrixXd> the vector of evolution of the matrix
+ * @param t int time at which the vector is plotted 
+*/
+void PlotMatrix(std::vector<Eigen::MatrixXd> &M, int t)
+{
+	std::cout << "plot matrix" << std::endl; 
+};
+
+
+/**
  * Packs a vector and a flattend matrix to create a long vector
  * 
  * @param U	Eigen::VectorXd the target vector in which the output value must be stored
@@ -62,57 +99,25 @@ Eigen::MatrixXd AdaptiveKuramoto::UnpackWeights(const Eigen::VectorXd &U)
 };
 
 /**
- * Unpacks the output of solve() method into a nested vector of phases and matrices
+ * Creates a square matrix of pairwise difference of elements of the given (mathematical) vector.
+ * In order to do so, first creates matrices of copied columns and rows of the input vector and 
+ * then returns the distance of the two matrices
  * 
- * @param U Eigen::VectorXd the long vector of phases and flattened matrices
+ * @param U Eigen::MatrixXd The *column* vector from which the difference matrix is created
  * 
- * @return std::vector<std::vector> nested vector of phases and matrices
+ * @return Eigen::MatrixXd
 */
-std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::UnpackSolveOutput(std::vector<Eigen::VectorXd> &U)
+Eigen::MatrixXd AdaptiveKuramoto::DistanceMatrix(const Eigen::VectorXd &U)
 {
-	std::vector<Eigen::MatrixXd> PHI;								///< Declaring the phase variable		
-	std::vector<Eigen::MatrixXd> K;									///< Declaring the weight variable
-	std::vector<std::vector<Eigen::MatrixXd>> output;
-
-	for (unsigned int i=0; i < U.size(); i++)						///< For loop to divide up each vector in the input
+	Eigen::MatrixXd RowTiled(U.size(), U.size());				///< Matrix created by copying the input row-wise
+	Eigen::MatrixXd ColTiled(U.size(), U.size());				///< Matrix created by copying the input column-wise
+	for (unsigned int i=0; i < U.size(); ++i)
 	{
-		PHI.push_back(U[i].head(n));								///< First n entries of the input vector are phases
-		K.push_back((U[i].tail(n*n)).reshaped(n, n));				///< Last n*n entries of the input vector are flattend weights
-	};
-	output.push_back(PHI);
-	output.push_back(K);
-	return output;
-};
-
-/**
- * Creates a square matrix by copying the row of the input vector as rows of the matrix
- * The number of rows is equal to the number of columns of the vector.
- * 
- * @param U Eigen::MatrixXd The row vector from which the matrix is created
- * 
- * @return Eigen::MatrixXd The tiled matrix
-*/
-Eigen::MatrixXd AdaptiveKuramoto::TileRows(const Eigen::VectorXd &U)
-{
-	Eigen::MatrixXd T(U.size(), U.size());
-	for (unsigned int i=0; i < U.size(); ++i) T.row(i) = U;
-	return T;
-};
-
-/**
- * Creates a square matrix by copying the columns of the input vector as columns of the matrix
- * The number of columns is equal to the number of rows of the vector.
- * 
- * @param U Eigen::MatrixXd The column vector from which the matrix is created
- * 
- * @return Eigen::MatrixXd The tiled matrix
-*/
-Eigen::MatrixXd AdaptiveKuramoto::TileCols(const Eigen::VectorXd &U)
-{
-	Eigen::MatrixXd T(U.size(), U.size());
-	for (unsigned int i=0; i < U.size(); ++i) T.col(i) << U;
-	return T;
-};
+		RowTiled.row(i) = U.transpose();
+		ColTiled.col(i) = U;
+	} 
+	return ColTiled - RowTiled;
+}
 
 /**
  * Describes the adaptive Kuramoto system dynamic ODEs.
@@ -141,8 +146,8 @@ Eigen::VectorXd AdaptiveKuramoto::Dynamics(Eigen::VectorXd &U, const double &a, 
 
 // Creating the interaction matrix of oscillators on each other
 	Eigen::MatrixXd INTERACTION(n, n);								///< Initializing the interaction matrix between all pairs of Oscillators
-	INTERACTION << TileCols(PHI) - TileRows(PHI.transpose());		///< Creating the difference matrix
-	
+	INTERACTION << DistanceMatrix(PHI);								///< Creating the difference matrix	
+
 	Eigen::MatrixXd INTERACTION_PHI;								///< Oscillation part of interaction
 	Eigen::MatrixXd INTERACTION_K;									///< Adaptation part of the interaction
 	INTERACTION_PHI = (INTERACTION.array() + a).sin().matrix();		///< Applying the sine function and phase lag
