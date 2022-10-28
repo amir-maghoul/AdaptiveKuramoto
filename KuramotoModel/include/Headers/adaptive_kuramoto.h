@@ -31,10 +31,6 @@ struct AdaptiveKuramoto final : public AbstractModel{
 
 	virtual Eigen::MatrixXd UnpackWeights(const Eigen::VectorXd &U);
 
-	virtual Eigen::MatrixXd TileCols(const Eigen::VectorXd &U);
-
-	virtual Eigen::MatrixXd TileRows(const Eigen::VectorXd &U);
-
 	virtual Eigen::MatrixXd DistanceMatrix(const Eigen::VectorXd &U);
 
 	virtual Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a=0, const double &b=0);
