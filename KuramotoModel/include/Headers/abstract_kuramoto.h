@@ -45,9 +45,6 @@ struct AbstractModel {
 	*/
 	virtual Eigen::MatrixXd UnpackWeights(const Eigen::VectorXd &U)=0;
 
-	virtual Eigen::MatrixXd TileRows(const Eigen::VectorXd &U)=0;
-	virtual Eigen::MatrixXd TileCols(const Eigen::VectorXd &U)=0;
-
 	/**
 	 * Template to calculate the dynamics ODE of the adaptive Kuramoto system
 	*/

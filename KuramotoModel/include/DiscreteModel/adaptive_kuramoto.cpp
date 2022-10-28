@@ -48,18 +48,6 @@ std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::UnpackSolveOutput(st
 };
 
 /**
- * Plots the given vector of matrices at a given position (time position)
- * 
- * @param M std::vector<Eigen::MatrixXd> the vector of evolution of the matrix
- * @param t int time at which the vector is plotted 
-*/
-void PlotMatrix(std::vector<Eigen::MatrixXd> &M, int t)
-{
-	std::cout << "plot matrix" << std::endl; 
-};
-
-
-/**
  * Packs a vector and a flattend matrix to create a long vector
  * 
  * @param U	Eigen::VectorXd the target vector in which the output value must be stored
