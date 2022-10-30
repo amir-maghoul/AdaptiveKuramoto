@@ -46,6 +46,6 @@ void TestClustering()
     vector<vector<MatrixXd>> output = obj.run(U0, 0.3*M_PI, 0.53*M_PI, jump);
 
     string file_loc = "txt_outputs/clustering_file.txt";
-    write_data(file_loc, output[1], 100);
+    write_data(file_loc, output[1]);
 
 };
