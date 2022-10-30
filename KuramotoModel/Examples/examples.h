@@ -9,6 +9,7 @@
 #include <fstream>
 #include <Eigen/Dense>
 
+void TestOrderParameter();
 void TestClustering();
 
 

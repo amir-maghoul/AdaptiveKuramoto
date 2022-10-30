@@ -37,7 +37,7 @@ struct AdaptiveKuramoto final : AbstractModel{
 
 	virtual std::vector<std::vector<Eigen::MatrixXd>> run(const Eigen::VectorXd &X0, const double &a, const double &b, unsigned int jump);
 
-	virtual std::vector<double> OrderParameter(Eigen::VectorXd &PHI, unsigned int &m);
+	virtual std::vector<double> OrderParameter(Eigen::VectorXd PHI, const unsigned int &m);
 
 
 

@@ -193,14 +193,13 @@ std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::run(const Eigen::Vec
  * 
  * @return nested vector of order parameter values and the ang
 */
-std::vector<double> AdaptiveKuramoto::OrderParameter(Eigen::VectorXd &PHI, unsigned int &m)
+std::vector<double> AdaptiveKuramoto::OrderParameter(Eigen::VectorXd PHI, const unsigned int &m)
 {
-	// float cos_phi_sum = (m*PHI).array().cos().sum();					///< Sum of cosine of each element of phases vector
-	// float sin_phi_sum = (m*PHI).array().sin().sum();					///< Sum of sine of each element of phases vector
-	// std::complex<float> R(cos_phi_sum, sin_phi_sum);					///< Complex Order Parameter
+	double cos_phi_sum = (m*PHI).array().cos().sum();					///< Sum of cosine of each element of phases vector
+	double sin_phi_sum = (m*PHI).array().sin().sum();					///< Sum of sine of each element of phases vector
+	std::complex<double> R(cos_phi_sum, sin_phi_sum);					///< Complex Order Parameter
 
-	// std::vector<float> v {std::abs(R), std::arg(R)};					///< Calculate absolute value and angle of order parameter
-	std::vector<double> v;
+	std::vector<double> v {std::abs(R), std::arg(R)};					///< Calculate absolute value and angle of order parameter
 	return v;
 };
 

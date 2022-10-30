@@ -2,7 +2,10 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def read_vector_to_array(file_loc, vector):
+def read_vector_to_array(file_loc):
+    """
+    Reads the vector in file_loc and stores in a numpy array
+    """
     matrix_list = []
     with open(file_loc, "r") as f: 
         for line in f:
@@ -11,6 +14,9 @@ def read_vector_to_array(file_loc, vector):
     return adj_matrix
 
 def read_matrix_to_array(file_loc, n):
+    """
+    Reads the flattend matrix in file_loc and reshapes with respect to n and stores in a numpy array
+    """
     matrix_list = []
     with open(file_loc, "r") as f: 
         for line in f:
@@ -36,13 +42,17 @@ def plot_matrix(matrix, t):
     plt.colorbar(im)
     plt.show()
 
+def plot_order_parameter(array):
+    """ Plots evolution of order parameter with respect to t"""
+    plt.figure()
+    plt.plot(array)
+    plt.show()
 
-if __name__ == "__main__":
-    file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/vector_file.txt"
-    n = 100
-    adj_matrix = read_matrix_to_array(file_loc, n)
-    # print(adj_matrix[0])
-    plot_matrix(adj_matrix, 110)
+def visualize_order_parameter(array, t):
+    """ Visualizes order parameter at time t on a unit sphere"""
+    return
+    
+
 
         
 

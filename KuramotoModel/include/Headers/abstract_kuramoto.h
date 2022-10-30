@@ -62,7 +62,7 @@ struct AbstractModel {
 	/**
 	 * Abstract to calculate the order parameter
 	*/
-	virtual std::vector<double> OrderParameter(Eigen::VectorXd &PHI, unsigned int &m)=0;
+	virtual std::vector<double> OrderParameter(Eigen::VectorXd PHI, const unsigned int &m)=0;
 
 };
 
