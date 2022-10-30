@@ -15,12 +15,12 @@
 // template <class StepSolution> 
 struct ExplicitRungeKutta {
 
-    const Eigen::MatrixXf B;           ///< The Butcher Tableau of the coefficients
-    const Eigen::VectorXf C;           ///< The weight vector in corresponding to elements of Butcher Tableau
+    const Eigen::MatrixXd B;           ///< The Butcher Tableau of the coefficients
+    const Eigen::VectorXd C;           ///< The weight vector in corresponding to elements of Butcher Tableau
     const unsigned int num_steps;      ///< Number of steps in the integration
-    const float t0;                    ///< Initial time
-    const float tend;                  ///< End time
-    const float dt;                    ///< Timestep
+    const double t0;                    ///< Initial time
+    const double tend;                  ///< End time
+    const double dt;                    ///< Timestep
 
 
 /*
@@ -29,7 +29,7 @@ struct ExplicitRungeKutta {
 ***************************************************************
 */
     ExplicitRungeKutta();
-    ExplicitRungeKutta(const Eigen::MatrixXf &B_IN, const Eigen::VectorXf &C_IN, unsigned int num_steps_in=100, float t0=0, float tend=10) 
+    ExplicitRungeKutta(const Eigen::MatrixXd &B_IN, const Eigen::VectorXd &C_IN, unsigned int num_steps_in=100, double t0=0, double tend=10) 
             : B{B_IN}, C{C_IN}, t0{t0}, tend{tend},num_steps{num_steps_in}, dt{(tend-t0)/num_steps}{};
     ~ExplicitRungeKutta(){};
 
@@ -50,15 +50,15 @@ struct ExplicitRungeKutta {
      * @return      One time step of Runge Kutta algorithm.
     */
     template<typename Function>
-    Eigen::VectorXf CalculateRKSummand(Function &&f, const Eigen::VectorXf &X0)
+    Eigen::VectorXd CalculateRKSummand(Function &&f, const Eigen::VectorXd &X0)
     {               
-        Eigen::VectorXf X1 = X0;                                            ///< Current state as previous state in the iteration                   
+        Eigen::VectorXd X1 = X0;                                            ///< Current state as previous state in the iteration                   
         unsigned int order = B.cols();                                      ///< Specifying the mth order of Runge Kutta
-        Eigen::VectorXf K[order];                                           ///< Array of m-th Runge Kutta slope k.
+        Eigen::VectorXd K[order];                                           ///< Array of m-th Runge Kutta slope k.
 
         // calculating Runge Kutta summand 
         for(unsigned int m = 0; m < order; m++){
-            Eigen::VectorXf steps = X0;                                     ///< Initialization of the summands
+            Eigen::VectorXd steps = X0;                                     ///< Initialization of the summands
 
             for(unsigned int j = 0; j < m; j++) steps += dt*B(m,j)*K[j];    // Loop to calculate the m-th slope
        
@@ -81,19 +81,20 @@ struct ExplicitRungeKutta {
      * @param X0    the initial value of the ODE.
      * @param jump  value for reducing the stored output
      * 
-     * @return      std::vector of Eigen::VectorXf of integrated ODE solution.
+     * @return      std::vector of Eigen::VectorXd of integrated ODE solution.
     */
     template<typename Function>
-    std::vector<Eigen::VectorXf> solve(Function &&f, const Eigen::VectorXf &X0, unsigned int jump=10)
+    std::vector<Eigen::VectorXd> solve(Function &&f, const Eigen::VectorXd &X0, unsigned int jump=11)
     {
-        Eigen::VectorXf Sols[jump];                         ///< Creating a temporary buffer for the solutions
+        Eigen::VectorXd Sols[jump];                         ///< Creating a temporary buffer for the solutions
         Sols[0] = X0;
-        std::vector<Eigen::VectorXf> Solutions;             ///< Create empty the solution vector
+        std::vector<Eigen::VectorXd> Solutions;             ///< Create empty the solution vector
         Solutions.push_back(X0);                            ///< Start by initial conditions
         int k = 1;
 
         // Loop over time steps to create solution at each new timestep
         for(unsigned int i = 0; i < num_steps; ++i){
+            
             Sols[k] = CalculateRKSummand(f,Sols[k-1]);
             k++;
             if (k == jump){                                 

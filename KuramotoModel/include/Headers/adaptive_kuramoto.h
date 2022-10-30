@@ -11,31 +11,34 @@
 struct AdaptiveKuramoto final : AbstractModel{
 
 	AdaptiveKuramoto();
-	AdaptiveKuramoto(Eigen::VectorXf W_IN, Eigen::MatrixXf K0_IN,
-					 float ro_in 			= 0.2, 
-					 float t0_in			= 0,
-					 float t_end_in			= 1,
-					 float epsilon_in		= 0.01,
-					 float num_steps_in		= 100);
+	AdaptiveKuramoto(Eigen::VectorXd W_IN, Eigen::MatrixXd K0_IN,
+					 double ro_in 			= 0.2, 
+					 double t0_in			= 0,
+					 double t_end_in		= 1,
+					 double epsilon_in		= 0.01,
+					 double num_steps_in	= 100);
 
 	virtual ~AdaptiveKuramoto();
 
 /***********************************************************************
  * Methods
 */
-	std::vector<std::vector<Eigen::MatrixXf>> UnpackSolveOutput(std::vector<Eigen::VectorXf> &U);
+	std::vector<std::vector<Eigen::MatrixXd>> UnpackSolveOutput(std::vector<Eigen::VectorXd> &U);
 
-	virtual Eigen::VectorXf FlatConcatenate(Eigen::VectorXf &U, const Eigen::VectorXf &V, const Eigen::MatrixXf &A);
+	virtual Eigen::VectorXd FlatConcatenate(Eigen::VectorXd &U, const Eigen::VectorXd &V, const Eigen::MatrixXd &A);
 
-	virtual Eigen::VectorXf UnpackPhases(const Eigen::VectorXf &U);
+	virtual Eigen::VectorXd UnpackPhases(const Eigen::VectorXd &U);
 
-	virtual Eigen::MatrixXf UnpackWeights(const Eigen::VectorXf &U);
+	virtual Eigen::MatrixXd UnpackWeights(const Eigen::VectorXd &U);
 
-	virtual Eigen::MatrixXf DistanceMatrix(const Eigen::VectorXf &U);
+	virtual Eigen::MatrixXd DistanceMatrix(const Eigen::VectorXd &U);
 
-	virtual Eigen::VectorXf Dynamics(Eigen::VectorXf &U, const float &a=0, const float &b=0);
+	virtual Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a=0, const double &b=0);
 
-	virtual std::vector<std::vector<Eigen::MatrixXf>> run(const Eigen::VectorXf &X0, const float &a, const float &b, unsigned int jump);
+	virtual std::vector<std::vector<Eigen::MatrixXd>> run(const Eigen::VectorXd &X0, const double &a, const double &b, unsigned int jump);
+
+	virtual std::vector<double> OrderParameter(Eigen::VectorXd &PHI, unsigned int &m);
+
 
 
 };

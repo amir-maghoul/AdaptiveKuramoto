@@ -4,7 +4,7 @@ using namespace Eigen;
 
 namespace plt = matplotlibcpp;
 
-void write_data(string file_name, vector<MatrixXf> matrix, size_t jump)
+void write_data(string file_name, vector<MatrixXd> matrix, size_t jump)
 {
     cout << "Writing data..."<< endl;
     fstream file;
@@ -21,11 +21,13 @@ void write_data(string file_name, vector<MatrixXf> matrix, size_t jump)
     file.close();
 }
 
-void RandomMatrix()
+void TestOrderParameter();
+
+void TestClustering()
 {   
     const int n = 100;
-    typedef Eigen::Matrix<float, n, 1> Vector100f;
-    typedef Eigen::Matrix<float, n, n> Matrix100f;
+    typedef Eigen::Matrix<double, n, 1> Vector100f;
+    typedef Eigen::Matrix<double, n, n> Matrix100f;
     Vector100f W0;
     Vector100f U0;
     Matrix100f K0;
@@ -41,9 +43,9 @@ void RandomMatrix()
     obj.ro = 1;
     unsigned int jump = 1000;
 
-    vector<vector<MatrixXf>> output = obj.run(U0, 0.3*M_PI, 0.53*M_PI, jump);
+    vector<vector<MatrixXd>> output = obj.run(U0, 0.3*M_PI, 0.53*M_PI, jump);
 
-    string file_loc = "txt_outputs/vector_file.txt";
+    string file_loc = "txt_outputs/clustering_file.txt";
     write_data(file_loc, output[1], 100);
 
 };
