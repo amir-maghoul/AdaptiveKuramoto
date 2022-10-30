@@ -6,13 +6,13 @@
  * ******************************************************************
 */
 AbstractModel::AbstractModel(){};
-AbstractModel::AbstractModel(Eigen::VectorXd W_IN, 
-							 Eigen::MatrixXd K0_IN, 
-							 double ro_in, 
-							 double t0_in,
-							 double t_end_in,
-							 double epsilon_in,
-							 double num_steps_in)
+AbstractModel::AbstractModel(Eigen::VectorXf W_IN, 
+							 Eigen::MatrixXf K0_IN, 
+							 float ro_in, 
+							 float t0_in,
+							 float t_end_in,
+							 float epsilon_in,
+							 float num_steps_in)
 	:	W{W_IN}, K0{K0_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, num_steps{num_steps_in}, n{W.size()}{
 };
 AbstractModel::~AbstractModel(){

@@ -6,6 +6,7 @@
 #include "include/Headers/adaptive_kuramoto.h"
 #include <Matplotlib/matplotlibcpp.h>
 #include <iostream>
+#include <fstream>
 #include <Eigen/Dense>
 
 void RandomMatrix();

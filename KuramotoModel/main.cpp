@@ -13,8 +13,8 @@ using namespace std;
 using namespace Eigen;
 
 int main(){
-    Eigen::Matrix<double, 3, 1> w {M_PI/6, M_PI, M_PI/2};
-    Eigen::Matrix3d K0;
+    Eigen::Matrix<float, 3, 1> w {M_PI/6, M_PI, M_PI/2};
+    Eigen::Matrix3f K0;
     K0 <<  0,   0.2,  1.1,
            0.5, 0,   -0.7,
            0.3, 0.9,  0;
@@ -24,11 +24,15 @@ int main(){
     AdaptiveKuramoto empty(w, K0);
     empty.num_steps = 100;
 
-    Eigen::Vector3d X0(0, M_PI, 0);
-    std::vector<std::vector<Eigen::MatrixXd>> d = empty.run(X0, 1, 2);
+    // Eigen::Vector3d X0(0, M_PI, 0);
+    // std::vector<std::vector<Eigen::MatrixXd>> d = empty.run(X0, 1, 2);
 
-    adaptiveKuramoto();
+
+    cout << empty.n << endl;
+    // LotkaVolterra();
+    // adaptiveKuramoto();
     RandomMatrix();
+
 
 
     return 0;
