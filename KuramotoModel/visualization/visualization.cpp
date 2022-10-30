@@ -1,35 +1,40 @@
 #include "visualization/visualization.h"
 #include <Eigen/Dense>
-using namespace std;
 
 void adaptiveKuramoto(){
 
-    Eigen::Vector3f w {28, 19, 11};
-    Eigen::Matrix3f K0;
+    Eigen::Vector3d w {28, 19, 11};
+    Eigen::Matrix3d K0;
     K0 <<  0,   0.2,  1.1,
            0.5, 0,   -0.7,
            0.3, 0.9,  0;
     
     AdaptiveKuramoto obj(w, K0);
     obj.num_steps = 1000;
-    obj.epsilon = 0;
+    obj.epsilon = 0.01;
     obj.ro = 1;
-    Eigen::Vector3f X0(0, M_PI, 0);
+    obj.t_end = 40;
+    int jump = 2;
 
-    std::vector<std::vector<Eigen::MatrixXf>> output = obj.run(X0, 0, 0, 10);
+    Eigen::Vector3d X0(0, M_PI, 0);
+    std::vector<std::vector<Eigen::MatrixXd>> output = obj.run(X0, 0, 0, jump);
 
-    std::vector<float> t(obj.num_steps-1);
-    std::vector<float> u0(obj.num_steps-1);
-    std::vector<float> u1(obj.num_steps-1);
-    std::vector<float> u2(obj.num_steps-1);
-    std::vector<Eigen::Vector3f> PHI_DOT(obj.num_steps);
-    float h = (obj.t_end - obj.t0)/(float) obj.num_steps;
 
+
+    int real_steps = (int) obj.num_steps/(jump-1);
+
+    std::vector<double> t(real_steps);
+    std::vector<double> u0(real_steps);
+    std::vector<double> u1(real_steps);
+    std::vector<double> u2(real_steps);
+    std::vector<Eigen::Vector3d> PHI_DOT(real_steps);
+    double h = (obj.t_end - obj.t0)/(double) real_steps;
+    
+    std::cout << obj.n << std::endl;
     for(size_t i = 0; i < t.size(); i++) {
         t[i] = i*h;
         PHI_DOT[i] = (output[0][i+1] - output[0][i])*(1.0/h);
     };
-
 
     for(size_t i = 0; i < t.size(); i++) {
         u0[i] = PHI_DOT[i](0);
@@ -59,25 +64,25 @@ void LotkaVolterra(){
   unsigned int steps = 1000;
   unsigned int t0 = 0;
   unsigned int tend = 10;
-  unsigned int jump = 10;
-  int saved_steps = (int) steps/jump;
+  unsigned int jump = 11;
+  int saved_steps = (int) steps/(jump-1);
 
 
-  auto f = [] (Eigen::VectorXf y) {
-    Eigen::VectorXf df(2);
+  auto f = [] (Eigen::VectorXd y) {
+    Eigen::VectorXd df(2);
     df << y(0)*(4-4.0/3*y(1)) , -y(1)*(0.8-0.4*y(0));
 
     return df;
   };
 
-  Eigen::VectorXf y0(2);
+  Eigen::VectorXd y0(2);
   y0 << 6,3;
 
   /**
    * Solve using built in solver:
    */
 
-  std::vector<Eigen::VectorXf> result = ExplicitRKSolvers::Explicit4thOrderRK(f, y0, steps, t0, tend, jump);
+  std::vector<Eigen::VectorXd> result = ExplicitRKSolvers::Explicit4thOrderRK(f, y0, steps, t0, tend, jump);
 
   std::vector<double> t(saved_steps);
   std::vector<double> prey(saved_steps);
@@ -121,8 +126,8 @@ void LorenzAttractor(){
   float rho = 28;
   float beta = 8.0/3;
 
-  auto f = [beta,sigma,rho] (Eigen::VectorXf y) {
-    Eigen::VectorXf df(3);
+  auto f = [beta,sigma,rho] (Eigen::VectorXd y) {
+    Eigen::VectorXd df(3);
     df << sigma*(y(1) - y(0)), 
           y(0)*(rho-y(2)) - y(1),
           y(0)*y(1) - beta*y(2);
@@ -132,14 +137,14 @@ void LorenzAttractor(){
 
 
 
-  Eigen::VectorXf y0(3);
+  Eigen::VectorXd y0(3);
   y0 << 1,1,1;
 
   /**
    * Solve using built in solver:
    */
 
-  std::vector<Eigen::VectorXf> result = ExplicitRKSolvers::Explicit4thOrderRK(f,y0, steps, 0, 10);
+  std::vector<Eigen::VectorXd> result = ExplicitRKSolvers::Explicit4thOrderRK(f,y0, steps, 0, 10);
 
   std::vector<double> x(steps);
   std::vector<double> y(steps);
