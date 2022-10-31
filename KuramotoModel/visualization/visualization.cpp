@@ -1,5 +1,5 @@
 #include "visualization/visualization.h"
-#include <Eigen/Dense>
+#include <eigen/Dense>
 
 void adaptiveKuramoto(){
 

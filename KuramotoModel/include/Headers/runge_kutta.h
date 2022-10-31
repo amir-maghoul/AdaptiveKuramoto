@@ -7,7 +7,7 @@
 #ifndef _RUNGE_KUTTA_H_
 #define _RUNGE_KUTTA_H_
 
-#include <Eigen/Dense>
+#include <eigen/Dense>
 #include <iostream>
 #include <vector>
 

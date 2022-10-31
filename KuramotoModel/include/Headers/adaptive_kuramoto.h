@@ -6,7 +6,7 @@
 #include <iostream>
 #include <cmath>
 #include <algorithm>
-#include <Eigen/Dense>
+#include <eigen/Dense>
 
 struct AdaptiveKuramoto final : AbstractModel{
 

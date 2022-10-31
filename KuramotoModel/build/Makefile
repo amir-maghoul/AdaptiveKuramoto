@@ -174,29 +174,29 @@ main/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/build
 .PHONY : main/fast
 
-Examples/examples.o: Examples/examples.cpp.o
-.PHONY : Examples/examples.o
+examples/examples.o: examples/examples.cpp.o
+.PHONY : examples/examples.o
 
 # target to build an object file
-Examples/examples.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Examples/examples.cpp.o
-.PHONY : Examples/examples.cpp.o
+examples/examples.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/examples/examples.cpp.o
+.PHONY : examples/examples.cpp.o
 
-Examples/examples.i: Examples/examples.cpp.i
-.PHONY : Examples/examples.i
+examples/examples.i: examples/examples.cpp.i
+.PHONY : examples/examples.i
 
 # target to preprocess a source file
-Examples/examples.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Examples/examples.cpp.i
-.PHONY : Examples/examples.cpp.i
+examples/examples.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/examples/examples.cpp.i
+.PHONY : examples/examples.cpp.i
 
-Examples/examples.s: Examples/examples.cpp.s
-.PHONY : Examples/examples.s
+examples/examples.s: examples/examples.cpp.s
+.PHONY : examples/examples.s
 
 # target to generate assembly for a file
-Examples/examples.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/Examples/examples.cpp.s
-.PHONY : Examples/examples.cpp.s
+examples/examples.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main.dir/build.make CMakeFiles/main.dir/examples/examples.cpp.s
+.PHONY : examples/examples.cpp.s
 
 include/ContinuumModel/continuum_limit.o: include/ContinuumModel/continuum_limit.cpp.o
 .PHONY : include/ContinuumModel/continuum_limit.o
@@ -331,9 +331,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... main"
-	@echo "... Examples/examples.o"
-	@echo "... Examples/examples.i"
-	@echo "... Examples/examples.s"
+	@echo "... examples/examples.o"
+	@echo "... examples/examples.i"
+	@echo "... examples/examples.s"
 	@echo "... include/ContinuumModel/continuum_limit.o"
 	@echo "... include/ContinuumModel/continuum_limit.i"
 	@echo "... include/ContinuumModel/continuum_limit.s"

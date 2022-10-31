@@ -1,6 +1,6 @@
 file(REMOVE_RECURSE
-  "CMakeFiles/main.dir/Examples/examples.cpp.o"
-  "CMakeFiles/main.dir/Examples/examples.cpp.o.d"
+  "CMakeFiles/main.dir/examples/examples.cpp.o"
+  "CMakeFiles/main.dir/examples/examples.cpp.o.d"
   "CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o"
   "CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o.d"
   "CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o"

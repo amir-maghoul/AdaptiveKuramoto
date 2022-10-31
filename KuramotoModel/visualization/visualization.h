@@ -4,8 +4,8 @@
 #include "include/Headers/adaptive_kuramoto.h"
 #include "include/Headers/solvers.h"
 #include "include/Headers/runge_kutta.h"
-#include <Matplotlib/matplotlibcpp.h>
-#include <Eigen/Dense>
+#include <matplotlibcpp/matplotlibcpp.h>
+#include <eigen/Dense>
 #include <iostream> 
 
 namespace plt = matplotlibcpp;

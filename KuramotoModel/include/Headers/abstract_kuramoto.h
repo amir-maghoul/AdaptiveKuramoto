@@ -2,7 +2,7 @@
 #define _KURAMOTO_ABSTRACT_H_
 
 #include <iostream>
-#include <Eigen/Dense>
+#include <eigen/Dense>
 #include <vector>
 
 struct AbstractModel {

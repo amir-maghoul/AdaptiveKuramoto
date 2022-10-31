@@ -73,85 +73,85 @@ CMakeFiles/main.dir/main.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/main.cpp.o: ../main.cpp
 CMakeFiles/main.dir/main.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amir/AdaptiveKuramoto/KuramotoModel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/main.dir/main.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/main.cpp.o -MF CMakeFiles/main.dir/main.cpp.o.d -o CMakeFiles/main.dir/main.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/main.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/main.cpp.o -MF CMakeFiles/main.dir/main.cpp.o.d -o CMakeFiles/main.dir/main.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/main.cpp
 
 CMakeFiles/main.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/main.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/main.cpp > CMakeFiles/main.dir/main.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/main.cpp > CMakeFiles/main.dir/main.cpp.i
 
 CMakeFiles/main.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/main.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/main.cpp -o CMakeFiles/main.dir/main.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/main.cpp -o CMakeFiles/main.dir/main.cpp.s
 
 CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o: ../include/DiscreteModel/adaptive_kuramoto.cpp
 CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amir/AdaptiveKuramoto/KuramotoModel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o -MF CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o.d -o CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/adaptive_kuramoto.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o -MF CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o.d -o CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/adaptive_kuramoto.cpp
 
 CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/adaptive_kuramoto.cpp > CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/adaptive_kuramoto.cpp > CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.i
 
 CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/adaptive_kuramoto.cpp -o CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/adaptive_kuramoto.cpp -o CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.s
 
 CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o: ../include/DiscreteModel/abstract_kuramoto.cpp
 CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amir/AdaptiveKuramoto/KuramotoModel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o -MF CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o.d -o CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/abstract_kuramoto.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o -MF CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o.d -o CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/abstract_kuramoto.cpp
 
 CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/abstract_kuramoto.cpp > CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/abstract_kuramoto.cpp > CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.i
 
 CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/abstract_kuramoto.cpp -o CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/include/DiscreteModel/abstract_kuramoto.cpp -o CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.s
 
 CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o: ../include/ContinuumModel/continuum_limit.cpp
 CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amir/AdaptiveKuramoto/KuramotoModel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o -MF CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o.d -o CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/include/ContinuumModel/continuum_limit.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o -MF CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o.d -o CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/include/ContinuumModel/continuum_limit.cpp
 
 CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/include/ContinuumModel/continuum_limit.cpp > CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/include/ContinuumModel/continuum_limit.cpp > CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.i
 
 CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/include/ContinuumModel/continuum_limit.cpp -o CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/include/ContinuumModel/continuum_limit.cpp -o CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.s
 
-CMakeFiles/main.dir/Examples/examples.cpp.o: CMakeFiles/main.dir/flags.make
-CMakeFiles/main.dir/Examples/examples.cpp.o: ../Examples/examples.cpp
-CMakeFiles/main.dir/Examples/examples.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amir/AdaptiveKuramoto/KuramotoModel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/Examples/examples.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/Examples/examples.cpp.o -MF CMakeFiles/main.dir/Examples/examples.cpp.o.d -o CMakeFiles/main.dir/Examples/examples.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/Examples/examples.cpp
+CMakeFiles/main.dir/examples/examples.cpp.o: CMakeFiles/main.dir/flags.make
+CMakeFiles/main.dir/examples/examples.cpp.o: ../examples/examples.cpp
+CMakeFiles/main.dir/examples/examples.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amir/AdaptiveKuramoto/KuramotoModel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/main.dir/examples/examples.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/examples/examples.cpp.o -MF CMakeFiles/main.dir/examples/examples.cpp.o.d -o CMakeFiles/main.dir/examples/examples.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/examples/examples.cpp
 
-CMakeFiles/main.dir/Examples/examples.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/Examples/examples.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/Examples/examples.cpp > CMakeFiles/main.dir/Examples/examples.cpp.i
+CMakeFiles/main.dir/examples/examples.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/examples/examples.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/examples/examples.cpp > CMakeFiles/main.dir/examples/examples.cpp.i
 
-CMakeFiles/main.dir/Examples/examples.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/Examples/examples.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/Examples/examples.cpp -o CMakeFiles/main.dir/Examples/examples.cpp.s
+CMakeFiles/main.dir/examples/examples.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/examples/examples.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/examples/examples.cpp -o CMakeFiles/main.dir/examples/examples.cpp.s
 
 CMakeFiles/main.dir/visualization/visualization.cpp.o: CMakeFiles/main.dir/flags.make
 CMakeFiles/main.dir/visualization/visualization.cpp.o: ../visualization/visualization.cpp
 CMakeFiles/main.dir/visualization/visualization.cpp.o: CMakeFiles/main.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/amir/AdaptiveKuramoto/KuramotoModel/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/main.dir/visualization/visualization.cpp.o"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/visualization/visualization.cpp.o -MF CMakeFiles/main.dir/visualization/visualization.cpp.o.d -o CMakeFiles/main.dir/visualization/visualization.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/visualization/visualization.cpp
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/main.dir/visualization/visualization.cpp.o -MF CMakeFiles/main.dir/visualization/visualization.cpp.o.d -o CMakeFiles/main.dir/visualization/visualization.cpp.o -c /home/amir/AdaptiveKuramoto/KuramotoModel/visualization/visualization.cpp
 
 CMakeFiles/main.dir/visualization/visualization.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/main.dir/visualization/visualization.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/visualization/visualization.cpp > CMakeFiles/main.dir/visualization/visualization.cpp.i
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/amir/AdaptiveKuramoto/KuramotoModel/visualization/visualization.cpp > CMakeFiles/main.dir/visualization/visualization.cpp.i
 
 CMakeFiles/main.dir/visualization/visualization.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/main.dir/visualization/visualization.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/visualization/visualization.cpp -o CMakeFiles/main.dir/visualization/visualization.cpp.s
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/amir/AdaptiveKuramoto/KuramotoModel/visualization/visualization.cpp -o CMakeFiles/main.dir/visualization/visualization.cpp.s
 
 # Object files for target main
 main_OBJECTS = \
@@ -159,7 +159,7 @@ main_OBJECTS = \
 "CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o" \
 "CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o" \
 "CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o" \
-"CMakeFiles/main.dir/Examples/examples.cpp.o" \
+"CMakeFiles/main.dir/examples/examples.cpp.o" \
 "CMakeFiles/main.dir/visualization/visualization.cpp.o"
 
 # External object files for target main
@@ -169,7 +169,7 @@ main: CMakeFiles/main.dir/main.cpp.o
 main: CMakeFiles/main.dir/include/DiscreteModel/adaptive_kuramoto.cpp.o
 main: CMakeFiles/main.dir/include/DiscreteModel/abstract_kuramoto.cpp.o
 main: CMakeFiles/main.dir/include/ContinuumModel/continuum_limit.cpp.o
-main: CMakeFiles/main.dir/Examples/examples.cpp.o
+main: CMakeFiles/main.dir/examples/examples.cpp.o
 main: CMakeFiles/main.dir/visualization/visualization.cpp.o
 main: CMakeFiles/main.dir/build.make
 main: /usr/lib/x86_64-linux-gnu/libpython3.10.so

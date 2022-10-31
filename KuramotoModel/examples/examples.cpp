@@ -1,4 +1,4 @@
-#include "Examples/examples.h"
+#include "examples/examples.h"
 using namespace std;
 using namespace Eigen;
 

@@ -408,6 +408,9 @@ CMakeFiles/main.dir/Examples/examples.cpp.o: \
  /home/amir/AdaptiveKuramoto/KuramotoModel/Eigen/src/Eigenvalues/MatrixBaseEigenvalues.h \
  /usr/include/c++/11/iostream \
  /home/amir/AdaptiveKuramoto/KuramotoModel/include/Headers/runge_kutta.h \
+ /home/amir/AdaptiveKuramoto/KuramotoModel/include/Headers/adaptive_kuramoto.h \
+ /home/amir/AdaptiveKuramoto/KuramotoModel/include/Headers/abstract_kuramoto.h \
+ /home/amir/AdaptiveKuramoto/KuramotoModel/include/Headers/solvers.h \
  /home/amir/AdaptiveKuramoto/KuramotoModel/Matplotlib/matplotlibcpp.h \
  /usr/include/python3.10/Python.h /usr/include/python3.10/patchlevel.h \
  /usr/include/python3.10/pyconfig.h \
@@ -518,7 +521,8 @@ CMakeFiles/main.dir/Examples/examples.cpp.o: \
  /usr/include/c++/11/bits/stl_tree.h /usr/include/c++/11/bits/stl_map.h \
  /usr/include/c++/11/bits/stl_multimap.h /usr/include/c++/11/numeric \
  /usr/include/c++/11/bits/stl_numeric.h /usr/include/c++/11/bit \
- /usr/include/c++/11/pstl/glue_numeric_defs.h \
- /home/amir/AdaptiveKuramoto/KuramotoModel/include/Headers/adaptive_kuramoto.h \
- /home/amir/AdaptiveKuramoto/KuramotoModel/include/Headers/abstract_kuramoto.h \
- /home/amir/AdaptiveKuramoto/KuramotoModel/include/Headers/solvers.h
+ /usr/include/c++/11/pstl/glue_numeric_defs.h /usr/include/c++/11/fstream \
+ /usr/include/c++/11/bits/codecvt.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/basic_file.h \
+ /usr/include/x86_64-linux-gnu/c++/11/bits/c++io.h \
+ /usr/include/c++/11/bits/fstream.tcc
