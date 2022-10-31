@@ -50,11 +50,11 @@ std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::UnpackSolveOutput(st
 /**
  * Packs a vector and a flattend matrix to create a long vector
  * 
- * @param U	Eigen::VectorXd the target vector in which the output value must be stored
- * @param V Eigen::VectorXd the input vector: the first n elements of the output
- * @param A Eigen::MatrixXd the input Matrix: the last n^2 elements of the output
+ * @param U		Eigen::VectorXd the target vector in which the output value must be stored
+ * @param V 	Eigen::VectorXd the input vector: the first n elements of the output
+ * @param A 	Eigen::MatrixXd the input Matrix: the last n^2 elements of the output
  * 
- * @return Eigen::VectorXd
+ * @return 		Eigen::VectorXd
 */
 Eigen::VectorXd AdaptiveKuramoto::FlatConcatenate(Eigen::VectorXd &U, const Eigen::VectorXd &V, const Eigen::MatrixXd &A)
 {
@@ -65,9 +65,9 @@ Eigen::VectorXd AdaptiveKuramoto::FlatConcatenate(Eigen::VectorXd &U, const Eige
 /**
  * Reads the first n elements of the input vector
  * 
- * @param U Eigen::VectorXd the long input vector
+ * @param U 	Eigen::VectorXd the long input vector
  * 
- * @return Eigen::VectorXd phases
+ * @return 		Eigen::VectorXd phases
 */
 Eigen::VectorXd AdaptiveKuramoto::UnpackPhases(const Eigen::VectorXd &U)
 {	
@@ -77,9 +77,9 @@ Eigen::VectorXd AdaptiveKuramoto::UnpackPhases(const Eigen::VectorXd &U)
 /**
  * Reads the last n^2 elements of the input vector and reshapes them into a matrix
  * 
- * @param U Eigen::VectorXd the long input vector
+ * @param U 	Eigen::VectorXd the long input vector
  * 
- * @return Eigen::MatrixXd the adjacency matrix
+ * @return 		Eigen::MatrixXd the adjacency matrix
 */
 Eigen::MatrixXd AdaptiveKuramoto::UnpackWeights(const Eigen::VectorXd &U)
 {
@@ -91,9 +91,9 @@ Eigen::MatrixXd AdaptiveKuramoto::UnpackWeights(const Eigen::VectorXd &U)
  * In order to do so, first creates matrices of copied columns and rows of the input vector and 
  * then returns the distance of the two matrices
  * 
- * @param U Eigen::MatrixXd The *column* vector from which the difference matrix is created
+ * @param U 	Eigen::MatrixXd The *column* vector from which the difference matrix is created
  * 
- * @return Eigen::MatrixXd
+ * @return 		Eigen::MatrixXd
 */
 Eigen::MatrixXd AdaptiveKuramoto::DistanceMatrix(const Eigen::VectorXd &U)
 {
@@ -117,11 +117,11 @@ Eigen::MatrixXd AdaptiveKuramoto::DistanceMatrix(const Eigen::VectorXd &U)
  * v_ij = sin(phi_i - phi_j + a)
  * dot(phi) = w + (A .* V).sum(axis=1)
  * 
- * @param U Eigen::MatrixXd The *column* vector of phases and flattend adjacency matrix concatenated
- * @param a double coupling phase lag
- * @param b double coupling adaptation lag
+ * @param U 	Eigen::MatrixXd The *column* vector of phases and flattend adjacency matrix concatenated
+ * @param a 	double coupling phase lag
+ * @param b 	double coupling adaptation lag
  * 
- * @return Eigen::MatrixXd The concatenated vector of derivatives of phases and flattened derivative of adjacency matrix
+ * @return 		Eigen::MatrixXd The concatenated vector of derivatives of phases and flattened derivative of adjacency matrix
 */
 Eigen::VectorXd AdaptiveKuramoto::Dynamics(Eigen::VectorXd &U, const double &a, const double &b)
 {
@@ -158,11 +158,12 @@ Eigen::VectorXd AdaptiveKuramoto::Dynamics(Eigen::VectorXd &U, const double &a, 
  * The initial adjacency matrix is the same as initial topology of the system, therefore the 
  * class attribute K0.
  * 
- * @param U0 Eigen::VectorXd the initial state of the system
- * @param a double coupling phase lag
- * @param b double coupling adaptation lag
- * 
- * @return std::vector<Eigen::VectorXd> the state of the system at each timestep
+ * @param U0 	Eigen::VectorXd the initial state of the system
+ * @param a 	double coupling phase lag
+ * @param b 	double coupling adaptation lag
+ * @param jump 	the length of solution buffer: only every jump-th step is stored. To store all steps set jump = 2
+ *  
+ * @return 		std::vector<Eigen::VectorXd> the state of the system at each timestep
 */
 std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::run(const Eigen::VectorXd &X0, const double &a, const double &b, unsigned int jump)
 {
@@ -188,10 +189,10 @@ std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::run(const Eigen::Vec
 /**
  * Computes the m-th order parameter
  * 
- * @param PHI std::vector<Eigen::VectorXd> of phases of the oscillators
- * @param m unsigned int the m-th order
+ * @param PHI 	std::vector<Eigen::VectorXd> of phases of the oscillators
+ * @param m 	unsigned int the m-th order
  * 
- * @return nested vector of order parameter values and the ang
+ * @return 		nested vector of order parameter values and the ang
 */
 std::vector<double> AdaptiveKuramoto::OrderParameter(Eigen::VectorXd PHI, const unsigned int &m)
 {

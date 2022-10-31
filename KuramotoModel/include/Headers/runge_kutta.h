@@ -75,7 +75,8 @@ struct ExplicitRungeKutta {
     /**
      * The Runge Kutta solver. Uses CalculateRKSummand to solve the ODE at different time steps.
      * The jump parameter allows us to store reduced number of data.
-     * For exmaple if jump = 4, every 4th calculated value is stored as output
+     * For exmaple if jump = 4, every 4th calculated value is stored as output.
+     * To store all calculated steps, set jump=2.
      *
      * @param f     the right hand side function of the ODE.
      * @param X0    the initial value of the ODE.
