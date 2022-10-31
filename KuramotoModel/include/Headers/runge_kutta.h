@@ -86,23 +86,22 @@ struct ExplicitRungeKutta {
     template<typename Function>
     std::vector<Eigen::VectorXd> solve(Function &&f, const Eigen::VectorXd &X0, unsigned int jump=11)
     {
-        Eigen::VectorXd Sols[jump];                         ///< Creating a temporary buffer for the solutions
-        Sols[0] = X0;
-        std::vector<Eigen::VectorXd> Solutions;             ///< Create empty the solution vector
-        Solutions.push_back(X0);                            ///< Start by initial conditions
+        Eigen::VectorXd SolutionBuffer[jump];                       ///< Creating a temporary buffer for the solutions
+        SolutionBuffer[0] = X0;
+        std::vector<Eigen::VectorXd> Solutions;                     ///< Create empty the solution vector
+        Solutions.push_back(X0);                                    ///< Start by initial conditions
         int k = 1;
 
         // Loop over time steps to create solution at each new timestep
         for(unsigned int i = 0; i < num_steps; ++i){
-            
-            Sols[k] = CalculateRKSummand(f,Sols[k-1]);
+            SolutionBuffer[k] = CalculateRKSummand(f,SolutionBuffer[k-1]);
             k++;
             if (k == jump){                                 
-                Solutions.push_back(Sols[k-1]);             ///< Storing every (jumps)-th value as output
-                Sols[0] = Sols[k-1];                        ///< Overwriting the buffer
+                Solutions.push_back(SolutionBuffer[k-1]);           ///< Storing every (jumps)-th value as output
+                SolutionBuffer[0] = SolutionBuffer[k-1];            ///< Overwriting the buffer
                 k = 1;
             };
-        }
+        };
         return Solutions;
     };
 
