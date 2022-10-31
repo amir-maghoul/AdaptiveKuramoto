@@ -23,11 +23,11 @@ target_link_libraries(pNumpy INTERFACE
 add_definitions(-DWITHOUT_NUMPY)
 
 
-set(EIGEN3_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Eigen/" )
+set(EIGEN3_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/eigen/" )
 add_library(Eigen INTERFACE)
 target_link_libraries(Eigen INTERFACE ${EIGEN3_INCLUDE_DIR})
 
-set(MATPLOTLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/Matplotlib/" )
+set(MATPLOTLIB_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/matplotlibcpp/" )
 add_library(Matplotlib INTERFACE)
 target_link_libraries(Eigen INTERFACE ${MATPLOTLIB_INCLUDE_DIR})
 
@@ -36,7 +36,7 @@ target_sources(main PUBLIC "main.cpp")
 target_link_libraries(main pNumpy Eigen Matplotlib)
 target_include_directories(main PUBLIC ${PROJECT_SOURCE_DIR})
 add_subdirectory("include")
-add_subdirectory("Examples")
+add_subdirectory("examples")
 add_subdirectory("visualization")
 install(TARGETS main)
 set(CMAKE_C_FLAGS_DEBUG "-g -DDEBUG")
