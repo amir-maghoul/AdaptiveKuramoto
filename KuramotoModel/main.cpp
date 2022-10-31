@@ -29,9 +29,9 @@ int main(){
 
 
     // LotkaVolterra();
-    // adaptiveKuramoto();
+    adaptiveKuramoto();
     // TestClustering();
-    TestOrderParameter();
+    // TestOrderParameter();
 
 
 

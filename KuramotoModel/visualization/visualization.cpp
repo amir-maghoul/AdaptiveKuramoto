@@ -11,7 +11,7 @@ void adaptiveKuramoto(){
     
     AdaptiveKuramoto obj(w, K0);
     obj.num_steps = 1000;
-    obj.epsilon = 0.01;
+    obj.epsilon = 0.02;
     obj.ro = 1;
     obj.t_end = 40;
     int jump = 2;
