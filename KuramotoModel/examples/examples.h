@@ -9,6 +9,7 @@
 #include <fstream>
 #include <eigen/Dense>
 
+void PlotPhi();
 void TestOrderParameter();
 void TestClustering();
 

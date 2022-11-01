@@ -3,12 +3,14 @@
 
 void adaptiveKuramoto(){
 
-    Eigen::Vector3d w {28, 19, 11};
+    // Eigen::Vector3d w {28, 19, 11};
+    Eigen::Vector3d w;
+    w.setZero();
     Eigen::Matrix3d K0;
     K0 <<  0,   0.2,  1.1,
            0.5, 0,   -0.7,
            0.3, 0.9,  0;
-    
+
     AdaptiveKuramoto obj(w, K0);
     obj.num_steps = 1000;
     obj.epsilon = 0.02;
@@ -30,7 +32,6 @@ void adaptiveKuramoto(){
     std::vector<Eigen::Vector3d> PHI_DOT(real_steps);
     double h = (obj.t_end - obj.t0)/(double) real_steps;
     
-    std::cout << obj.n << std::endl;
     for(size_t i = 0; i < t.size(); i++) {
         t[i] = i*h;
         PHI_DOT[i] = (output[0][i+1] - output[0][i])*(1.0/h);

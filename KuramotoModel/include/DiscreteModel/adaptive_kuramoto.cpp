@@ -111,8 +111,8 @@ Eigen::MatrixXd AdaptiveKuramoto::DistanceMatrix(const Eigen::VectorXd &U)
  * Describes the adaptive Kuramoto system dynamic ODEs.
  * In order to calculate the ODE, an interaction matrix is created which is the matrix of sin() function applied to 
  * difference matrix: sin(phi_i - phi_j) as a matrix. Then to calculate the sum part of the formula, an elementwise 
- * multiplication of adjacency matrix with the interaction matrix is calculated and it is summed over the columns.
- * (in Eigen, sum over colums is calculated using M.rowwise().sum())
+ * multiplication of adjacency matrix with the interaction matrix is calculated and is summed for each rows.
+ * (in Eigen, summing each row is calculated using M.rowwise().sum())
  * 
  * v_ij = sin(phi_i - phi_j + a)
  * dot(phi) = w + (A .* V).sum(axis=1)
@@ -145,7 +145,7 @@ Eigen::VectorXd AdaptiveKuramoto::Dynamics(Eigen::VectorXd &U, const double &a, 
 	Eigen::VectorXd PHI_DOT;										///< Initializing the derivative vector of phases
 	Eigen::MatrixXd K_DOT;											///< Initializing the derivative matrix of adjacency coefficients
 
-	PHI_DOT = W + (ro/n)*(K.cwiseProduct(INTERACTION_PHI)).rowwise().sum(); ///< Formula: See the method documentation
+	PHI_DOT = W - (ro/n)*(K.cwiseProduct(INTERACTION_PHI)).rowwise().sum(); ///< Formula: See the method documentation
 	K_DOT 	= -epsilon*(K + INTERACTION_K);							///< Formula
 
 // Repacking the outut and concatenating the results again
@@ -194,7 +194,7 @@ std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::run(const Eigen::Vec
  * 
  * @return 		nested vector of order parameter values and the ang
 */
-std::vector<double> AdaptiveKuramoto::OrderParameter(Eigen::VectorXd PHI, const unsigned int &m)
+std::vector<double> AdaptiveKuramoto::OrderParameter(Eigen::VectorXd PHI, const unsigned int &m=1)
 {
 	double cos_phi_sum = (m*PHI).array().cos().sum();					///< Sum of cosine of each element of phases vector
 	double sin_phi_sum = (m*PHI).array().sin().sum();					///< Sum of sine of each element of phases vector
