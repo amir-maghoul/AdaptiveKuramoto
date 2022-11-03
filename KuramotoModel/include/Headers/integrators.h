@@ -4,22 +4,19 @@
 #include <vector>
 #include <eigen/Dense>
 
-template<class Function>
+
 struct Integrator
 {
     // Attributes
-    Function F;                      ///< Function to integrate over
     double lower_bound;                     ///< Lower bound of intergration
     double upper_bound;                     ///< Upper bound of integration
     int d;                                  ///< Number of discretization points on the space
     int n;                                  ///< Dimensions of the space/function
     double h;                               ///< Delta x
 
-
-    Integrator();
-    Integrator(Function f_in, double lower = 0, double upper = 1, int d_in = 50, int n_in = 1)
-            : F{f_in}, lower_bound{lower}, upper_bound{upper}, d{d_in}, n{n_in}, h{(upper_bound - lower_bound)/d}{};
-    ~Integrator(){};
+    Integrator(double lower = 0, double upper = 1, int d_in = 50, int n_in = 1)
+            : lower_bound{lower}, upper_bound{upper}, d{d_in}, n{n_in}, h{(upper_bound - lower_bound)/d}{};
+    ~Integrator(){std::cout << "Descructor of Integrator class was called" << std::endl;};
 
 
     /**
@@ -38,13 +35,14 @@ struct Integrator
     /**
      * 1D Trapozoidal Rule
     */
-    double TrapozoidalRule1D()
+   template<typename Function>
+    double TrapozoidalRule1D(Function F)
     {
         std::vector<double> DiscreteSpace = DiscretizeSpace();
-        double integral = F(DiscreteSpace[0]);
+        double integral;
         for (size_t i=1; i < d; ++i)
         {
-            integral += (1.0/h)*(F(DiscreteSpace[i])+F(DiscreteSpace[i-1]));
+            integral += (h/2)*(F(DiscreteSpace[i])+F(DiscreteSpace[i-1]));
         };
         return integral;
     };
@@ -59,15 +57,23 @@ struct Integrator
      * 
      * @return Eigen::VectorXd
     */
-    Eigen::VectorXd TrapozoidalRule1Din2D()
+    template<typename Function>
+    Eigen::VectorXd TrapozoidalRule1Din2D(Function &&F, std::string direction)
     {   
-        Eigen::VectorXd integral(d, d);
+        Eigen::VectorXd integral(d, 1);
+        integral.setZero();
         std::vector<double> DiscreteSpace = DiscretizeSpace();
+
         for (size_t i=0;i<d;++i)
         {
             for (size_t j=0;j<d;++j)
             {
-                integral[i] += (1.0/h)*(F(DiscreteSpace[i], DiscreteSpace[j])+F(DiscreteSpace[i], DiscreteSpace[j-1]));
+                if (direction == "x"){
+                    integral[i] += (h/2)*(F(DiscreteSpace[i], DiscreteSpace[j])+F(DiscreteSpace[i], DiscreteSpace[j-1]));
+                } 
+                else if (direction == "y"){
+                    integral[i] += (h/2)*(F(DiscreteSpace[j], DiscreteSpace[i])+F(DiscreteSpace[j-1], DiscreteSpace[i]));
+                }
             };
         };
         return integral;
