@@ -1,7 +1,6 @@
 #ifndef _ADAPTIVE_KURAMOTO_H_
 #define _ADAPTIVE_KURAMOTO_H_
 
-#include "abstract_kuramoto.h"
 #include "solvers.h"
 #include <iostream>
 #include <cmath>

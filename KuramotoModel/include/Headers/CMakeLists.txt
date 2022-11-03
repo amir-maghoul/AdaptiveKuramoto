@@ -1,5 +1,5 @@
 target_sources(main PRIVATE 
-	abstract_continuum_limit.h 
+	continuum_limit.h 
 	adaptive_kuramoto.h 
 	runge_kutta.h 
 	solvers.h
