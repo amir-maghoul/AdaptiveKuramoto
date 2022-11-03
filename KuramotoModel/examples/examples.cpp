@@ -104,7 +104,7 @@ void PlotPhi(){
 
     plt::figure();
     plt::title("Adaptive Kuramoto Model Phases");
-    plt::named_plot("Phase Velocity",t, u0);
+    plt::named_plot("Phase Velocity",t, u1);
     plt::xlabel("Time");
     plt::ylabel("Phase Velocity");
     plt::legend();

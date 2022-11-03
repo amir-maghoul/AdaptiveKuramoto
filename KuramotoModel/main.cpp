@@ -46,7 +46,7 @@ int main(){
 
     // LotkaVolterra();
     // TestClustering();
-    // PlotPhi();
+    PlotPhi();
     // TestOrderParameter();
 
 

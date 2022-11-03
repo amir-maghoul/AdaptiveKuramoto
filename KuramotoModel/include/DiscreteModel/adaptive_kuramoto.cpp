@@ -9,7 +9,8 @@ AdaptiveKuramoto::AdaptiveKuramoto(){};
  * Overloaded Constructor
 */
 AdaptiveKuramoto::AdaptiveKuramoto(Eigen::VectorXd W_IN, Eigen::MatrixXd K0_IN, double ro_in, double t0_in, double t_end_in, double epsilon_in, double num_steps_in)
-	:	AbstractModel(W_IN, K0_IN, ro_in, t0_in, t_end_in, epsilon_in, num_steps_in){};
+		:	W{W_IN}, K0{K0_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, num_steps{num_steps_in}, n{W.size()}{
+};
 
 /**
  * Destructor
