@@ -37,7 +37,7 @@ struct Integrator
      * 1D Trapozoidal Rule
     */
    template<typename Function>
-    double TrapozoidalRule1D(Function F)
+    double TrapozoidalRule1D(Function &&F)
     {
         std::vector<double> DiscreteSpace = DiscretizeSpace();
         double integral;
@@ -59,7 +59,7 @@ struct Integrator
      * @return Eigen::VectorXd
     */
     template<typename Function>
-    Eigen::VectorXd TrapozoidalRule1Din2D(Function &&F, std::string direction)
+    Eigen::VectorXd TrapozoidalRule1Din2D(Function &&F, const std::string &direction)
     {   
         Eigen::VectorXd integral(d, 1);
         integral.setZero();
