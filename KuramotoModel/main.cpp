@@ -1,4 +1,5 @@
 #include "include/Headers/adaptive_kuramoto.h"
+#include "include/Headers/continuum_limit.h"
 #include "include/Headers/runge_kutta.h"
 #include "include/Headers/solvers.h"
 #include "visualization/visualization.h"
@@ -45,8 +46,9 @@ int main(){
 
     // LotkaVolterra();
     // TestClustering();
-    PlotPhi();
-    TestOrderParameter();
+    // PlotPhi();
+    // TestOrderParameter();
+    func();
 
 
 
