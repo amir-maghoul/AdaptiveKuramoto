@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <eigen/Dense>
+#include <iostream>
 
 
 struct Integrator
