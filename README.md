@@ -13,6 +13,9 @@ The following naming convention is used throughout the project:
 2. Link the Eigen library to the project. This can be done by adding the following commands to the projects CMakeLists.txt:
 ```
 set(EIGEN3_INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/<path-to-Eigen-directory-in-project-tree>/" )
+add_library(Eigen INTERFACE)
+target_link_libraries(Eigen INTERFACE ${EIGEN3_INCLUDE_DIR})
+
 add_executable(<main-project-name>)
 target_sources(<main-project-name> PUBLIC "<main-source>.cpp")
 target_link_libraries(main ${EIGEN3_INCLUDE_DIR} <other-linked-libraries>)

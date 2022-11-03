@@ -1,6 +1,12 @@
 #ifndef _CONTINUUM_LIMIT_H_
 #define _CONTINUUM_LIMIT_H_
 
+#include "integrators.h"
+#include "solvers.h"
+#include <eigen/Dense>
+#include <vector>
+#include <cmath>
+#include <iostream>
 
 template<class Function>
 struct ContinuumLimit
@@ -21,7 +27,8 @@ struct ContinuumLimit
 					double t0_in			= 0,
 					double t_end_in		    = 1,
 					double epsilon_in		= 0.01,
-					double num_steps_in	    = 100);
+					double num_steps_in	    = 100,
+					int d_in				= 50);
 
 	~ContinuumLimit();
 
@@ -51,7 +58,7 @@ struct ContinuumLimit
 
 	/* Computes the m-th order parameter. */
 	std::vector<double> OrderParameter(Eigen::VectorXd PHI, const unsigned int &m);
-}
+};
 
 
 

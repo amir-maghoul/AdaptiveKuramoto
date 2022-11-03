@@ -48,7 +48,6 @@ int main(){
     // TestClustering();
     // PlotPhi();
     // TestOrderParameter();
-    func();
 
 
 
