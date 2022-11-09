@@ -35,31 +35,31 @@ struct ContinuumLimit
 /***********************************************************************
  * Methods
 */
-	/* Unpacks the output of solve() method into a nested vector of phases and matrices. */
-	std::vector<std::vector<Eigen::MatrixXd>> UnpackSolveOutput(std::vector<Eigen::VectorXd> &U);
 
-	/* Packs a vector and a flattend matrix to create a long vector. */
-	Eigen::VectorXd FlatConcatenate(Eigen::VectorXd &U, const Eigen::VectorXd &V, const Eigen::MatrixXd &A);
+std::vector<std::vector<Eigen::MatrixXd>> UnpackSolveOutput(std::vector<Eigen::VectorXd> &U);
 
-	/*  Reads the first n elements of the input vector. */
-	Eigen::VectorXd UnpackPhases(const Eigen::VectorXd &U);
+Eigen::VectorXd DiscretizeInterval();
 
-	/* Reads the last n^2 elements of the input vector and reshapes them into a matrix. */
-	Eigen::MatrixXd UnpackWeights(const Eigen::VectorXd &U);
+Eigen::VectorXd DiscretizePhases();
 
-	/* Creates a square matrix of pairwise difference of elements of the given (mathematical) vector. */
-	Eigen::MatrixXd DistanceMatrix(const Eigen::VectorXd &U);
+Eigen::MatrixXd DiscretizeWeights();
 
-	/* Describes the adaptive Kuramoto system dynamic ODEs. */
-	Eigen::VectorXd Dynamics(Eigen::VectorXd &U, const double &a=0, const double &b=0);
+/* Creates a square matrix of pairwise difference of elements of the given (mathematical) vector. */
+Eigen::MatrixXd DistanceMatrix(const Eigen::VectorXd &U);
 
-	/* Solves the problem specified dynamics and stores the results of each timestep in a vector. */
-	std::vector<std::vector<Eigen::MatrixXd>> run(const Eigen::VectorXd &X0, const double &a, const double &b, unsigned int jump);
+/* Creates the interaction matrix for further calculation */
+Eigen::VectorXd DiscreteInput(Function f, const double &a, const double &b);
 
-	/* Computes the m-th order parameter. */
-	std::vector<double> OrderParameter(Eigen::VectorXd PHI, const unsigned int &m);
+Eigen::VectorXd PhaseDynamics(const double &a, const double &b);
+
+Eigen::VectorXd WeightDynamics(const double &a, const double &b);
+
+/* Creates the phase dynamics*/
+Eigen::MatrixXd Dynamics(Eigen::VectorXd &U, const double &a, const double &b);
+
+std::vector<std::vector<Eigen::MatrixXd>> run(const Function &X0, const double &a, const double &b, unsigned int jump);
+
+
 };
-
-
 
 #endif

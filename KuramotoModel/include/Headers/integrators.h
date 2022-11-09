@@ -61,8 +61,8 @@ struct Integrator
     template<typename Function>
     Eigen::VectorXd TrapozoidalRule1Din2D(Function &&F, const std::string &direction)
     {   
-        Eigen::VectorXd integral(d, 1);
-        integral.setZero();
+        Eigen::VectorXd INTEGRAL(d, 1);
+        INTEGRAL.setZero();
         std::vector<double> DiscreteSpace = DiscretizeSpace();
 
         for (size_t i=0;i<d;++i)
@@ -70,14 +70,66 @@ struct Integrator
             for (size_t j=0;j<d;++j)
             {
                 if (direction == "x"){
-                    integral[i] += (h/2)*(F(DiscreteSpace[i], DiscreteSpace[j])+F(DiscreteSpace[i], DiscreteSpace[j-1]));
+                    INTEGRAL[i] += (h/2)*(F(DiscreteSpace[i], DiscreteSpace[j])+F(DiscreteSpace[i], DiscreteSpace[j-1]));
                 } 
                 else if (direction == "y"){
-                    integral[i] += (h/2)*(F(DiscreteSpace[j], DiscreteSpace[i])+F(DiscreteSpace[j-1], DiscreteSpace[i]));
+                    INTEGRAL[i] += (h/2)*(F(DiscreteSpace[j], DiscreteSpace[i])+F(DiscreteSpace[j-1], DiscreteSpace[i]));
                 }
             };
         };
+        return INTEGRAL;
+
+    
+    };
+
+    /**
+     * Calculates the trapozoidal integral on a vector. The method used Eigen slicing for speed.
+     * Assume the vector values at grid points are (f1, f2, f3, f4, f5).
+     * Trapozoidal rule says the integral is (h/2)*sum(fi+fi+1). This corresponds to a vectorized operation
+     * of two vectors v := (f1, f2, f3, f4) + (f2, f3, f4, f5) and then (h/2)*v.sum().
+     * (f1, f2, f3, f4) = F(0:n-1) and (f2, f3, f4, f5) = F(1:n).
+     * Therefore the integral would be (h/2)*(F(0:n-1) + F(1:n)).sum().
+     * 
+     * @param F Eigen::Vector the vector for the integral operand
+     * 
+     * @return double the integral value on the unit interval
+    */
+    double TrapozoidalRule1DMatrix(Eigen::VectorXd &F)
+    {
+        Eigen::VectorXd U(F.size()-1);
+        U = F.segment(1, F.size()-1) + F.segment(0, F.size()-1);
+        double integral;
+        integral = (1.0/(double) 2*F.size())*U.sum();
         return integral;
+    };
+
+    /**
+     * Calculates the integral in the given direction on a matrix function. Uses Eigen slicing for speed.
+     * See the docs for TrapozoidalRule1DMatrix.
+     * 
+     * @param F Eigen::Matrix
+     * @param direction string axis of integration
+     * 
+     * @return Eigen::Vector
+    */
+    Eigen::VectorXd TrapozoidalRule1Din2DMatrix(Eigen::MatrixXd &F, const std::string &direction)
+    {
+        long size = F.rows();
+        Eigen::MatrixXd U;
+        Eigen::VectorXd INTEGRAL(size);
+        if (direction == "x"){
+            // Eigen::MatrixXd U (F.rows(), F.rows()-1);
+            U =F(Eigen::seq(0,size-1), Eigen::seq(0,size-2)) + F(Eigen::seq(0,size-1), Eigen::seq(1,size-1));
+            INTEGRAL = U.rowwise().sum();
+        }
+        else if (direction == "y"){
+            // Eigen::MatrixXd U (F.rows()-1, F.rows());
+            U =F(Eigen::seq(1,size-1), Eigen::seq(0,size-1)) + F(Eigen::seq(0,size-2), Eigen::seq(0,size-1));
+            INTEGRAL = U.colwise().sum();
+        }
+
+        INTEGRAL = (1.0/(double) (2*size))*INTEGRAL;
+        return INTEGRAL;
     };
 
 };
