@@ -1,6 +1,5 @@
 #include "include/Headers/continuum_limit.h"
 
-
 /**
  * Empty Constructor
 */
@@ -12,7 +11,7 @@ ContinuumLimit<Function>::ContinuumLimit(){};
 */
 template<class Function>
 ContinuumLimit<Function>::ContinuumLimit(Function W_IN, Function K_IN, double ro_in, double t0_in, double t_end_in, double epsilon_in, double num_steps_in, int d_in)
-		:	W{W_IN}, K{K_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, num_steps{num_steps_in}, d{d_in}{
+		:	WC{W_IN}, KC0{K_IN}, ro{ro_in}, t0{t0_in}, t_end{t_end_in}, epsilon{epsilon_in}, num_steps{num_steps_in}, d{d_in}{
 };
 
 /**
@@ -36,7 +35,6 @@ ContinuumLimit<Function>::~ContinuumLimit(){
  * 
  * @return std::vector<std::vector> nested vector of phases and matrices
 */
-
 template<class Function>
 std::vector<std::vector<Eigen::MatrixXd>> ContinuumLimit<Function>::UnpackSolveOutput(std::vector<Eigen::VectorXd> &U)
 {
@@ -54,11 +52,123 @@ std::vector<std::vector<Eigen::MatrixXd>> ContinuumLimit<Function>::UnpackSolveO
 	return output;
 };
 
-Eigen::VectorXd DiscretizeInterval(){};
+/**
+ * Reads the first n elements of the input vector
+ * 
+ * @param U 	Eigen::VectorXd the long input vector
+ * 
+ * @return 		Eigen::VectorXd phases
+*/
+template<class Function>
+Eigen::VectorXd ContinuumLimit<Function>::UnpackPhases(const Eigen::VectorXd &U)
+{	
+	return U.head(d);
+};
 
-Eigen::VectorXd DiscretizePhases(){};
+/**
+ * Reads the last n^2 elements of the input vector and reshapes them into a matrix
+ * 
+ * @param U 	Eigen::VectorXd the long input vector
+ * 
+ * @return 		Eigen::MatrixXd the adjacency matrix
+*/
+template<class Function>
+Eigen::MatrixXd ContinuumLimit<Function>::UnpackWeights(const Eigen::VectorXd &U)
+{
+	return U.tail(d*d).reshaped(d, d);
+};
 
-Eigen::MatrixXd DiscretizeWeights(){};
+/**
+ * Packs a vector and a flattend matrix to create a long vector
+ * 
+ * @param U		Eigen::VectorXd the target vector in which the output value must be stored
+ * @param V 	Eigen::VectorXd the input vector: the first n elements of the output
+ * @param A 	Eigen::MatrixXd the input Matrix: the last n^2 elements of the output
+ * 
+ * @return 		Eigen::VectorXd
+*/
+template<class Function>
+Eigen::VectorXd ContinuumLimit<Function>::FlatConcatenate(Eigen::VectorXd &U, const Eigen::VectorXd &V, const Eigen::MatrixXd &A)
+{
+	U << V, A.reshaped(d*d, 1);
+	return U;
+};
+
+/**
+ * Discretizes the [0,1] interval into d discrete nodes
+*/
+template<class Function>
+Eigen::VectorXd ContinuumLimit<Function>::DiscretizeInterval()
+{
+	Eigen::VectorXd DiscreteInterval(d, 1);
+	for (size_t i=0; i < d; ++i)
+	{
+		DiscreteInterval(i) = i/(double) d;
+	}
+	return DiscreteInterval;
+};
+
+/**
+ * Discretizes the continuous phase function at discrete nodes
+ * 
+ * @param Phi 		Function: The continuous phase function
+ * 
+ * @return 			Eigen::VectorXd: Vector of discretized phases
+*/
+template<class Function>
+Eigen::VectorXd ContinuumLimit<Function>::DiscretizePhases(Function &Phi)
+{
+	Eigen::VectorXd DiscretePhases(d, 1);
+	for (size_t i=0; i < d; ++i)
+	{
+		DiscretePhases(i) = Phi(i);
+	}
+	return DiscretePhases;
+};
+
+/**
+ * Discretizes the continuous graphon into a d*d matrix
+*/
+template<class Function>
+Eigen::MatrixXd ContinuumLimit<Function>::DiscretizeWeights(){
+	Eigen::MatrixXd DiscretizedWeight(d,d);
+	for (size_t i=0;i<d;++i){
+		for (size_t j=0;j<d;++j){
+			DiscretizedWeight(j, j) = KC0(i, j);
+		}
+
+	}
+	return DiscretizedWeight;
+};
+
+/** 
+ * Uses the functions above to create a complete discretized system
+ * 
+ * @param f		Function the initial phases
+ * @param a 	double coupling phase lag
+ * @param b 	double coupling adaptation lag
+ * 
+ * @return 		Eigen::VectorXd of the time derivative of the long input vector 
+*/
+template<class Function>
+std::vector<Eigen::MatrixXd> ContinuumLimit<Function>::DiscretizeSystem(Function &f0)
+{
+	Eigen::VectorXd PHI(d);								///< Discretize intial phases
+	PHI = DiscretizePhases(f0);
+
+	Eigen::VectorXd W(d);								///< Discretize Natural frequency
+	W = DiscretizePhases(WC);
+
+	Eigen::MatrixXd WEIGHTS(d, d);						///< Discretize Weights
+	WEIGHTS = DiscretizeWeights();
+
+	std::vector<Eigen::MatrixXd> system;				///< Store everything in a vector
+	system.push_back(PHI);
+	system.push_back(W);
+	system.push_back(WEIGHTS);
+
+	return system;
+};
 
 /**
  * Creates a square matrix of pairwise difference of elements of the given (mathematical) vector.
@@ -82,41 +192,6 @@ Eigen::MatrixXd ContinuumLimit<Function>::DistanceMatrix(const Eigen::VectorXd &
 	return ColTiled - RowTiled;
 };
 
-/**
- * Creates a vector of the interaction matrices of phase and weight dynamics for further calculation
- * 
- * @param f Function the phase density fucntion
- * 
- * @return std::vector<Eigen::MatrixXd> The vector of interaction matrices
-*/
-template<class Function>
-Eigen::VectorXd ContinuumLimit<Function>::DiscreteInput(Function f, const double &a, const double &b)
-{
-	Eigen::VectorXd PHI(d);
-	PHI = DiscretizePhases(f);										///< Discretize the continuous density of phases
-
-	Eigen::MatrixXd DiscreteWeights(d,d);							///< Discretize Weights
-	DiscreteWeights << DiscretizeWeights();
-
-	Eigen::VectorXd U(d*d+d);
-	U << PHI, DiscreteWeights.reshaped(d*d, 1);
-	// Eigen::MatrixXd INTERACTION(d,d);
-	// INTERACTION << DistanceMatrix(PHI);								///< Calculate the difference matrix for each entry point of phases
-
-	// std::vector<Eigen::MatrixXd> result;
-	// result.push_back((INTERACTION.array() + a).sin().matrix());		///< Interaction matrix for phase dynamics
-	// result.push_back((INTERACTION.array() + b).sin().matrix());		///< Interaction matrix for weight dynamics
-
-	return U;
-};
-
-template<class Function>
-Eigen::VectorXd ContinuumLimit<Function>::PhaseDynamics(const double &a, const double &b)
-{
-	Eigen::VectorXd PHI_DOT(d);
-	return PHI_DOT;
-};
-
 template<class Function>
 Eigen::VectorXd ContinuumLimit<Function>::WeightDynamics(const double &a, const double &b)
 {
@@ -125,43 +200,70 @@ Eigen::VectorXd ContinuumLimit<Function>::WeightDynamics(const double &a, const 
 };
 
 template<class Function>
-Eigen::MatrixXd ContinuumLimit<Function>::Dynamics(Eigen::VectorXd &U, const double &a, const double &b)
+Eigen::MatrixXd ContinuumLimit<Function>::Dynamics(Eigen::VectorXd &U, Eigen::VectorXd &W, const double &a, const double &b)
 {
-	// std::vector<Eigen::MatrixXd> InteractionVector = InteractionMatrix(f, a, b);
-	// Eigen::MatrixXd INTERACTION_PHI = InteractionVector.at(0);
-	// Eigen::MatrixXd INTERACTION_K = InteractionVector.at(1);
+// Unpacking the input vector
+	Eigen::VectorXd PHI(d); 										///< The first N elements are the phases.
+    Eigen::MatrixXd K(d, d);										///< The rest of the elements are the flattend adjacency matrix.
+	
+	PHI = UnpackPhases(U);											///< First n elements are the phases
+	K 	= UnpackWeights(U);											///< last n^2 elements are the adjacency matrix
 
-	// Eigen::VectorXd DiscreteFrequency(d);
-	// DiscreteFrequency = DiscretizePhases(W);
+// Creating the interaction matrix of oscillators on each other
+	Eigen::MatrixXd INTERACTION(d, d);								///< Initializing the interaction matrix between all pairs of Oscillators
+	INTERACTION << DistanceMatrix(PHI);								///< Creating the difference matrix	
 
-	// Eigen::VectorXd PHI_DOT(d) 
-	// PHI_DOT = PhaseDynamics();
+	Eigen::MatrixXd INTERACTION_PHI;								///< Oscillation part of interaction
+	Eigen::MatrixXd INTERACTION_K;									///< Adaptation part of the interaction
+	INTERACTION_PHI = (INTERACTION.array() + a).sin().matrix();		///< Applying the sine function and phase lag
+	INTERACTION_K 	= (INTERACTION.array() + b).sin().matrix();		///< Applying the sine function and adaptation lag
 
-	Eigen::MatrixXd INTERACTION_K;
-	return INTERACTION_K;
+// Creating the derivative equations
+	Eigen::VectorXd PHI_DOT;										///< Initializing the derivative vector of phases
+	Eigen::MatrixXd K_DOT;											///< Initializing the derivative matrix of adjacency coefficients
+
+	Eigen::MatrixXd INTEGRAND_PHI;
+	INTEGRAND_PHI = K.cwiseProduct(INTERACTION_PHI);				///< The operand of integral in the formula
+
+	// ODE Formula: See the method documentation. Trapozoidal rule for matrices is used for numerical integration.
+	PHI_DOT = W - (ro/d)*(IntegralSolvers::TrapMatrixin1D(INTEGRAND_PHI, 0, 1, d, 2, "y")); 		
+	K_DOT 	= -epsilon*(K + INTERACTION_K);							///< Formula
+
+// Repacking the outut and concatenating the results again
+	FlatConcatenate(U, PHI_DOT, K_DOT);
+	return U;
 };
 
 template<class Function>
 std::vector<std::vector<Eigen::MatrixXd>> ContinuumLimit<Function>::run(const Function &f0, const double &a, const double &b, unsigned int jump)
-{
+{	
+// Creating a discrete system out of the continuous one
+	std::vector<Eigen::MatrixXd> system;
+	system = DiscretizeSystem(f0);
 
-	Eigen::VectorXd U(d*d+d);
-	U = DiscreteInput(f0);
 	Eigen::VectorXd X0(d);
-	X0 = U.head(d);
+	X0 = system.at(0);
+
+	Eigen::VectorXd W(d);
+	W = system.at(1);
+
+	Eigen::VectorXd K0(d, d);
+	K0 = system.at(2);
+
+// Creating long vector for the input of dynamics
+	Eigen::VectorXd U0(d*d+d);
+	FlatConcatenate(U0, X0, K0);
 
 // Wrapping the dynamics for the given independent parameters a and b
-	auto WrappedODE = [this, a, b] (Eigen::VectorXd &U)
+	auto WrappedODE = [this, W, a, b] (Eigen::VectorXd &U)
 	{
-		return Dynamics(U, a, b);
+		return Dynamics(U, W, a, b);
 	};
 	std::vector<Eigen::VectorXd> result = ExplicitRKSolvers::Explicit4thOrderRK(WrappedODE, X0, num_steps, t0, t_end, jump);
 
 // Unpack results into two vectors
 	std::vector<std::vector<Eigen::MatrixXd>> output = UnpackSolveOutput(result);
 
-	// TODO:
-	// New functionality: change num_steps from within the method
 	return output;
 };
 

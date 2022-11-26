@@ -201,7 +201,7 @@ std::vector<double> AdaptiveKuramoto::OrderParameter(Eigen::VectorXd PHI, const 
 	double sin_phi_sum = (m*PHI).array().sin().sum();					///< Sum of sine of each element of phases vector
 	std::complex<double> R(cos_phi_sum, sin_phi_sum);					///< Complex Order Parameter
 
-	std::vector<double> v {std::abs(R), std::arg(R)};					///< Calculate absolute value and angle of order parameter
+	std::vector<double> v {(1.0/n)*std::abs(R), std::arg(R)};			///< Calculate absolute value and angle of order parameter
 	return v;
 };
 

@@ -3,4 +3,5 @@ target_sources(main PRIVATE
 	adaptive_kuramoto.h 
 	runge_kutta.h 
 	solvers.h
-	integrators.h)
+	integrators.h
+	integral_solver.h)

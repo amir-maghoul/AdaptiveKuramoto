@@ -6,6 +6,7 @@
 #include <cmath>
 #include <algorithm>
 #include <eigen/Dense>
+#include <future>
 
 struct AdaptiveKuramoto{
 

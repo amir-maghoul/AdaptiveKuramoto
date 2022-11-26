@@ -15,9 +15,9 @@
 // template <class StepSolution> 
 struct ExplicitRungeKutta {
 
-    const Eigen::MatrixXd B;           ///< The Butcher Tableau of the coefficients
-    const Eigen::VectorXd C;           ///< The weight vector in corresponding to elements of Butcher Tableau
-    const unsigned int num_steps;      ///< Number of steps in the integration
+    const Eigen::MatrixXd B;            ///< The Butcher Tableau of the coefficients
+    const Eigen::VectorXd C;            ///< The weight vector in corresponding to elements of Butcher Tableau
+    const unsigned int num_steps;       ///< Number of steps in the integration
     const double t0;                    ///< Initial time
     const double tend;                  ///< End time
     const double dt;                    ///< Timestep
