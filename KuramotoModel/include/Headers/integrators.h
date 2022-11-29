@@ -17,7 +17,7 @@ struct Integrator
 
     Integrator(double lower = 0, double upper = 1, int d_in = 50, int n_in = 1)
             : lower_bound{lower}, upper_bound{upper}, d{d_in}, n{n_in}, h{(upper_bound - lower_bound)/d}{};
-    ~Integrator(){std::cout << "Descructor of Integrator class was called" << std::endl;};
+    ~Integrator(){};
 
 
     /**
