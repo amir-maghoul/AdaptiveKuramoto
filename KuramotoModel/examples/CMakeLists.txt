@@ -1,1 +1,1 @@
-target_sources(main PRIVATE examples.cpp examples.h)
+target_sources(main PRIVATE examples.cpp examples.h cl_examples.h cl_examples.cpp cl_objects.h density_functions.h iofunction.h)

@@ -5,6 +5,7 @@
 #include "include/Headers/runge_kutta.h"
 #include "include/Headers/adaptive_kuramoto.h"
 #include <matplotlibcpp/matplotlibcpp.h>
+#include "iofunctions.h"
 #include <iostream>
 #include <fstream>
 #include <eigen/Dense>

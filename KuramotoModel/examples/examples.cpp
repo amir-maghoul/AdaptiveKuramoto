@@ -3,39 +3,6 @@
 
 namespace plt = matplotlibcpp;
 
-void write_data(std::string file_name, std::vector<Eigen::MatrixXd> matrix)
-{
-    std::cout << "Writing matrix..."<< std::endl;
-    std::fstream file;
-    file.open(file_name, std::ios_base::out);
-
-    for (size_t i = 0; i < matrix.size(); ++i)
-    {
-        for (size_t j=0; j < matrix.at(i).size(); ++j)
-        {
-            file << (matrix.at(i))(j) << ",";    
-        }
-        file << "\n";
-    } 
-    file.close();
-}
-
-void write_vector(std::string file_name, std::vector<double> vector)
-{
-    std::cout << "Writing vector..."<< std::endl;
-    std::fstream file;
-    file.open(file_name, std::ios_base::out);
-
-    for (size_t i = 0; i < vector.size(); ++i)
-    {
-        file << vector.at(i) << ",";    
-        file << "\n";
-    } 
-    file.close();
-}
-
-
-
 struct Data{
 
     Eigen::Vector3d W;
@@ -45,7 +12,7 @@ struct Data{
     double ro;
     double t_end;
     int jump ;
-    const unsigned int m = 1;
+    const unsigned int m = 2;
     Eigen::Vector3d X0;
 
     void setData(){
@@ -102,6 +69,7 @@ void PlotPhi(){
         u2[i] = PHI_DOT[i](2);
     };
 
+
     plt::figure();
     plt::title("Adaptive Kuramoto Model Phases");
     plt::named_plot("Phase Velocity",t, u1);
@@ -109,7 +77,6 @@ void PlotPhi(){
     plt::ylabel("Phase Velocity");
     plt::legend();
     plt::save("Frequencies.png");
-
 };
 
 void TestOrderParameter()
@@ -144,7 +111,7 @@ void TestOrderParameter()
 
 void TestClustering()
 {   
-    const int n = 100;
+    const int n = 50;
     typedef Eigen::Matrix<double, n, 1> Vector100f;
     typedef Eigen::Matrix<double, n, n> Matrix100f;
     Vector100f W0;
@@ -156,11 +123,11 @@ void TestClustering()
     K0 = Matrix100f::Random();
 
     AdaptiveKuramoto obj(W0, K0);
-    obj.num_steps = 10000;
-    obj.t_end = 1000;
+    obj.num_steps = 100000;
+    obj.t_end = 50000;
     obj.epsilon = 0.01;
     obj.ro = 1;
-    unsigned int jump = 100;
+    unsigned int jump = 1000;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = obj.run(U0, 0.3*M_PI, 0.53*M_PI, jump);
 
