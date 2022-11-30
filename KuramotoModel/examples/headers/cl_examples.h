@@ -1,3 +1,5 @@
+/** This module contains some examples for the continuum limit of adaptive Kuramoto Model**/
+
 #ifndef _CL_EXAMPLES_H_
 #define _CL_EXAMPLES_H_
 

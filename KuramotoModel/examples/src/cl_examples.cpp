@@ -1,4 +1,6 @@
-#include "cl_examples.h"
+/** This module contains some examples for the continuum limit of adaptive Kuramoto Model**/
+
+#include "examples/headers/cl_examples.h"
 
 
 double h = 0.1;

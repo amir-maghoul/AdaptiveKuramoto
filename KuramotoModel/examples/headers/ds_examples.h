@@ -1,3 +1,5 @@
+/** This module contains some examples for the discrete adaptive Kuramoto Model**/
+
 #ifndef _EXAMPLES_H_
 #define _EXAMPLES_H_
 

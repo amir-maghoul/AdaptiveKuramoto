@@ -1,4 +1,4 @@
-#include "examples/examples.h"
+#include "examples/headers/ds_examples.h"
 
 
 namespace plt = matplotlibcpp;

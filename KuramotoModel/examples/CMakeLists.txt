@@ -1,1 +1,2 @@
-target_sources(main PRIVATE examples.cpp examples.h cl_examples.h cl_examples.cpp cl_objects.h density_functions.h iofunction.h)
+add_subdirectory("headers")
+add_subdirectory("src")
