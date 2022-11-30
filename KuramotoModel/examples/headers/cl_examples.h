@@ -10,6 +10,6 @@
 #include <iostream>
 #include <fstream>
 
-void Test();
+void SmallRingTopology();
 
 #endif
