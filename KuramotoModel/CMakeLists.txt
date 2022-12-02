@@ -1,5 +1,15 @@
 cmake_minimum_required(VERSION 3.20)
 project(KuramotoModel)
+option (USE_OpenMP "Use OpenMP" ON)
+if(USE_OpenMP)
+find_package(OpenMP)
+  if(OPENMP_FOUND)
+    message(STATUS "OpenMP Found")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${OpenMP_CXX_FLAGS}")
+    message(STATUS ${CMAKE_CXX_FLAGS})
+  endif()
+endif()
+
 
 set(PYTHON_HEADERS /usr/include/python3.10 ) # path to header
 set(PYTHON_STATIC  /usr/lib64/x86_64-linux-gnu) # path to where windows stores dlls
