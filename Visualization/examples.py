@@ -42,13 +42,47 @@ def example_contlim_weights(n, t):
     plot_matrix(adj_matrix, t)
     plt.show()
 
-def Ring(x, y, h):
-    if min(abs(x-y), 1-abs(x-y)) <= h:
-        return 1
-    else:
-        return 0
+def example_small_ring_graph(n ,t):
+    file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/contlim_small_ring_graph.txt"
+    adj_matrix = read_matrix_to_array(file_loc, n)
+    plot_matrix(adj_matrix, t)
+    plt.show()
 
+def example_small_ring_graph_short_simulation(n ,t):
+    file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/contlim_small_ring_graph_short_simulation.txt"
+    adj_matrix = read_matrix_to_array(file_loc, n)
+    plot_matrix(adj_matrix, t)
+    plt.show()
 
+def example_small_ring_graph_long_simulation(n ,t):
+    file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/contlim_small_ring_graph_long_simulation.txt"
+    adj_matrix = read_matrix_to_array(file_loc, n)
+    plot_matrix(adj_matrix, t)
+    plt.show()
+
+def example_small_random_graph_simulation(n ,t):
+    file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/contlim_small_random_graph_simulation.txt"
+    adj_matrix = read_matrix_to_array(file_loc, n)
+    plot_matrix(adj_matrix, t)
+    plt.show()
+
+def example_large_ring_graph_short_simulation(n ,t):
+    file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/contlim_large_ring_graph_short_simulation.txt"
+    adj_matrix = read_matrix_to_array(file_loc, n)
+    plot_matrix(adj_matrix, t)
+    plt.show()
+
+def example_quite_large_ring_graph_short_simulation(n ,t):
+    file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/contlim_quite_large_ring_graph_short_simulation.txt"
+    adj_matrix = read_matrix_to_array(file_loc, n)
+    plot_matrix(adj_matrix, t)
+    plt.show()
+
+def example_very_large_ring_graph_short_simulation(n ,t):
+    file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/contlim_very_large_ring_graph_short_simulation.txt"
+    adj_matrix = read_matrix_to_array(file_loc, n)
+    plot_matrix(adj_matrix, t)
+    plt.show()
 
 if __name__ == "__main__":
     timestep = 100
@@ -58,4 +92,17 @@ if __name__ == "__main__":
     # example_autonamted_all(100, 50)
     # example_automated_order_parameter()
     # example_plotmatrix_large_data_positive_ab()
-    example_contlim_weights(50, 0)
+    # example_small_ring_graph(50, -1)
+    # example_small_ring_graph_short_simulation(50, 0)
+    # example_small_ring_graph_short_simulation(50, -1)
+    # example_small_ring_graph_long_simulation2(50, 0)
+    # example_small_ring_graph_long_simulation2(50, -1)
+    # example_small_random_graph_simulation(50, 0)
+    # example_small_random_graph_simulation(50, -1)
+    # example_large_ring_graph_short_simulation(100, 0)
+    # example_large_ring_graph_short_simulation(100, -1)
+    # example_large_ring_graph_short_simulation(500, 0)
+    # example_very_large_ring_graph_short_simulation(500, -1)
+
+
+
