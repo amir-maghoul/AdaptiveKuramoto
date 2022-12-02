@@ -9,7 +9,15 @@
 #include <eigen/Dense>
 #include <iostream>
 #include <fstream>
+#include <chrono>
 
 void SmallRingTopology();
+void SmallRingGraphShortSimulation();
+void SmallRingGraphLongSimulation();
+void RandomGraphSimulation();
+void LargeRingGraphLongSimulationShort();
+void QuiteLargeRingGraphLongSimulationShort();
+void VeryLargeRingGraphLongSimulationShort();
+
 
 #endif

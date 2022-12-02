@@ -28,24 +28,217 @@ double KRing(double x, double y){
     return RingLatticeGraph(x, y, h);
 }
 
+/* Ring topology with random phases and zero frequency*/
+
 void SmallRingTopology()
 {
+    double h = 0.1;
+    double RandomLow = -1.0;
+    double RandomHigh = 1.0;
+
+    auto phi = [RandomLow, RandomHigh] (double x){return RandomFunction(x, RandomLow, RandomHigh);};
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
+    auto phi0 = [](double x){return SinFunction(x);};
+
 
     ContinuumLimit system;
-    system.d = 10;
+    system.d = 50;
     system.num_steps = 1000;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = 10;
+    const double a = 0;
+    const double b = 0;
+    unsigned int jump = 2;
 
-    std::cout << system.DiscretizeWeights(RandomWeights) << std::endl;
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K);
 
-    // std::cout << system.DiscretizeWeights(K) << std::endl;
-    // std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, wZero, KRing);
-
-    // std::string file_loc1 = "txt_outputs/contlim_small_ring_graph.txt";
-    // write_data(file_loc1, output[1]);
-    // std::cout << output.at(1).at(0).reshaped(d, d) << std::endl;
+    std::string file_loc1 = "txt_outputs/contlim_small_ring_graph.txt";
+    write_data(file_loc1, output[1]);
 }
 
+void SmallRingGraphShortSimulation(){
+
+    double h = 0.1;
+    double RandomLow = -1.0;
+    double RandomHigh = 1.0;
+
+    auto phi = [RandomLow, RandomHigh] (double x){return RandomFunction(x, RandomLow, RandomHigh);};
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
+    auto phi0 = [](double x){return SinFunction(x);};
+
+
+    ContinuumLimit system;
+    system.d = 50;
+    system.num_steps = 100000;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = 1000;
+    const double a = 0;
+    const double b = 0;
+    unsigned int jump = 100;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+
+    std::string file_loc1 = "txt_outputs/contlim_small_ring_graph_short_simulation.txt";
+    write_data(file_loc1, output[1]);
+}
+
+
+void SmallRingGraphLongSimulation(){
+
+    double h = 0.1;
+    double RandomLow = -1.0;
+    double RandomHigh = 1.0;
+
+    auto phi = [RandomLow, RandomHigh] (double x){return RandomFunction(x, RandomLow, RandomHigh);};
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
+    auto phi0 = [](double x){return SinFunction(x);};
+
+
+    ContinuumLimit system;
+    system.d = 50;
+    system.num_steps = 100000;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = 50000;
+    const double a = 0;
+    const double b = 0;
+    unsigned int jump = 1000;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+
+    std::string file_loc1 = "txt_outputs/contlim_small_ring_graph_long_simulation.txt";
+    write_data(file_loc1, output[1]);
+}
+
+void RandomGraphSimulation(){
+
+    double h = 0.1;
+    double RandomLow = -1.0;
+    double RandomHigh = 1.0;
+
+    auto phi = [RandomLow, RandomHigh] (double x){return RandomFunction(x, RandomLow, RandomHigh);};
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [h, RandomLow, RandomHigh](double x, double y){return RandomGraph(x, y, RandomLow, RandomHigh);};
+    auto phi0 = [](double x){return SinFunction(x);};
+
+
+    ContinuumLimit system;
+    system.d = 50;
+    system.num_steps = 100000;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = 50000;
+    const double a = 0;
+    const double b = 0;
+    unsigned int jump = 1000;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+
+    std::string file_loc1 = "txt_outputs/contlim_small_random_graph_simulation.txt";
+    write_data(file_loc1, output[1]);
+}
+
+void LargeRingGraphLongSimulationShort(){
+
+    double h = 0.1;
+    double RandomLow = -1.0;
+    double RandomHigh = 1.0;
+
+    auto phi = [RandomLow, RandomHigh] (double x){return RandomFunction(x, RandomLow, RandomHigh);};
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
+    auto phi0 = [](double x){return SinFunction(x);};
+
+
+    ContinuumLimit system;
+    system.d = 100;
+    system.num_steps = 100000;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = 1000;
+    const double a = 0;
+    const double b = 0;
+    unsigned int jump = 1000;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+
+    std::string file_loc1 = "txt_outputs/contlim_large_ring_graph_short_simulation.txt";
+    write_data(file_loc1, output[1]);
+}
+
+void QuiteLargeRingGraphLongSimulationShort(){
+
+    double h = 0.1;
+    double RandomLow = -1.0;
+    double RandomHigh = 1.0;
+
+    auto phi = [RandomLow, RandomHigh] (double x){return RandomFunction(x, RandomLow, RandomHigh);};
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
+    auto phi0 = [](double x){return SinFunction(x);};
+
+
+    ContinuumLimit system;
+    system.d = 250;
+    system.num_steps = 100000;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = 1000;
+    const double a = 0;
+    const double b = 0;
+    unsigned int jump = 1000;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+
+    std::string file_loc1 = "txt_outputs/contlim_quite_large_ring_graph_short_simulation.txt";
+    write_data(file_loc1, output[1]);
+}
+
+void VeryLargeRingGraphLongSimulationShort(){
+
+    double h = 0.1;
+    double RandomLow = -1.0;
+    double RandomHigh = 1.0;
+
+    auto phi = [RandomLow, RandomHigh] (double x){return RandomFunction(x, RandomLow, RandomHigh);};
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
+    auto phi0 = [](double x){return SinFunction(x);};
+
+
+    ContinuumLimit system;
+    system.d = 500;
+    system.num_steps = 100000;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = 1000;
+    const double a = 0;
+    const double b = 0;
+    unsigned int jump = 1000;
+
+    using clock = std::chrono::system_clock;
+    using sec = std::chrono::duration<double>;
+// for milliseconds, use using ms = std::chrono::duration<double, std::milli>;
+
+    const auto before = clock::now();
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+
+    const sec duration = clock::now() - before;
+    std::cout << "It took " << duration.count() << "s" << std::endl;
+
+    std::string file_loc1 = "txt_outputs/contlim_very_large_ring_graph_short_simulation.txt";
+    write_data(file_loc1, output[1]);
+}

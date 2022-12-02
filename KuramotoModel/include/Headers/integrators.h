@@ -113,7 +113,7 @@ struct Integrator
     Eigen::VectorXd TrapozoidalRule1Din2DMatrix(Eigen::MatrixXd &F, const std::string &direction)
     {
         long size = F.rows();
-        Eigen::MatrixXd U;
+        Eigen::MatrixXd U(size, size);
         Eigen::VectorXd INTEGRAL(size);
         if (direction == "x"){
             // Eigen::MatrixXd U (F.rows(), F.rows()-1);

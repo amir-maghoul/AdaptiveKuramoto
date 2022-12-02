@@ -69,11 +69,11 @@ inline double RandomFunction(double x, double low, double high){
 }
 
 inline double SinFunction(double x){
-    return sin(x);
+    return sin(x*M_PI);
 }
 
 inline double CosFunction(double x){
-    return cos(x);
+    return cos(x*M_PI);
 }
 
 inline double ExpFunction(double x){

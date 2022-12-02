@@ -27,7 +27,7 @@ struct ContinuumLimit
 					double t0_in			= 0,
 					double t_end_in		    = 1,
 					double epsilon_in		= 0.01,
-					double num_steps_in	    = 100,
+					double num_steps_in	    = 1000,
 					int d_in				= 50);
 
 	~ContinuumLimit();
@@ -86,7 +86,7 @@ Eigen::VectorXd DiscretizePhases(Function &&Phi)
 /**
  * Discretizes the continuous graphon into a d*d matrix
 */
-template<class Function>
+template<typename Function>
 Eigen::MatrixXd DiscretizeWeights(Function &KC0){
 	Eigen::VectorXd DiscreteInterval = DiscretizeInterval();
 	Eigen::MatrixXd DiscretizedWeight(d,d);
@@ -108,8 +108,8 @@ Eigen::MatrixXd DiscretizeWeights(Function &KC0){
  * 
  * @return 		Eigen::VectorXd of the time derivative of the long input vector 
 */
-template<class F, class G>
-std::vector<Eigen::MatrixXd> DiscretizeSystem(F &f0, F &WC, G &KC)
+template<typename F1, typename F2, typename F3>
+std::vector<Eigen::MatrixXd> DiscretizeSystem(F1 &&f0, F2 &&WC, F3 &&KC)
 {
 	Eigen::VectorXd PHI(d);								///< Discretize intial phases
 	PHI = DiscretizePhases(f0);
@@ -140,8 +140,8 @@ std::vector<Eigen::MatrixXd> DiscretizeSystem(F &f0, F &WC, G &KC)
  * 
  * @return std::vector<std::vector<Eigen::MatrixXd>> the state of the system at each timestep as a nested vector
 */
-template<class F, class G>
-std::vector<std::vector<Eigen::MatrixXd>> run(F &&f0, F &&WC0, G &&KC0, const double &a=0, const double &b=0, unsigned int jump=2)
+template<typename F1, typename F2, typename F3>
+std::vector<std::vector<Eigen::MatrixXd>> run(F1 &&f0, F2 &&WC0, F3 &&KC0, const double &a=0, const double &b=0, unsigned int jump=2)
 {	
 // Creating a discrete system out of the continuous one
 	std::vector<Eigen::MatrixXd> system;
