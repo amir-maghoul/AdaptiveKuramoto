@@ -6,18 +6,23 @@
 #include "density_functions.h"
 #include "iofunctions.h"
 #include "include/Headers/continuum_limit.h"
+#include <matplotlibcpp/matplotlibcpp.h>
 #include <eigen/Dense>
 #include <iostream>
 #include <fstream>
 #include <chrono>
 
-void SmallRingTopology();
 void SmallRingGraphShortSimulation();
 void SmallRingGraphLongSimulation();
-void RandomGraphSimulation();
-void LargeRingGraphLongSimulationShort();
-void QuiteLargeRingGraphLongSimulationShort();
-void VeryLargeRingGraphLongSimulationShort();
+
+void LargeRingGraphShortSimulation();
+void LargeRingGraphLongSimulation();
+
+void QuiteLargeRingGraphShortSimulation();
+void QuiteLargeRingGraphLongSimulation();
+
+void VeryLargeRingGraphShortSimulation();
+void VeryLargeRingGraphLongSimulation();
 
 
 #endif
