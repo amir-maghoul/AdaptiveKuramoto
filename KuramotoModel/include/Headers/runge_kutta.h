@@ -85,24 +85,27 @@ struct ExplicitRungeKutta {
      * @return      std::vector of Eigen::VectorXd of integrated ODE solution.
     */
     template<typename Function>
-    std::vector<Eigen::VectorXd> solve(Function &&f, const Eigen::VectorXd &X0, unsigned int jump=11)
+    std::vector<Eigen::VectorXd> solve(Function &&f, const Eigen::VectorXd &X0, unsigned int jump)
     {
         Eigen::VectorXd SolutionBuffer[2];                          ///< Creating a temporary buffer for the solutions
         SolutionBuffer[0] = X0;
         std::vector<Eigen::VectorXd> Solutions;                     ///< Create empty the solution vector
-        Solutions.push_back(X0);                                    ///< Start by initial conditions
-        int k = 1;
+        // Solutions.push_back(X0);                                    ///< Start by initial conditions
+        // int k = 1;
 
         // Loop over time steps to create solution at each new timestep
         for(unsigned int i = 0; i < num_steps; ++i){
+            if (i%jump == 0){
+                Solutions.push_back(SolutionBuffer[0]);                ///< Storing every (jumps)-th value as output
+            }
             SolutionBuffer[1] = CalculateRKSummand(f,SolutionBuffer[0]);
             SolutionBuffer[0] = SolutionBuffer[1];
-            k++;
-            if (k == jump){                            
-                Solutions.push_back(SolutionBuffer[0]);                ///< Storing every (jumps)-th value as output
-                // SolutionBuffer[0] = SolutionBuffer[k-1];            ///< Overwriting the buffer
-                k = 1;
-            };
+            // k++;
+            // if (k == jump){                            
+            //     Solutions.push_back(SolutionBuffer[0]);                ///< Storing every (jumps)-th value as output
+            //     // SolutionBuffer[0] = SolutionBuffer[k-1];            ///< Overwriting the buffer
+            //     k = 1;
+            // };
         };
         return Solutions;
     };
