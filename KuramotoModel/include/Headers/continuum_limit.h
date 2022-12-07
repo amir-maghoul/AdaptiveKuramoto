@@ -75,10 +75,11 @@ Eigen::MatrixXd Dynamics(Eigen::VectorXd &U, const Eigen::VectorXd &W, const dou
 template<typename Function>
 Eigen::VectorXd DiscretizePhases(Function &&Phi)
 {
+	Eigen::VectorXd DiscreteInterval = DiscretizeInterval();
 	Eigen::VectorXd DiscretePhases(d, 1);
 	for (size_t i=0; i < d; ++i)
 	{
-		DiscretePhases(i) = Phi(i);
+		DiscretePhases(i) = Phi(DiscreteInterval(i));
 	}
 	return DiscretePhases;
 };
