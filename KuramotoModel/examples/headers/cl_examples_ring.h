@@ -12,17 +12,7 @@
 #include <fstream>
 #include <chrono>
 
-void SmallRingGraphShortSimulation();
-void SmallRingGraphLongSimulation();
-
-void LargeRingGraphShortSimulation();
-void LargeRingGraphLongSimulation();
-
-void QuiteLargeRingGraphShortSimulation();
-void QuiteLargeRingGraphLongSimulation();
-
-void VeryLargeRingGraphShortSimulation();
-void VeryLargeRingGraphLongSimulation();
+void ContinuumLimitRingGraphSimulation(int n, double a0, double b0);
 
 
 #endif
