@@ -37,7 +37,7 @@ def plot_matrix(matrix, t):
         the timestep at which the plot is being done
     """
     plt.figure()
-    plt.rcParams["figure.figsize"] = [7.00, 3.50]
+    plt.rcParams["figure.figsize"] = [5.00, 3.50]
     plt.rcParams["figure.autolayout"] = True
     im = plt.imshow(matrix[t, :, :], cmap="copper_r")
     plt.colorbar(im)

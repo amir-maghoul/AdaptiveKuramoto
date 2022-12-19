@@ -22,10 +22,3 @@ if __name__ == "__main__":
     example_discrete_ring_graph(50,   499)
     example_discrete_ring_graph(100,  499)
     example_discrete_ring_graph(250,  499)
-
-
-    # example_plot_phases()
-    # example_plotmatrix_not_so_large_data_positive_ab()
-    # example_autonamted_all(100, 50)
-    # example_automated_order_parameter()
-    # example_plotmatrix_large_data_positive_ab()
