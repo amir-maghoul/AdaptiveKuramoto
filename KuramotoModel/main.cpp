@@ -6,13 +6,16 @@
 #include "include/Headers/integrators.h"
 #include "include/Headers/integral_solver.h"
 #include "examples/headers/ds_examples.h"
-#include "examples/headers/cl_examples.h"
+#include "examples/headers/cl_examples_ring.h"
+#include "examples/headers/cl_examples_cos.h"
+#include "examples/headers/ds_examples_ring.h"
 #include <eigen/Dense>
 #include <vector>
 #include <typeinfo>
 #include <iostream>
 #include <functional>
 #include <chrono>
+#include <time.h>
 
 using namespace std;
 using namespace Eigen;
@@ -20,54 +23,42 @@ using namespace Eigen;
 
 
 int main(){
+    time_t my_time = time(NULL);
+    cout << ctime(&my_time) << endl;
+
     omp_set_num_threads(8);
     Eigen::setNbThreads(8);
 
-    // VeryLargeRingGraphLongSimulationShort();
-    QuiteLargeRingGraphLongSimulationShort();
-    // LargeRingGraphLongSimulationShort();
-    // RandomGraphSimulation();
-    // SmallRingGraphLongSimulation2();
+    using clock = std::chrono::system_clock;
+    using sec = std::chrono::duration<double>;
+// for milliseconds, use using ms = std::chrono::duration<double, std::milli>;
+
+    const auto before = clock::now();
+
+    // SmallCosGraphShortSimulation();
+
+    // SmallCosGraphLongSimulation();
+    // LargeCosGraphLongSimulation();
+    // QuiteLargeCosGraphLongSimulation();
+
+    // DiscreteRingSimulation(50, 0.3*M_PI, -0.53*M_PI);
+    // DiscreteRingSimulation(100, 0.3*M_PI, -0.53*M_PI);
+    DiscreteRingSimulation(250, 0.3*M_PI, -0.53*M_PI);
+
+    // SmallRingGraphShortSimulation();
     // SmallRingGraphLongSimulation();
-    // SmallRingTopology();
-    // SaveMatrix();
+    // LargeRingGraphLongSimulation();
+    // QuiteLargeRingGraphLongSimulation();
+    // VeryLargeRingGraphLongSimulation();
+    // VeryLargeRingGraphLongSimulation();
+    // VeryLargeCosGraphLongSimulation();
 
-    // double result = IntegralSolvers::Trap1D(g, 0, 1, 100, 1);
-    // cout << result << endl;
 
-    // Integrator integral;
-    // integral.n = 1;
+    const sec duration = clock::now() - before;
+    std::cout << "Main took " << duration.count() << "s" << std::endl;
 
-    // double result;
-    // std::vector<double> discrete = integral.DiscretizeSpace();
-    
-    // result = integral.TrapozoidalRule1D(g);
-    // cout << result << endl;
-
-    // cout << "Now 2D........" << endl;
-    // Eigen::VectorXd V;
-    // V = integral.TrapozoidalRule1Din2D(f, "x");
-    // cout << V << endl;
-
-    // Eigen::VectorXd W(5);
-    // W << 1, 2, 3, 4, 5;
-    // cout << W << endl;
-    // cout << "----------------" << endl;
-
-    // Eigen::VectorXd U(4);
-    // U = W.segment(1, W.size()-1) + W.segment(0, W.size()-1);
-
-    // cout << U << endl;
-    // const int n = 5;
-    // typedef Eigen::Matrix<double, n, n> Matrix5f;
-    // Eigen::MatrixXd W;
-    // W = Matrix5f::Random();
-
-    // Eigen::VectorXd res = IntegralSolvers::TrapMatrixin1D(W, 0, 1, 50, 2, "x");
-
-    // cout << W << endl;
-    // cout << res << endl;
-
+    system("/usr/bin/notify-send CodeStatus \"Simulation Ended\"");
+    // system("/usr/bin/xmessage -center Simulation Ended");
 
     // LotkaVolterra();
     // TestClustering();

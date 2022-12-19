@@ -21,7 +21,7 @@ double KRing(double x, double y){
 
 void SmallRingGraphLongSimulation(){
 
-    double h = 0.1;
+    double h = 0.01;
     double RandomLow = -1.0;
     double RandomHigh = 1.0;
 
@@ -49,7 +49,7 @@ void SmallRingGraphLongSimulation(){
 
 void LargeRingGraphLongSimulation(){
 
-    double h = 0.1;
+    double h = 0.01;
     double RandomLow = -1.0;
     double RandomHigh = 1.0;
 
@@ -77,7 +77,7 @@ void LargeRingGraphLongSimulation(){
 
 void QuiteLargeRingGraphLongSimulation(){
 
-    double h = 0.1;
+    double h = 0.01;
     double RandomLow = -1.0;
     double RandomHigh = 1.0;
 

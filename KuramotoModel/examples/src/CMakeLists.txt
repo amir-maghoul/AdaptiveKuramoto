@@ -1,1 +1,1 @@
-target_sources(main PRIVATE ds_examples.cpp cl_examples_ring.cpp cl_examples_cos.cpp)
+target_sources(main PRIVATE ds_examples.cpp cl_examples_ring.cpp cl_examples_cos.cpp ds_examples_ring.cpp)
