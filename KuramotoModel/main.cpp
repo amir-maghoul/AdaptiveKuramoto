@@ -7,7 +7,7 @@
 #include "include/Headers/integral_solver.h"
 #include "examples/headers/ds_examples.h"
 #include "examples/headers/cl_examples_ring.h"
-#include "examples/headers/cl_examples_cos.h"
+// #include "examples/headers/cl_examples_cos.h"
 #include "examples/headers/ds_examples_ring.h"
 #include <eigen/Dense>
 #include <vector>
@@ -35,24 +35,8 @@ int main(){
 
     const auto before = clock::now();
 
-    // SmallCosGraphShortSimulation();
-
-    // SmallCosGraphLongSimulation();
-    // LargeCosGraphLongSimulation();
-    // QuiteLargeCosGraphLongSimulation();
-
-    // DiscreteRingSimulation(50, 0.3*M_PI, -0.53*M_PI);
-    // DiscreteRingSimulation(100, 0.3*M_PI, -0.53*M_PI);
-    DiscreteRingSimulation(250, 0.3*M_PI, -0.53*M_PI);
-
-    // SmallRingGraphShortSimulation();
-    // SmallRingGraphLongSimulation();
-    // LargeRingGraphLongSimulation();
-    // QuiteLargeRingGraphLongSimulation();
-    // VeryLargeRingGraphLongSimulation();
-    // VeryLargeRingGraphLongSimulation();
-    // VeryLargeCosGraphLongSimulation();
-
+    DiscreteRingSimulation(5, 0.3*M_PI, -0.53*M_PI);
+    ContinuumLimitRingGraphSimulation(5, 0.3*M_PI, -0.53*M_PI);
 
     const sec duration = clock::now() - before;
     std::cout << "Main took " << duration.count() << "s" << std::endl;

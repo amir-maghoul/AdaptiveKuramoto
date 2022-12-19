@@ -12,7 +12,8 @@
 #include <fstream>
 #include <chrono>
 
-void ContinuumLimitRingGraphSimulation(int n, double a0, double b0);
+void ContinuumLimitRingGraphSimulation(int n, const double a, const double b);
+void ContinuumLimitCosGraphSimulation(int d, const double a, const double b);
 
 
 #endif
