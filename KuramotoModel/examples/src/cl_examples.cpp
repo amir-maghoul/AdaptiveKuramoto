@@ -1,6 +1,6 @@
 /** This module contains some examples for the continuum limit of adaptive Kuramoto Model**/
 
-#include "examples/headers/cl_examples_ring.h"
+#include "examples/headers/cl_examples.h"
 #include <random>
 
 namespace plt = matplotlibcpp;

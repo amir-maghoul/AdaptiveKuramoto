@@ -6,8 +6,7 @@
 #include "include/Headers/integrators.h"
 #include "include/Headers/integral_solver.h"
 #include "examples/headers/ds_examples.h"
-#include "examples/headers/cl_examples_ring.h"
-// #include "examples/headers/cl_examples_cos.h"
+#include "examples/headers/cl_examples.h"
 #include "examples/headers/ds_examples_ring.h"
 #include <eigen/Dense>
 #include <vector>
