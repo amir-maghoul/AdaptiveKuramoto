@@ -106,7 +106,7 @@ void TestOrderParameter()
     std::string file_loc2 = "txt_outputs/phases_file.txt";
     write_data(file_loc2, output[0]);
     std::string file_loc = "txt_outputs/order_parameter_file.txt";
-    write_vector(file_loc, order_parameter);
+    // write_vector(file_loc, order_parameter);
 };
 
 void TestClustering()

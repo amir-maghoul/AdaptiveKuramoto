@@ -17,15 +17,44 @@ Eigen::MatrixXd Ring(int n){
 
 
 void DiscreteRingSimulation(int n, double a0, double b0){
+
+    double h = 0.1;
     auto phi = [](double x){return SinFunction(x);};
+    auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
+
     ContinuumLimit ContSystem;
     ContSystem.d = n;
-
     Eigen::VectorXd W0(n);
     W0.setZero();
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
-    // PHI.setRandom();
-    Eigen::MatrixXd K0 = Ring(n);
+    Eigen::MatrixXd K0 = ContSystem.DiscretizeWeights(K);
+
+    AdaptiveKuramoto system(W0, K0);
+    system.n = n;
+    system.num_steps = 10000;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = 1000;
+    const double a = a0;
+    const double b = b0;
+    unsigned int jump = 20;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
+    std::string file_loc1 = "txt_outputs/discrete_ring_with_" + std::to_string(n) + "_oscillators.txt";
+    write_data(file_loc1, output[1]);
+
+}
+
+void DiscreteRandomSimulation(int n, double a0, double b0){
+
+    Eigen::VectorXd W0(n);
+    W0.setZero();
+    Eigen::VectorXd PHI(n);
+    PHI.setRandom();
+    PHI = (PHI.array()*M_PI + M_PI).matrix();
+    Eigen::MatrixXd K0(n,n);
+    K0.setRandom();
 
     AdaptiveKuramoto system(W0, K0);
     system.n = n;
@@ -39,8 +68,10 @@ void DiscreteRingSimulation(int n, double a0, double b0){
     unsigned int jump = 200;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
-    std::string file_loc1 = "txt_outputs/discrete_ring_with_" + std::to_string(n) + "_oscillators.txt";
-    write_data(file_loc1, output[1]);
+    std::string file_loc1 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators.txt";
+    std::string file_loc2 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators_phases.txt";
 
+    write_data(file_loc1, output[1]);
+    write_data(file_loc2, output[0]);
 }
 
