@@ -152,7 +152,7 @@ Eigen::MatrixXd ContinuumLimit::Dynamics(Eigen::VectorXd &U, const Eigen::Vector
 	INTEGRAND_PHI = K.cwiseProduct(INTERACTION_PHI);				///< The operand of integral in the formula
 
 	// ODE Formula: See the method documentation. Trapozoidal rule for matrices is used for numerical integration.
-	PHI_DOT = W - (ro/d)*(IntegralSolvers::TrapMatrixin1D(INTEGRAND_PHI, 0, 1, d, 2, "y")); 		
+	PHI_DOT = W - ro*(IntegralSolvers::TrapMatrixin1D(INTEGRAND_PHI, 0, 1, d, 2, "x"));
 	K_DOT 	= -epsilon*(K + INTERACTION_K);							///< Formula
 
 // Repacking the outut and concatenating the results again
