@@ -5,6 +5,7 @@
 #include <eigen/Dense>
 #include <vector>
 #include <iostream>
+#include <iomanip>
 
 inline void write_data(std::string file_name, std::vector<Eigen::MatrixXd> matrix)
 {
@@ -16,14 +17,14 @@ inline void write_data(std::string file_name, std::vector<Eigen::MatrixXd> matri
     {
         for (size_t j=0; j < matrix.at(i).size(); ++j)
         {
-            file << (matrix.at(i))(j) << ",";    
+            file << std::setprecision(7) << (matrix.at(i))(j) << ",";    
         }
         file << "\n";
     } 
     file.close();
 }
 
-inline void write_vector(std::string file_name, std::vector<double> vector)
+inline void write_vector(std::string file_name, std::vector<Eigen::MatrixXd> vector)
 {
     std::cout << "Writing vector..."<< std::endl;
     std::fstream file;
@@ -31,6 +32,7 @@ inline void write_vector(std::string file_name, std::vector<double> vector)
 
     for (size_t i = 0; i < vector.size(); ++i)
     {
+        std::cout << vector.size() << std::endl;
         file << vector.at(i) << ",";    
         file << "\n";
     } 
