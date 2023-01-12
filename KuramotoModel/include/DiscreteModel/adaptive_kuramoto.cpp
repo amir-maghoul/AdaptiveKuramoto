@@ -1,5 +1,4 @@
 #include "include/Headers/adaptive_kuramoto.h"
-
 /**
  * Empty Constructor
 */
@@ -171,6 +170,7 @@ std::vector<std::vector<Eigen::MatrixXd>> AdaptiveKuramoto::run(const Eigen::Vec
 // Packing the input of the dyanamics
 	Eigen::VectorXd U0(n*n+n, 1);
 	FlatConcatenate(U0, X0, K0);										///< Put together the inital phases and flattend inital weight matrix
+
 
 // Wrapping the dynamics for the given independent parameters a and b
 	auto WrappedODE = [this, a, b] (Eigen::VectorXd &U)

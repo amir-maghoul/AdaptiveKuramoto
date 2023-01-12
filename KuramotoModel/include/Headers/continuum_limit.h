@@ -158,7 +158,7 @@ std::vector<std::vector<Eigen::MatrixXd>> run(F1 &&f0, F2 &&WC0, F3 &&KC0, const
 	K0 << system.at(2);
 
 // Creating long vector for the input of dynamics
-	Eigen::VectorXd U0(d*d+d);
+	Eigen::VectorXd U0(d*d+d, 1);
 	FlatConcatenate(U0, X0, K0);
 
 // Wrapping the dynamics for the given independent parameters a and b

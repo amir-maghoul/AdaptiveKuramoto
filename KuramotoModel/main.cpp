@@ -36,8 +36,17 @@ int main(){
 
     // std::vector<int> n = {50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800, 900};
     // std::vector<int> n = {300, 400, 500, 600, 700, 800, 900, 1000, 1100};
-    std::vector<int> n = {50, 100, 150, 200, 250, 300};
+    std::vector<int> n = {50, 100, 150, 200, 250};
+    // std::vector<int> n = {20, 25, 50};
+    // std::vector<int> n = {7};
 
+
+    // std::vector<int> n = {3, 5, 7, 10};
+
+
+    std::vector<double> error1;
+    std::vector<double> error2;
+    int t = 1;
 
 
     // for (size_t i=0; i<n.size();++i){
@@ -53,14 +62,44 @@ int main(){
         std::vector<Eigen::MatrixXd> ContlimWeights = ContlimResult[1];
         std::vector<Eigen::MatrixXd> DiscreteWeights = DiscreteResult[1];
 
-        std::cout << "Maximum norm" << std::endl;
-        std::cout << (ContlimWeights.at(99) - DiscreteWeights.at(99)).cwiseAbs().maxCoeff() << std::endl;
-        std::cout << "Frobenius norm" << std::endl;
-        std::cout << (ContlimWeights.at(99) - DiscreteWeights.at(99)).norm() << std::endl;
+        // std::cout << "Discrete Matrix" << std::endl;
+        // std::cout << std::setprecision(8) << DiscreteWeights.at(t).reshaped(n.at(i), n.at(i)) << std::endl;
+    
+        // std::cout << "Contlim Matrix" << std::endl;
+        // std::cout << std::setprecision(8) << ContlimWeights.at(t).reshaped(n.at(i), n.at(i)) << std::endl;
+        // std::cout << std::setprecision(8) << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)) << std::endl;
+        // getchar();
 
+        // std::cout << "(" << ContlimWeights.at(t).rows() << ", " << ContlimWeights.at(t).cols() << ")" <<std::endl;
+        // std::cout << "(" << DiscreteWeights.at(t).rows() << ", " << DiscreteWeights.at(t).cols() << ")" <<std::endl;
+        // getchar();
+
+        std::cout << "Maximum norm" << std::endl;
+        std::cout << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)).cwiseAbs().maxCoeff() << std::endl;
+        std::cout << "Frobenius norm" << std::endl;
+        std::cout << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)).norm() << std::endl;
+
+        error1.push_back((ContlimWeights.at(t) - DiscreteWeights.at(t)).cwiseAbs().maxCoeff());
+        error2.push_back((ContlimWeights.at(t) - DiscreteWeights.at(t)).norm());
 
     };
-    // DiscreteCosSimulation(5, 0, 0);
+
+    plt::title("Error1");
+    plt::named_plot("Maximum Error", n, error1);
+    plt::xlabel("number of oscillators");
+    plt::ylabel("error");
+    plt::legend();
+    plt::save("Maximum Error.png");
+
+    plt::figure();
+    plt::title("Error2");
+    plt::named_plot("Frobenius Error",n, error2);
+    plt::xlabel("number of oscillators");
+    plt::ylabel("error");
+    plt::legend();
+    plt::save("Frobenius Error.png");
+
+    // DiscreteCosSimulation(3, 0, 0);
 
 
 
@@ -177,6 +216,7 @@ int main(){
 
     // LotkaVolterra();
     // TestClustering();
+    // adaptiveKuramoto();
     // PlotPhi();
     // TestOrderParameter();
 
