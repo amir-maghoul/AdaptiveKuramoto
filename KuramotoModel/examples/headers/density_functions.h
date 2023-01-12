@@ -46,7 +46,7 @@ inline double SmallWorldGraph(double x, double y, double h, double p){
 /** Sinusoidal Graph
 */
 inline double SinusoidalGraph(double x, double y){
-    return 0.5*(1+cos(2*M_PI*(x-y)));
+    return 0.5*(1+cos(2*M_PI*(x-y))) + 1.5;
 }
 
 /*
@@ -81,7 +81,7 @@ inline double ExpFunction(double x){
 }
 
 inline double NormalDistributionFunction(double x){
-    return exp(-0.5*pow(x,2))/(sqrt(2*M_PI));
+    return exp(-0.5*pow(x-0.5,2))/(sqrt(2*M_PI));
 }
 
 #endif
