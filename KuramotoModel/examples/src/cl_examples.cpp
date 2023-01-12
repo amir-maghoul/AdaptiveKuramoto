@@ -28,7 +28,7 @@ void ContinuumLimitRingGraphSimulation(int d, const double a, const double b){
     std::string file_loc1 = "txt_outputs/contlim_ring_with_" + std::to_string(d) + "_oscillators.txt";
     std::string file_loc2 = "txt_outputs/contlim_ring_with_" + std::to_string(d) + "_oscillators_phases.txt";
 
-    // write_data(file_loc1, output[1]);
+    write_data(file_loc1, output[1]);
     write_data(file_loc2, output[0]);
 }
 
@@ -38,20 +38,25 @@ void ContinuumLimitCosGraphSimulation(int d, const double a, const double b){
     auto K = [](double x, double y){return SinusoidalGraph(x, y);};
     auto phi = [](double x){return SinFunction(x);};
 
-
     ContinuumLimit system;
     system.d = d;
-    system.num_steps = 100000;
+    system.num_steps = 500;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 10000;
-    unsigned int jump = 200;
+    system.t_end = 20;
+    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 
+
     std::string file_loc1 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators.txt";
+    std::string file_loc2 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators_phases.txt";
+
     write_data(file_loc1, output[1]);
+    write_data(file_loc2, output[0]);
+
+    
 }
 
 void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, const double b){
@@ -76,4 +81,33 @@ void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, c
     std::string file_loc1 = "txt_outputs/contlim_gauss_with_" + std::to_string(d) + "_oscillators.txt";
     write_data(file_loc1, output[1]);
 
+}
+
+void ContinuumLimitRandomGraphSimulation(int d, const double a, const double b){
+
+    double h = 0.1;
+    double RandomHigh = 1;
+    double RandomLow = -1;
+
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [h, RandomLow, RandomHigh](double x, double y){return RandomGraph(x, y, RandomLow, RandomHigh);};
+    auto phi = [RandomLow, RandomHigh](double x){return RandomFunction(x, RandomLow, RandomHigh);};
+
+
+    ContinuumLimit system;
+    system.d = d;
+    system.num_steps = 100000;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = 10000;
+    unsigned int jump = 200;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+
+    std::string file_loc1 = "txt_outputs/contlim_random_with_" + std::to_string(d) + "_oscillators.txt";
+    std::string file_loc2 = "txt_outputs/contlim_random_with_" + std::to_string(d) + "_oscillators_phases.txt";
+
+    write_data(file_loc1, output[1]);
+    write_data(file_loc2, output[0]);
 }

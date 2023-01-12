@@ -90,23 +90,24 @@ void DiscreteCosSimulation(int n, double a, double b){
 
     AdaptiveKuramoto system(W0, K0);
     system.n = n;
-    system.num_steps = 100;
+    system.num_steps = 500;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 5;
+    system.t_end = 20;
     unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
     std::string file_loc1 = "txt_outputs/discrete_cos_with_" + std::to_string(n) + "_oscillators.txt";
     std::string file_loc2 = "txt_outputs/discrete_cos_with_" + std::to_string(n) + "_oscillators_phases.txt";
 
-    write_data(file_loc1, output[1]);
     write_data(file_loc2, output[0]);
+    write_data(file_loc1, output[1]);
+
 
 }
 
-std::vector<std::vector<std::vector<Eigen::MatrixXd>>>Comparison(int n, double a, double b){
+std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double a, double b){
 
     auto w = [](double x){return ZeroFunction(x);};
     auto phi = [](double x){return SinFunction(x);};
@@ -114,11 +115,11 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>>Comparison(int n, double a
 
     ContinuumLimit ContSystem;
     ContSystem.d = n;
-    ContSystem.num_steps = 100;
+    ContSystem.num_steps = 500;
     ContSystem.ro = 1;
     ContSystem.epsilon = 0.01;
     ContSystem.t0 = 0;
-    ContSystem.t_end = 5;
+    ContSystem.t_end = 20;
 
     Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
@@ -126,16 +127,22 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>>Comparison(int n, double a
     
     AdaptiveKuramoto system(W0, K0);
     system.n = n;
-    system.num_steps = 100;
+    system.num_steps = 10000;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 5;
+    system.t_end = 100;
 
-    unsigned int jump = 1;
+    unsigned int jump = 10;
 
     std::vector<std::vector<Eigen::MatrixXd>> contlim_output = ContSystem.run(phi, w, K, a, b, jump);
     std::vector<std::vector<Eigen::MatrixXd>> disc_output = system.run(PHI, a, b, jump);
+
+    std::string file_loc1 = "txt_outputs/discrete_cos_with_" + std::to_string(n) + "_oscillators.txt";
+    std::string file_loc2 = "txt_outputs/contlim_cos_with_" + std::to_string(n) + "_oscillators.txt";
+
+    write_data(file_loc1, disc_output[1]);
+    write_data(file_loc2, contlim_output[1]);
 
     std::vector<std::vector<std::vector<Eigen::MatrixXd>>> result;
     result.push_back(contlim_output);

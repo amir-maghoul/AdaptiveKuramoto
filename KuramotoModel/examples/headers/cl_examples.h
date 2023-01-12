@@ -14,6 +14,8 @@
 
 void ContinuumLimitRingGraphSimulation(int n, const double a, const double b);
 void ContinuumLimitCosGraphSimulation(int d, const double a, const double b);
+void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, const double b);
+void ContinuumLimitRandomGraphSimulation(int d, const double a, const double b);
 
 
 #endif
