@@ -17,7 +17,7 @@ inline void write_data(std::string file_name, std::vector<Eigen::MatrixXd> matri
     {
         for (size_t j=0; j < matrix.at(i).size(); ++j)
         {
-            file << std::setprecision(7) << (matrix.at(i))(j) << ",";    
+            file << std::setprecision(15) << (matrix.at(i))(j) << ",";    
         }
         file << "\n";
     } 
