@@ -103,7 +103,9 @@ struct Integrator
 
     /**
      * Calculates the integral in the given direction on a matrix function. Uses Eigen slicing for speed.
-     * See the docs for TrapozoidalRule1DMatrix.
+     * See the docs for TrapozoidalRule1DMatrix. 
+     * Notice the direction is considered the array axis, not the mathematical coordinates.
+     * This means direction == "x" is integration on the rows, not the x-axis in cartesian coordinates.
      * 
      * @param F Eigen::Matrix
      * @param direction string axis of integration

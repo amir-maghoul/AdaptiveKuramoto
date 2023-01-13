@@ -108,7 +108,9 @@ Eigen::VectorXd ContinuumLimit::DiscretizeInterval()
 /**
  * Creates a square matrix of pairwise difference of elements of the given (mathematical) vector.
  * In order to do so, first creates matrices of copied columns and rows of the input vector and 
- * then returns the distance of the two matrices
+ * then returns the distance of the two matrices.
+ * Notice numerical integration is done in the "x" direction. Meaning that we integrate over each
+ * row of the interaction matrix. This "x" has nothing to do with the cartesian x-axis.
  * 
  * @param U 	Eigen::MatrixXd The *column* vector from which the difference matrix is created
  * 

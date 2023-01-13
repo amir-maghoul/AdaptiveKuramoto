@@ -43,7 +43,7 @@ int main(){
 
     // std::vector<int> n = {3, 5, 7, 10};
 
-
+    std::vector<double> error0;
     std::vector<double> error1;
     std::vector<double> error2;
     int t = 1;
@@ -79,11 +79,22 @@ int main(){
         std::cout << "Frobenius norm" << std::endl;
         std::cout << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)).norm() << std::endl;
 
+        Eigen::MatrixXd Difference = (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i));
+        Eigen::VectorXd L1_Integral = IntegralSolvers::TrapMatrixin1D(Difference, 0, 1, n.at(i), 2, "y");
+        error0.push_back(L1_Integral.cwiseAbs().maxCoeff());
         error1.push_back((ContlimWeights.at(t) - DiscreteWeights.at(t)).cwiseAbs().maxCoeff());
         error2.push_back((ContlimWeights.at(t) - DiscreteWeights.at(t)).norm());
 
     };
+    plt::figure();
+    plt::title("Error0");
+    plt::named_plot("L1 Error",n, error0);
+    plt::xlabel("number of oscillators");
+    plt::ylabel("error");
+    plt::legend();
+    plt::save("L1 Error.png");
 
+    plt::figure();
     plt::title("Error1");
     plt::named_plot("Maximum Error", n, error1);
     plt::xlabel("number of oscillators");
