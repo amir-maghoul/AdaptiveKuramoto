@@ -46,7 +46,7 @@ inline double SmallWorldGraph(double x, double y, double h, double p){
 /** Sinusoidal Graph
 */
 inline double SinusoidalGraph(double x, double y){
-    return 0.5*(1+cos(2*M_PI*(x-y))) + 1.5;
+    return 0.5*(1+cos(2*M_PI*(x-y))) + 0.5;
 }
 
 /*

@@ -40,12 +40,12 @@ void ContinuumLimitCosGraphSimulation(int d, const double a, const double b){
 
     ContinuumLimit system;
     system.d = d;
-    system.num_steps = 500;
+    system.num_steps = 10000;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 20;
-    unsigned int jump = 1;
+    system.t_end = 1000;
+    unsigned int jump = 50;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 

@@ -90,12 +90,12 @@ void DiscreteCosSimulation(int n, double a, double b){
 
     AdaptiveKuramoto system(W0, K0);
     system.n = n;
-    system.num_steps = 500;
+    system.num_steps = 10000;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 20;
-    unsigned int jump = 1;
+    system.t_end = 1000;
+    unsigned int jump = 50;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
     std::string file_loc1 = "txt_outputs/discrete_cos_with_" + std::to_string(n) + "_oscillators.txt";
@@ -113,13 +113,16 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
     auto phi = [](double x){return SinFunction(x);};
     auto K = [](double x, double y){return SinusoidalGraph(x, y);};
 
+    double tend = 40;
+    int numsteps = 400;
+
     ContinuumLimit ContSystem;
     ContSystem.d = n;
-    ContSystem.num_steps = 500;
+    ContSystem.num_steps = numsteps;
     ContSystem.ro = 1;
     ContSystem.epsilon = 0.01;
     ContSystem.t0 = 0;
-    ContSystem.t_end = 20;
+    ContSystem.t_end = tend;
 
     Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
@@ -127,13 +130,13 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
     
     AdaptiveKuramoto system(W0, K0);
     system.n = n;
-    system.num_steps = 10000;
+    system.num_steps = numsteps;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 100;
+    system.t_end = tend;
 
-    unsigned int jump = 10;
+    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> contlim_output = ContSystem.run(phi, w, K, a, b, jump);
     std::vector<std::vector<Eigen::MatrixXd>> disc_output = system.run(PHI, a, b, jump);
