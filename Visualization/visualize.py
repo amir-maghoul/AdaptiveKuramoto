@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from scipy.integrate import trapz
 import sys
 
 
@@ -11,7 +12,7 @@ def read_vector_to_array(file_loc):
     with open(file_loc, "r") as f: 
         for line in f:
             matrix_list.append([float(x) for x in line[:-2].split(",")])
-    adj_matrix = np.array(matrix_list, dtype=np.float64)
+    adj_matrix = np.array(matrix_list)
     return adj_matrix
 
 def read_matrix_to_array(file_loc, n):
@@ -107,6 +108,10 @@ if __name__ == "__main__":
     n = 100
     np.set_printoptions(precision=7)
 
+    x = [[[1, 2, 3], [4, 5, 6]], [[2, 3, 4], [4, 5, 6]]]
+    print(trapz(x, axis=(1, 2)))
+    
+
     # np.set_printoptions(precision=5,threshold=sys.maxsize)
     # file_loc1 = f"/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/discrete_random_with_{n}_oscillators_phases.txt"
     # file_loc2 = f"/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/discrete_random_with_{n}_oscillators.txt"
@@ -119,11 +124,12 @@ if __name__ == "__main__":
     # plot_matrix(matrix, 499, ind)
     # plt.show()
 
-    file_loc2 = f"/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/discrete_cos_with_50_oscillators.txt"
-    file = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/test_phases_50_oscillators_phases.txt"
+    # file_loc2 = f"/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/discrete_cos_with_50_oscillators.txt"
+    # file = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/test_phases_50_oscillators_phases.txt"
 
-    matrix = read_matrix_to_array(file_loc2, 50)
-    print(matrix[0, :, :])
+    # matrix = read_matrix_to_array(file_loc2, 50)
+    # print(matrix[0, :, :])
+
 
 
     
