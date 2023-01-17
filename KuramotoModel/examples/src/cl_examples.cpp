@@ -40,18 +40,18 @@ void ContinuumLimitCosGraphSimulation(int d, const double a, const double b){
 
     ContinuumLimit system;
     system.d = d;
-    system.num_steps = 10000;
+    system.num_steps = 400;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 1000;
-    unsigned int jump = 50;
+    system.t_end = 40;
+    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 
 
-    std::string file_loc1 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators.txt";
-    std::string file_loc2 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators_phases.txt";
+    std::string file_loc1 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
+    std::string file_loc2 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
     write_data(file_loc1, output[1]);
     write_data(file_loc2, output[0]);
