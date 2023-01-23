@@ -83,10 +83,11 @@ struct Integrator
     /**
      * Calculates the trapozoidal integral on a vector. The method used Eigen slicing for speed.
      * Assume the vector values at grid points are (f1, f2, f3, f4, f5).
-     * Trapozoidal rule says the integral is (h/2)*sum(fi+fi+1). This corresponds to a vectorized operation
+     * Trapozoidal rule asserts the integral is (h/2)*sum(fi+fi+1). This corresponds to a vectorized operation
      * of two vectors v := (f1, f2, f3, f4) + (f2, f3, f4, f5) and then (h/2)*v.sum().
      * (f1, f2, f3, f4) = F(0:n-1) and (f2, f3, f4, f5) = F(1:n).
      * Therefore the integral would be (h/2)*(F(0:n-1) + F(1:n)).sum().
+     * 
      * 
      * @param F Eigen::Vector the vector for the integral operand
      * 
@@ -112,23 +113,85 @@ struct Integrator
      * 
      * @return Eigen::Vector
     */
-    Eigen::VectorXd TrapozoidalRule1Din2DMatrix(Eigen::MatrixXd &F, const std::string &direction)
+    Eigen::VectorXd TrapozoidalRuleIn2DMatrix(Eigen::MatrixXd &F, const std::string &direction)
     {
-        long size = F.rows();
-        Eigen::MatrixXd U(size, size);
-        Eigen::VectorXd INTEGRAL(size);
+        long rows = F.rows();
+        long cols = F.cols();
+        Eigen::VectorXd INTEGRAL;
+
         if (direction == "x"){
-            // Eigen::MatrixXd U (F.rows(), F.rows()-1);
-            U =F(Eigen::seq(0,size-1), Eigen::seq(0,size-2)) + F(Eigen::seq(0,size-1), Eigen::seq(1,size-1));
+            Eigen::MatrixXd U(rows, cols-1);
+            U =F(Eigen::all, Eigen::seq(0,cols-2)) + F(Eigen::all, Eigen::seq(1,Eigen::last));
             INTEGRAL = U.rowwise().sum();
+            INTEGRAL = (1.0/(double) (2*cols))*INTEGRAL;
+
         }
         else if (direction == "y"){
-            // Eigen::MatrixXd U (F.rows()-1, F.rows());
-            U =F(Eigen::seq(1,size-1), Eigen::seq(0,size-1)) + F(Eigen::seq(0,size-2), Eigen::seq(0,size-1));
+            Eigen::MatrixXd U(rows-1, cols);
+            U =F(Eigen::seq(1,Eigen::last), Eigen::all) + F(Eigen::seq(0,rows-2), Eigen::all);
             INTEGRAL = U.colwise().sum();
+            INTEGRAL = (1.0/(double) (2*rows))*INTEGRAL;
+
         }
 
-        INTEGRAL = (1.0/(double) (2*size))*INTEGRAL;
+        return INTEGRAL;
+    };
+
+    /**
+     * Calculates the Simpson 3/8 rule integral on a vector. The method used Eigen slicing for speed.
+     * Assume the vector values at grid points are (f1, f2, f3, f4, f5, f6, f7, f8).
+     * See the formula in https://en.wikipedia.org/wiki/Simpson%27s_rule. 
+     * This corresponds to a vectorized operation of  
+     *      3*(0, f2, f3, f4, f5, f6, f7, 0) 
+     *      - (0, 0, 0, f4, 0, 0, f7, 0) 
+     *      + (f1, 0, 0, 0, 0, 0, 0, 0) 
+     *      + (0, 0, 0, 0, 0, 0, f7, 0) 
+     * 
+     * and then (3*h/8)*v.sum().
+     * 
+     * 
+     * @param F Eigen::Vector the vector for the integral operand
+     * 
+     * @return double the integral value on the unit interval
+    */
+    // double Simpsons3_8RuleVector(Eigen::VectorXd &F)
+    // {
+    //     double integral;
+    //     integral = (3*F(Eigen::seq(1, Eigen::last))).sum() - F(Eigen::seq(3, Eigen::last, 3)).sum() + F(0) + F(Eigen::last);
+    //     integral = (3.0/(double) 8*F.size())*integral;
+    //     return integral;
+    // };
+
+    /**
+     * Calculates the integral in the given direction on a matrix function using the Simpson's 3/8 rule. 
+     * Uses Eigen slicing for speed.
+     * See the docs for Simpsons3_8RuleVector. 
+     * Notice the direction is considered the array axis, not the mathematical coordinates.
+     * This means direction == "x" is integration on the rows, not the x-axis in cartesian coordinates.
+     * 
+     * @param M Eigen::Matrix
+     * @param direction string axis of integration
+     * 
+     * @return Eigen::Vector
+    */
+    Eigen::VectorXd Simpsons3_8RuleIn2DMatrix(Eigen::MatrixXd &M, const std::string &direction){
+        long rows = M.rows();
+        long cols = M.cols();
+        Eigen::VectorXd INTEGRAL;
+
+        if (direction == "x"){
+            Eigen::MatrixXd temp;
+            temp = M(Eigen::all, Eigen::seq(3,Eigen::last,3));
+            INTEGRAL = (3*M(Eigen::all, Eigen::seq(1,Eigen::last))).rowwise().sum() - temp.rowwise().sum()+ M(Eigen::all, 0) + M(Eigen::all, Eigen::last);
+            INTEGRAL = (3.0/(double) (8*cols))*INTEGRAL;
+        }
+        else if (direction == "y"){
+            Eigen::MatrixXd temp;
+            temp = M(Eigen::seq(3,Eigen::last,3), Eigen::all);
+            INTEGRAL =(3*M(Eigen::seq(1,Eigen::last), Eigen::all)).colwise().sum() - temp.colwise().sum() + M(0, Eigen::all) + M(Eigen::last, Eigen::all);
+            INTEGRAL = (3.0/(double) (8*rows))*INTEGRAL;
+        }
+
         return INTEGRAL;
     };
 

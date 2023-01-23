@@ -15,8 +15,14 @@ namespace IntegralSolvers{
     inline Eigen::VectorXd TrapMatrixin1D(Eigen::MatrixXd &M, double lower_bound, double upper_bound, int d, int n, const std::string &direction){
 
         Integrator INT(lower_bound, upper_bound, d, n);
-        return INT.TrapozoidalRule1Din2DMatrix(M, direction);
+        return INT.TrapozoidalRuleIn2DMatrix(M, direction);
 
+    };
+
+    inline Eigen::VectorXd SimpsonMatrix1D(Eigen::MatrixXd &M, double lower_bound, double upper_bound, int d, int n, const std::string &direction){
+
+        Integrator INT(lower_bound, upper_bound, d, n);
+        return INT.Simpsons3_8RuleIn2DMatrix(M, direction);
     };
 
 };
