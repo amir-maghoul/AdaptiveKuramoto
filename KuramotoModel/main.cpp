@@ -36,9 +36,9 @@ int main(){
 
     // std::vector<int> n = {50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800, 900};
     // std::vector<int> n = {300, 400, 500, 600, 700, 800, 900, 1000, 1100};
-    std::vector<int> n = {50, 100, 150, 200, 250};
+    std::vector<int> n = {3, 5, 7, 10, 15, 20, 25, 30, 50, 100, 150, 200, 250};//, 300, 350, 400, 500};
     // std::vector<int> n = {20, 25, 50};
-    // std::vector<int> n = {7};
+    // std::vector<int> n = {200};
 
 
     // std::vector<int> n = {3, 5, 7, 10};
@@ -48,71 +48,89 @@ int main(){
     std::vector<double> error2;
     int t = 1;
 
+    std::vector<double> tend =  {5, 10, 20, 40, 50, 75, 100, 150, 200, 300, 500, 750, 1000};
 
+    for (size_t j=0;j<tend.size();++j){
+        for (size_t i=0; i<n.size();++i){
+            DiscreteRingGraphSimulation(n.at(i), 0, 0, tend.at(j));
+            ContinuumLimitRingGraphSimulation(n.at(i), 0, 0, tend.at(j));
+        }}
+
+    // for (size_t j=0;j<tend.size();++j){
+    //     for (size_t i=0; i<n.size();++i){
+    //         DiscreteCosSimulation(n.at(i), 0, 0, tend.at(j));
+    //         ContinuumLimitCosGraphSimulation(n.at(i), 0, 0, tend.at(j));
+    //     }}
     // for (size_t i=0; i<n.size();++i){
-    //     DiscreteCosSimulation(n.at(i), 0, 0);
-    //     ContinuumLimitCosGraphSimulation(n.at(i), 0, 0);
-    // }
-    for (size_t i=0; i<n.size();++i){
-        std::vector<std::vector<std::vector<Eigen::MatrixXd>>> result = Comparison(n.at(i), 0, 0);
+    //     std::vector<std::vector<std::vector<Eigen::MatrixXd>>> result = Comparison(n.at(i), 0, 0);
 
-        std::vector<std::vector<Eigen::MatrixXd>> ContlimResult = result[0];
-        std::vector<std::vector<Eigen::MatrixXd>> DiscreteResult = result[1];
+    //     std::vector<std::vector<Eigen::MatrixXd>> ContlimResult = result[0];
+    //     std::vector<std::vector<Eigen::MatrixXd>> DiscreteResult = result[1];
 
-        std::vector<Eigen::MatrixXd> ContlimWeights = ContlimResult[1];
-        std::vector<Eigen::MatrixXd> DiscreteWeights = DiscreteResult[1];
+    //     std::vector<Eigen::MatrixXd> ContlimWeights = ContlimResult[1];
+    //     std::vector<Eigen::MatrixXd> DiscreteWeights = DiscreteResult[1];
 
-        // std::cout << "Discrete Matrix" << std::endl;
-        // std::cout << std::setprecision(8) << DiscreteWeights.at(t).reshaped(n.at(i), n.at(i)) << std::endl;
+    //     // std::cout << "Discrete Matrix" << std::endl;
+    //     // std::cout << std::setprecision(8) << DiscreteWeights.at(t).reshaped(n.at(i), n.at(i)) << std::endl;
     
-        // std::cout << "Contlim Matrix" << std::endl;
-        // std::cout << std::setprecision(8) << ContlimWeights.at(t).reshaped(n.at(i), n.at(i)) << std::endl;
-        // std::cout << std::setprecision(8) << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)) << std::endl;
-        // getchar();
+    //     // std::cout << "Contlim Matrix" << std::endl;
+    //     // std::cout << std::setprecision(8) << ContlimWeights.at(t).reshaped(n.at(i), n.at(i)) << std::endl;
+    //     // std::cout << std::setprecision(8) << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)) << std::endl;
+    //     // getchar();
 
-        // std::cout << "(" << ContlimWeights.at(t).rows() << ", " << ContlimWeights.at(t).cols() << ")" <<std::endl;
-        // std::cout << "(" << DiscreteWeights.at(t).rows() << ", " << DiscreteWeights.at(t).cols() << ")" <<std::endl;
-        // getchar();
+    //     // std::cout << "(" << ContlimWeights.at(t).rows() << ", " << ContlimWeights.at(t).cols() << ")" <<std::endl;
+    //     // std::cout << "(" << DiscreteWeights.at(t).rows() << ", " << DiscreteWeights.at(t).cols() << ")" <<std::endl;
+    //     // getchar();
 
-        std::cout << "Maximum norm" << std::endl;
-        std::cout << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)).cwiseAbs().maxCoeff() << std::endl;
-        std::cout << "Frobenius norm" << std::endl;
-        std::cout << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)).norm() << std::endl;
+    //     std::cout << "Maximum norm" << std::endl;
+    //     std::cout << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)).cwiseAbs().maxCoeff() << std::endl;
+    //     std::cout << "Frobenius norm" << std::endl;
+    //     std::cout << (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i)).norm() << std::endl;
 
-        Eigen::MatrixXd Difference = (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i));
-        Eigen::VectorXd L1_Integral = IntegralSolvers::TrapMatrixin1D(Difference, 0, 1, n.at(i), 2, "y");
-        error0.push_back(L1_Integral.cwiseAbs().maxCoeff());
-        error1.push_back((ContlimWeights.at(t) - DiscreteWeights.at(t)).cwiseAbs().maxCoeff());
-        error2.push_back((ContlimWeights.at(t) - DiscreteWeights.at(t)).norm());
+    //     Eigen::MatrixXd Difference = (ContlimWeights.at(t) - DiscreteWeights.at(t)).reshaped(n.at(i), n.at(i));
+    //     Eigen::VectorXd L1_Integral = IntegralSolvers::TrapMatrixin1D(Difference, 0, 1, n.at(i), 2, "y");
+    //     error0.push_back(L1_Integral.cwiseAbs().maxCoeff());
+    //     error1.push_back((ContlimWeights.at(t) - DiscreteWeights.at(t)).cwiseAbs().maxCoeff());
+    //     error2.push_back((ContlimWeights.at(t) - DiscreteWeights.at(t)).norm());
 
-    };
-    plt::figure();
-    plt::title("Error0");
-    plt::named_plot("L1 Error",n, error0);
-    plt::xlabel("number of oscillators");
-    plt::ylabel("error");
-    plt::legend();
-    plt::save("L1 Error.png");
+    // };
+    // plt::figure();
+    // plt::title("Error0");
+    // plt::named_plot("L1 Error",n, error0);
+    // plt::xlabel("number of oscillators");
+    // plt::ylabel("error");
+    // plt::legend();
+    // plt::save("L1 Error.png");
 
-    plt::figure();
-    plt::title("Error1");
-    plt::named_plot("Maximum Error", n, error1);
-    plt::xlabel("number of oscillators");
-    plt::ylabel("error");
-    plt::legend();
-    plt::save("Maximum Error.png");
+    // plt::figure();
+    // plt::title("Error1");
+    // plt::named_plot("Maximum Error", n, error1);
+    // plt::xlabel("number of oscillators");
+    // plt::ylabel("error");
+    // plt::legend();
+    // plt::save("Maximum Error.png");
 
-    plt::figure();
-    plt::title("Error2");
-    plt::named_plot("Frobenius Error",n, error2);
-    plt::xlabel("number of oscillators");
-    plt::ylabel("error");
-    plt::legend();
-    plt::save("Frobenius Error.png");
+    // plt::figure();
+    // plt::title("Error2");
+    // plt::named_plot("Frobenius Error",n, error2);
+    // plt::xlabel("number of oscillators");
+    // plt::ylabel("error");
+    // plt::legend();
+    // plt::save("Frobenius Error.png");
 
     // DiscreteCosSimulation(3, 0, 0);
 
+    // MatrixXd F(2, 8);
+    // F <<  0, 1, 2, 3, 4, 5, 6, 7,
+    //       9, 10, 11, 12, 13, 14, 15, 16;
 
+    // MatrixXd G(8,2);
+    // G = F.transpose();
+
+    // MatrixXd M = F(Eigen::all, Eigen::seq(3,Eigen::last, 3));
+
+    // cout << IntegralSolvers::SimpsonMatrix1D(G, 0, 1, 8, 2, "y") << endl;
+    // cout << M.rowwise().sum() << endl;
 
     // ContinuumLimitRandomGraphSimulation(50, 0.3*M_PI, -0.53*M_PI);
     // DiscreteRandomSimulation(100, 0.3*M_PI, -0.53*M_PI);

@@ -16,32 +16,33 @@ Eigen::MatrixXd Ring(int n){
 }
 
 
-void DiscreteRingSimulation(int n, double a0, double b0){
+void DiscreteRingGraphSimulation(int n, double a, double b, double tend){
 
     double h = 0.1;
+    auto w = [](double x){return ZeroFunction(x);};
     auto phi = [](double x){return SinFunction(x);};
     auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
 
     ContinuumLimit ContSystem;
     ContSystem.d = n;
-    Eigen::VectorXd W0(n);
-    W0.setZero();
+    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
     Eigen::MatrixXd K0 = ContSystem.DiscretizeWeights(K);
 
     AdaptiveKuramoto system(W0, K0);
     system.n = n;
-    system.num_steps = 10000;
+    system.num_steps = (int) tend*10;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 1000;
-    const double a = a0;
-    const double b = b0;
-    unsigned int jump = 20;
+    system.t_end = tend;
+    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
-    std::string file_loc1 = "txt_outputs/discrete_ring_with_" + std::to_string(n) + "_oscillators.txt";
+    std::string file_loc1 = "txt_outputs/discrete_ring_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
+    std::string file_loc2 = "txt_outputs/discrete_ring_with_" + std::to_string(n) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
+
+    write_data(file_loc2, output[0]);
     write_data(file_loc1, output[1]);
 
 }
@@ -76,7 +77,7 @@ void DiscreteRandomSimulation(int n, double a0, double b0){
 }
 
 
-void DiscreteCosSimulation(int n, double a, double b){
+void DiscreteCosSimulation(int n, double a, double b, double tend){
 
     auto w = [](double x){return ZeroFunction(x);};
     auto phi = [](double x){return SinFunction(x);};
@@ -90,11 +91,11 @@ void DiscreteCosSimulation(int n, double a, double b){
 
     AdaptiveKuramoto system(W0, K0);
     system.n = n;
-    system.num_steps = 400;
+    system.num_steps = (int) tend*10;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 40;
+    system.t_end = tend;
     unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);

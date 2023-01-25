@@ -13,9 +13,9 @@
 
 Eigen::MatrixXd Ring(int n);
 
-void DiscreteRingSimulation(int n, double a0, double b0);
+void DiscreteRingGraphSimulation(int n, double a, double b, double tend);
 void DiscreteRandomSimulation(int n, double a0, double b0);
-void DiscreteCosSimulation(int n, double a, double b);
-std::vector<std::vector<std::vector<Eigen::MatrixXd>>>Comparison(int n, double a, double b);
+void DiscreteCosSimulation(int n, double a, double b, double tend);
+std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double a, double b);
 
 #endif
