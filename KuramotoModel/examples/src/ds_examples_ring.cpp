@@ -46,7 +46,7 @@ void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double 
 
 }
 
-void DiscreteRandomSimulation(int n, double a0, double b0){
+void DiscreteRandomSimulation(int n, double a0, double b0, double tend){
 
     Eigen::VectorXd W0(n);
     W0.setZero();
@@ -58,18 +58,18 @@ void DiscreteRandomSimulation(int n, double a0, double b0){
 
     AdaptiveKuramoto system(W0, K0);
     system.n = n;
-    system.num_steps = 100000;
+    system.num_steps = (int) tend*10;
     system.ro = 1;
     system.epsilon = 0.01;
     system.t0 = 0;
-    system.t_end = 10000;
+    system.t_end = tend;
     const double a = a0;
     const double b = b0;
-    unsigned int jump = 200;
+    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
-    std::string file_loc1 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators.txt";
-    std::string file_loc2 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators_phases.txt";
+    std::string file_loc1 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) +  ".txt";
+    std::string file_loc2 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
     write_data(file_loc1, output[1]);
     write_data(file_loc2, output[0]);

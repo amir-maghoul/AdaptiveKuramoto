@@ -19,10 +19,16 @@ def example_discrete_cos_graph(n, t, tend, path):
     plt.savefig(fig_name, dpi=500)
     plt.close()
 
-def example_random_graph(n, t, path):
-    file_loc = path + f"discrete_random_with_{n}_oscillators.txt"
+def example_random_graph(n, t, tend, path, reshuffling=False):
+    file_loc = path + f"discrete_random_with_{n}_oscillators_tend_{tend}.txt"
     adj_matrix = read_matrix_to_array(file_loc, n)
-    plot_matrix(adj_matrix, t)
+    if reshuffling == True:
+        file_loc = path + f"discrete_random_with_{n}_oscillators_phases_tend_{tend}.txt"
+        phases = read_vector_to_array(file_loc)
+        reshuffle_ind = reshuffle(phases, int(n/3), 0.1, t)
+        plot_matrix(adj_matrix, t, reshuffle_ind)
+    else:
+        plot_matrix(adj_matrix, t)
     plt.title(f"Random Graph with {n} Oscillators")
     fig_name = "/home/amir/AdaptiveKuramoto/KuramotoModel/Figures/"+str(n)+"_oscillators_random_at_time_"+str(t)+".png"
     plt.savefig(fig_name, dpi=500)
@@ -44,8 +50,9 @@ if __name__ == "__main__":
     steps = np.arange(0, 500, 10)
 
     t = [0, 1, 10, 99, 999, 9999]
-    example_discrete_cos_graph(20, 0, 10000, path)
-    example_discrete_erdos_reyni_graph(50, 0, 10000, path)
+    # example_discrete_cos_graph(20, 0, 10000, path)
+    # example_discrete_erdos_reyni_graph(50, 0, 10000, path)
+    example_random_graph(50, 99999, 10000, path, True)
 
 
 
