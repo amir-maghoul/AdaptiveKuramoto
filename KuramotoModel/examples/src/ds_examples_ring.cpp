@@ -16,9 +16,8 @@ Eigen::MatrixXd Ring(int n){
 }
 
 
-void DiscreteRingGraphSimulation(int n, double a, double b, double tend){
+void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double h){
 
-    double h = 0.1;
     auto w = [](double x){return ZeroFunction(x);};
     auto phi = [](double x){return SinFunction(x);};
     auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
@@ -105,7 +104,6 @@ void DiscreteCosSimulation(int n, double a, double b, double tend){
     write_data(file_loc2, output[0]);
     write_data(file_loc1, output[1]);
 
-
 }
 
 std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double a, double b){
@@ -154,8 +152,35 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
 
     return result;
 
+}
+
+void DiscreteErdosReyniSimulation(int n, double a, double b, double tend, double p){
 
 
+    auto w = [](double x){return ZeroFunction(x);};
+    auto phi = [](double x){return SinFunction(x);};
+
+    ContinuumLimit ContSystem;
+    ContSystem.d = n;
+    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
+    Eigen::MatrixXd K0 = DiscreteErdosReyniGraph(n, p);
+
+    AdaptiveKuramoto system(W0, K0);
+    system.n = n;
+    system.num_steps = (int) tend*10;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = tend;
+    unsigned int jump = 1;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
+    std::string file_loc1 = "txt_outputs/discrete_erdos_reyni_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
+    std::string file_loc2 = "txt_outputs/discrete_erdos_reyni_with_" + std::to_string(n) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
+
+    write_data(file_loc2, output[0]);
+    write_data(file_loc1, output[1]);
 
 }
 

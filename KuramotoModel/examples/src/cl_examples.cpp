@@ -5,9 +5,8 @@
 
 namespace plt = matplotlibcpp;
 
-void ContinuumLimitRingGraphSimulation(int d, double a, double b, double tend){
+void ContinuumLimitRingGraphSimulation(int d, double a, double b, double tend, double h){
 
-    double h = 0.1;
     auto w = [](double x){return ZeroFunction(x);};
     auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
     auto phi = [](double x){return SinFunction(x);};
@@ -56,7 +55,6 @@ void ContinuumLimitCosGraphSimulation(int d, const double a, const double b, dou
     write_data(file_loc1, output[1]);
     write_data(file_loc2, output[0]);
 
-    
 }
 
 void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, const double b){
@@ -110,4 +108,30 @@ void ContinuumLimitRandomGraphSimulation(int d, const double a, const double b){
 
     write_data(file_loc1, output[1]);
     write_data(file_loc2, output[0]);
+}
+
+void ContinuumLimitErdosReyniGraphSimulation(int d, const double a, const double b, double tend, double p){
+
+    auto w = [](double x){return ZeroFunction(x);};
+    auto K = [p](double x, double y){return ContinuousErdosReyniGraph(x, y, p);};
+    auto phi = [](double x){return SinFunction(x);};
+
+    ContinuumLimit system;
+    system.d = d;
+    system.num_steps = (int) tend*10;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = tend;
+    unsigned int jump = 1;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+
+
+    std::string file_loc1 = "txt_outputs/contlim_erdos_reyni_with_" + std::to_string(d) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
+    std::string file_loc2 = "txt_outputs/contlim_erdos_reyni_with_" + std::to_string(d) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
+
+    write_data(file_loc1, output[1]);
+    write_data(file_loc2, output[0]);
+    
 }

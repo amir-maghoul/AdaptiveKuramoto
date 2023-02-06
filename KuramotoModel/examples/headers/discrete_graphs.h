@@ -7,7 +7,8 @@
 #include <algorithm>
 #include <random>
 
-/** Discrete Erdos Reyni Graph of probability p*/
+/** Discrete Erdos Reyni Graph of probability p
+*/
 inline Eigen::MatrixXd DiscreteErdosReyniGraph(int size, double p){
     double win = p*100;
     double loss = (1-p)*100;
