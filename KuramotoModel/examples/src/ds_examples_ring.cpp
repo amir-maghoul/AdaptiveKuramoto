@@ -1,22 +1,7 @@
 #include "examples/headers/ds_examples_ring.h"
 
-Eigen::MatrixXd Ring(int n){
-    Eigen::MatrixXd Matrix(n, n);
-    Matrix.setZero();
-    Matrix(0, n-1) = 1; 
 
-    for (size_t i=0;i<n;++i){
-        for (size_t j=0;j<n;++j){
-            if ((j==i) || (j==(i+1)%n) || ((i!=0) && (j==(i-1)%n))){
-                Matrix(i,j) = 1;
-            }
-        }
-    }
-    return Matrix;
-}
-
-
-void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double h){
+void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double h, unsigned int jump){
 
     auto w = [](double x){return ZeroFunction(x);};
     auto phi = [](double x){return SinFunction(x);};
@@ -24,7 +9,8 @@ void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double 
 
     ContinuumLimit ContSystem;
     ContSystem.d = n;
-    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    // Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(phi);
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
     Eigen::MatrixXd K0 = ContSystem.DiscretizeWeights(K);
 
@@ -35,7 +21,6 @@ void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double 
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = tend;
-    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
     std::string file_loc1 = "txt_outputs/discrete_ring_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
@@ -46,7 +31,7 @@ void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double 
 
 }
 
-void DiscreteRandomSimulation(int n, double a0, double b0, double tend){
+void DiscreteRandomSimulation(int n, double a0, double b0, double tend, unsigned int jump){
 
     Eigen::VectorXd W0(n);
     W0.setZero();
@@ -65,7 +50,6 @@ void DiscreteRandomSimulation(int n, double a0, double b0, double tend){
     system.t_end = tend;
     const double a = a0;
     const double b = b0;
-    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
     std::string file_loc1 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) +  ".txt";
@@ -76,7 +60,7 @@ void DiscreteRandomSimulation(int n, double a0, double b0, double tend){
 }
 
 
-void DiscreteCosSimulation(int n, double a, double b, double tend){
+void DiscreteCosSimulation(int n, double a, double b, double tend, unsigned int jump){
 
     auto w = [](double x){return ZeroFunction(x);};
     auto phi = [](double x){return SinFunction(x);};
@@ -84,7 +68,8 @@ void DiscreteCosSimulation(int n, double a, double b, double tend){
 
     ContinuumLimit ContSystem;
     ContSystem.d = n;
-    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    // Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(phi);
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
     Eigen::MatrixXd K0 = ContSystem.DiscretizeWeights(K);
 
@@ -95,7 +80,6 @@ void DiscreteCosSimulation(int n, double a, double b, double tend){
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = tend;
-    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
     std::string file_loc1 = "txt_outputs/discrete_cos_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
@@ -106,7 +90,7 @@ void DiscreteCosSimulation(int n, double a, double b, double tend){
 
 }
 
-std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double a, double b){
+std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double a, double b, unsigned int jump){
 
     auto w = [](double x){return ZeroFunction(x);};
     auto phi = [](double x){return SinFunction(x);};
@@ -123,6 +107,7 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
     ContSystem.t0 = 0;
     ContSystem.t_end = tend;
 
+    // Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
     Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
     Eigen::MatrixXd K0 = ContSystem.DiscretizeWeights(K);
@@ -134,8 +119,6 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = tend;
-
-    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> contlim_output = ContSystem.run(phi, w, K, a, b, jump);
     std::vector<std::vector<Eigen::MatrixXd>> disc_output = system.run(PHI, a, b, jump);
@@ -154,7 +137,7 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
 
 }
 
-void DiscreteErdosReyniSimulation(int n, double a, double b, double tend, double p){
+void DiscreteErdosReyniSimulation(int n, double a, double b, double tend, double p, unsigned int jump){
 
 
     auto w = [](double x){return ZeroFunction(x);};
@@ -162,7 +145,8 @@ void DiscreteErdosReyniSimulation(int n, double a, double b, double tend, double
 
     ContinuumLimit ContSystem;
     ContSystem.d = n;
-    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    // Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(phi);
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
     Eigen::MatrixXd K0 = DiscreteErdosReyniGraph(n, p);
 
@@ -173,7 +157,6 @@ void DiscreteErdosReyniSimulation(int n, double a, double b, double tend, double
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = tend;
-    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
     std::string file_loc1 = "txt_outputs/discrete_erdos_reyni_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";

@@ -5,7 +5,7 @@
 
 namespace plt = matplotlibcpp;
 
-void ContinuumLimitRingGraphSimulation(int d, double a, double b, double tend, double h){
+void ContinuumLimitRingGraphSimulation(int d, double a, double b, double tend, double h, unsigned int jump){
 
     auto w = [](double x){return ZeroFunction(x);};
     auto K = [h](double x, double y){return RingLatticeGraph(x, y, h);};
@@ -18,7 +18,6 @@ void ContinuumLimitRingGraphSimulation(int d, double a, double b, double tend, d
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = tend;
-    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 
@@ -31,7 +30,7 @@ void ContinuumLimitRingGraphSimulation(int d, double a, double b, double tend, d
 
 }
 
-void ContinuumLimitCosGraphSimulation(int d, const double a, const double b, double tend){
+void ContinuumLimitCosGraphSimulation(int d, const double a, const double b, double tend, unsigned int jump){
 
     auto w = [](double x){return ZeroFunction(x);};
     auto K = [](double x, double y){return SinusoidalGraph(x, y);};
@@ -44,7 +43,6 @@ void ContinuumLimitCosGraphSimulation(int d, const double a, const double b, dou
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = tend;
-    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 
@@ -57,7 +55,7 @@ void ContinuumLimitCosGraphSimulation(int d, const double a, const double b, dou
 
 }
 
-void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, const double b){
+void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, const double b, unsigned int jump){
 
     double h = 0.1;
 
@@ -72,7 +70,6 @@ void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, c
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = 10000;
-    unsigned int jump = 200;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 
@@ -81,7 +78,7 @@ void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, c
 
 }
 
-void ContinuumLimitRandomGraphSimulation(int d, const double a, const double b){
+void ContinuumLimitRandomGraphSimulation(int d, const double a, const double b, unsigned int jump){
 
     double h = 0.1;
     double RandomHigh = 1;
@@ -99,7 +96,6 @@ void ContinuumLimitRandomGraphSimulation(int d, const double a, const double b){
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = 10000;
-    unsigned int jump = 200;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 
@@ -110,7 +106,7 @@ void ContinuumLimitRandomGraphSimulation(int d, const double a, const double b){
     write_data(file_loc2, output[0]);
 }
 
-void ContinuumLimitErdosReyniGraphSimulation(int d, const double a, const double b, double tend, double p){
+void ContinuumLimitErdosReyniGraphSimulation(int d, const double a, const double b, double tend, double p, unsigned int jump){
 
     auto w = [](double x){return ZeroFunction(x);};
     auto K = [p](double x, double y){return ContinuousErdosReyniGraph(x, y, p);};
@@ -123,7 +119,6 @@ void ContinuumLimitErdosReyniGraphSimulation(int d, const double a, const double
     system.epsilon = 0.01;
     system.t0 = 0;
     system.t_end = tend;
-    unsigned int jump = 1;
 
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 

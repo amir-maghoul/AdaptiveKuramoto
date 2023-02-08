@@ -14,10 +14,10 @@
 
 Eigen::MatrixXd Ring(int n);
 
-void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double h);
-void DiscreteRandomSimulation(int n, double a0, double b0, double tend);
-void DiscreteCosSimulation(int n, double a, double b, double tend);
-void DiscreteErdosReyniSimulation(int n, double a, double b, double tend, double p);
-std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double a, double b);
+void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double h, unsigned int jump);
+void DiscreteRandomSimulation(int n, double a0, double b0, double tend, unsigned int jump);
+void DiscreteCosSimulation(int n, double a, double b, double tend, unsigned int jump);
+void DiscreteErdosReyniSimulation(int n, double a, double b, double tend, double p, unsigned int jump);
+std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double a, double b, unsigned int jump);
 
 #endif
