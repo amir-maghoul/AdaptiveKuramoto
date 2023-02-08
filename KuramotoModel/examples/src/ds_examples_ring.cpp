@@ -137,7 +137,7 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
 
 }
 
-void DiscreteErdosReyniSimulation(int n, double a, double b, double tend, double p, unsigned int jump){
+void DiscreteErdosReyniGraphSimulation(int n, double a, double b, double tend, double p, unsigned int jump){
 
 
     auto w = [](double x){return ZeroFunction(x);};
