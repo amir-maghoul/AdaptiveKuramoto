@@ -5,7 +5,34 @@
 #include <eigen/Dense>
 #include <vector>
 #include <iostream>
+#include <sstream>
 #include <iomanip>
+#include <string>
+
+inline std::vector<Eigen::MatrixXd> read_data(std::string file_name, unsigned int n, bool isMatrix){
+    std::vector<Eigen::MatrixXd> result;
+    Eigen::VectorXd rowMatrix(n);
+
+    std::fstream fin;
+    fin.open(file_name, std::ios::in);
+    std::string temp, line, word;
+    while (fin >> line) {
+        // std::cout << temp << std::endl;
+        // std::getline(temp, line);
+        std::stringstream s(line);
+        // std::cout << line << std::endl;
+        int i = 0;
+
+        while (std::getline(s, word, ',')) {
+            rowMatrix(i) = std::stod(word);
+            i++;
+        }
+        result.push_back(rowMatrix);
+
+    }
+    
+    return result;
+}
 
 inline void write_data(std::string file_name, std::vector<Eigen::MatrixXd> matrix)
 {
