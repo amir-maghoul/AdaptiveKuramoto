@@ -4,4 +4,5 @@ target_sources(main PRIVATE
 	runge_kutta.h 
 	solvers.h
 	integrators.h
-	integral_solver.h)
+	integral_solver.h
+	continuous_extension.h)
