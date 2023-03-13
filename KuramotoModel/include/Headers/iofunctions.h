@@ -9,7 +9,7 @@
 #include <iomanip>
 #include <string>
 
-inline std::vector<Eigen::MatrixXd> read_data(std::string file_name, unsigned int n, bool isMatrix){
+inline std::vector<Eigen::MatrixXd> ReadData(std::string file_name, unsigned int n, bool isMatrix){
     std::vector<Eigen::MatrixXd> result;
     Eigen::VectorXd rowMatrix;
 
@@ -40,7 +40,7 @@ inline std::vector<Eigen::MatrixXd> read_data(std::string file_name, unsigned in
     return result;
 }
 
-inline void write_data(std::string file_name, std::vector<Eigen::MatrixXd> matrix)
+inline void WriteData(std::string file_name, std::vector<Eigen::MatrixXd> matrix)
 {
     std::cout << "Writing matrix..."<< std::endl;
     std::fstream file;
@@ -57,7 +57,7 @@ inline void write_data(std::string file_name, std::vector<Eigen::MatrixXd> matri
     file.close();
 }
 
-inline void write_vector(std::string file_name, std::vector<Eigen::MatrixXd> vector)
+inline void WriteVector(std::string file_name, std::vector<Eigen::MatrixXd> vector)
 {
     std::cout << "Writing vector..."<< std::endl;
     std::fstream file;
