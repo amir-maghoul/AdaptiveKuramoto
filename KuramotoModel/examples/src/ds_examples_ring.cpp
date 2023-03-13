@@ -26,8 +26,8 @@ void DiscreteRingGraphSimulation(int n, double a, double b, double tend, double 
     std::string file_loc1 = "txt_outputs/discrete_ring_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
     std::string file_loc2 = "txt_outputs/discrete_ring_with_" + std::to_string(n) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
-    write_data(file_loc2, output[0]);
-    write_data(file_loc1, output[1]);
+    WriteData(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
 
 }
 
@@ -55,8 +55,8 @@ void DiscreteRandomSimulation(int n, double a0, double b0, double tend, unsigned
     std::string file_loc1 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) +  ".txt";
     std::string file_loc2 = "txt_outputs/discrete_random_with_" + std::to_string(n) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
-    write_data(file_loc1, output[1]);
-    write_data(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
+    WriteData(file_loc2, output[0]);
 }
 
 
@@ -85,8 +85,8 @@ void DiscreteCosSimulation(int n, double a, double b, double tend, unsigned int 
     std::string file_loc1 = "txt_outputs/discrete_cos_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
     std::string file_loc2 = "txt_outputs/discrete_cos_with_" + std::to_string(n) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
-    write_data(file_loc2, output[0]);
-    write_data(file_loc1, output[1]);
+    WriteData(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
 
 }
 
@@ -126,8 +126,8 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
     std::string file_loc1 = "txt_outputs/discrete_cos_with_" + std::to_string(n) + "_oscillators.txt";
     std::string file_loc2 = "txt_outputs/contlim_cos_with_" + std::to_string(n) + "_oscillators.txt";
 
-    write_data(file_loc1, disc_output[1]);
-    write_data(file_loc2, contlim_output[1]);
+    WriteData(file_loc1, disc_output[1]);
+    WriteData(file_loc2, contlim_output[1]);
 
     std::vector<std::vector<std::vector<Eigen::MatrixXd>>> result;
     result.push_back(contlim_output);
@@ -162,8 +162,8 @@ void DiscreteErdosReyniGraphSimulation(int n, double a, double b, double tend, d
     std::string file_loc1 = "txt_outputs/discrete_erdos_reyni_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
     std::string file_loc2 = "txt_outputs/discrete_erdos_reyni_with_" + std::to_string(n) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
-    write_data(file_loc2, output[0]);
-    write_data(file_loc1, output[1]);
+    WriteData(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
 
 }
 

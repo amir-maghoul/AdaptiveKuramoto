@@ -28,8 +28,8 @@ void ContinuumLimitRingGraphSimulation(int d, double a, double b, double tend, d
     std::string file_loc1 = "txt_outputs/contlim_ring_with_" + std::to_string(d) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
     std::string file_loc2 = "txt_outputs/contlim_ring_with_" + std::to_string(d) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
-    write_data(file_loc1, output[1]);
-    write_data(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
+    WriteData(file_loc2, output[0]);
 
 }
 
@@ -55,8 +55,8 @@ void ContinuumLimitCosGraphSimulation(int d, const double a, const double b, dou
     std::string file_loc1 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
     std::string file_loc2 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
-    write_data(file_loc1, output[1]);
-    write_data(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
+    WriteData(file_loc2, output[0]);
 
 }
 
@@ -79,7 +79,7 @@ void ContinuumLimitRingGraphSimulationWithGaussInitials(int d, const double a, c
     std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
 
     std::string file_loc1 = "txt_outputs/contlim_gauss_with_" + std::to_string(d) + "_oscillators.txt";
-    write_data(file_loc1, output[1]);
+    WriteData(file_loc1, output[1]);
 
 }
 
@@ -107,8 +107,8 @@ void ContinuumLimitRandomGraphSimulation(int d, const double a, const double b, 
     std::string file_loc1 = "txt_outputs/contlim_random_with_" + std::to_string(d) + "_oscillators.txt";
     std::string file_loc2 = "txt_outputs/contlim_random_with_" + std::to_string(d) + "_oscillators_phases.txt";
 
-    write_data(file_loc1, output[1]);
-    write_data(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
+    WriteData(file_loc2, output[0]);
 }
 
 void ContinuumLimitErdosReyniGraphSimulation(int d, const double a, const double b, double tend, double p, unsigned int jump){
@@ -133,7 +133,7 @@ void ContinuumLimitErdosReyniGraphSimulation(int d, const double a, const double
     std::string file_loc1 = "txt_outputs/contlim_erdos_reyni_with_" + std::to_string(d) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
     std::string file_loc2 = "txt_outputs/contlim_erdos_reyni_with_" + std::to_string(d) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
 
-    write_data(file_loc1, output[1]);
-    write_data(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
+    WriteData(file_loc2, output[0]);
     
 }

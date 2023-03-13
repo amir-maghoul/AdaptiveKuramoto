@@ -104,7 +104,7 @@ void TestOrderParameter()
         order_parameter.push_back(R.at(0));
     };
     std::string file_loc2 = "txt_outputs/phases_file.txt";
-    write_data(file_loc2, output[0]);
+    WriteData(file_loc2, output[0]);
     std::string file_loc = "txt_outputs/order_parameter_file.txt";
     // write_vector(file_loc, order_parameter);
 };
@@ -132,8 +132,8 @@ void TestClustering()
     std::vector<std::vector<Eigen::MatrixXd>> output = obj.run(U0, 0.3*M_PI, 0.53*M_PI, jump);
 
     std::string file_loc1 = "txt_outputs/clustering_file.txt";
-    write_data(file_loc1, output[1]);
+    WriteData(file_loc1, output[1]);
     std::string file_loc2 = "txt_outputs/phases_file.txt";
-    write_data(file_loc2, output[0]);
+    WriteData(file_loc2, output[0]);
 
 };
