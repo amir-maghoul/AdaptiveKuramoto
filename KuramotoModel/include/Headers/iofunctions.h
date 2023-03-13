@@ -11,23 +11,29 @@
 
 inline std::vector<Eigen::MatrixXd> read_data(std::string file_name, unsigned int n, bool isMatrix){
     std::vector<Eigen::MatrixXd> result;
-    Eigen::VectorXd rowMatrix(n);
+    Eigen::VectorXd rowMatrix;
 
+    if (isMatrix){
+        rowMatrix.setZero(n*n);
+    }else{
+        rowMatrix.setZero(n);
+    }
     std::fstream fin;
     fin.open(file_name, std::ios::in);
     std::string temp, line, word;
     while (fin >> line) {
-        // std::cout << temp << std::endl;
-        // std::getline(temp, line);
         std::stringstream s(line);
-        // std::cout << line << std::endl;
         int i = 0;
-
         while (std::getline(s, word, ',')) {
             rowMatrix(i) = std::stod(word);
             i++;
         }
-        result.push_back(rowMatrix);
+        if (isMatrix){
+            result.push_back(rowMatrix.reshaped(n, n));
+        }
+        else{
+            result.push_back(rowMatrix);
+        }
 
     }
     

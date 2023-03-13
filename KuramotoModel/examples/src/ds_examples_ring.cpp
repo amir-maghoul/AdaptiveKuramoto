@@ -107,8 +107,8 @@ std::vector<std::vector<std::vector<Eigen::MatrixXd>>> Comparison(int n, double 
     ContSystem.t0 = 0;
     ContSystem.t_end = tend;
 
-    // Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
     Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    // Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
     Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
     Eigen::MatrixXd K0 = ContSystem.DiscretizeWeights(K);
     

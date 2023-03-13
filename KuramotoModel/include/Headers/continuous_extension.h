@@ -4,7 +4,7 @@
 #include <vector>
 #include <eigen/Dense>
 #include <iostream>
-#include <examples/headers/iofunctions.h>
+#include "include/Headers/iofunctions.h"
 
 Eigen::MatrixXd DiscretizedContinuousExtension1D(Eigen::VectorXd Matrix, int N);
 Eigen::MatrixXd DiscretizedContinuousExtension2D(Eigen::MatrixXd Matrix, int N);

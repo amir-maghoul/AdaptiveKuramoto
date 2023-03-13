@@ -19,7 +19,10 @@ void ContinuumLimitRingGraphSimulation(int d, double a, double b, double tend, d
     system.t0 = 0;
     system.t_end = tend;
 
-    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+    // std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, phi, K, a, b, jump);
+
+
 
 
     std::string file_loc1 = "txt_outputs/contlim_ring_with_" + std::to_string(d) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
@@ -44,7 +47,9 @@ void ContinuumLimitCosGraphSimulation(int d, const double a, const double b, dou
     system.t0 = 0;
     system.t_end = tend;
 
-    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+    // std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, phi, K, a, b, jump);
+
 
 
     std::string file_loc1 = "txt_outputs/contlim_cos_with_" + std::to_string(d) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
@@ -120,7 +125,9 @@ void ContinuumLimitErdosReyniGraphSimulation(int d, const double a, const double
     system.t0 = 0;
     system.t_end = tend;
 
-    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+    // std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, w, K, a, b, jump);
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(phi, phi, K, a, b, jump);
+
 
 
     std::string file_loc1 = "txt_outputs/contlim_erdos_reyni_with_" + std::to_string(d) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
