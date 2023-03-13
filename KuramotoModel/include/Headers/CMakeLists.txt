@@ -5,4 +5,5 @@ target_sources(main PRIVATE
 	solvers.h
 	integrators.h
 	integral_solver.h
-	continuous_extension.h)
+	continuous_extension.h
+	analysis.h)
