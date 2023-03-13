@@ -46,6 +46,17 @@ std::vector<double> WeightL1Error(std::vector<Eigen::MatrixXd> DiscreteMatrixVec
     return Error;
 }
 
+std::vector<double> PhaseError(std::vector<Eigen::MatrixXd> DiscreteMatrixVector, std::vector<Eigen::MatrixXd> ContlimMatrixVector){
+    int size = DiscreteMatrixVector.at(0).rows();
+    std::vector<double> Error(DiscreteMatrixVector.size());
+
+    for (size_t i=0; i<Error.size();++i){
+            Error[i] = ((DiscreteMatrixVector.at(i) - ContlimMatrixVector.at(i)).cwiseAbs()).maxCoeff();    
+    };
+    return Error;
+}
+
+
 void ReadConvertWrite(std::string ReadFileLoc, std::string WriteFileLoc, std::string GraphType, int n, int ReferenceN, bool isMatrix, double tend){
     std::string ContLimSignatureName = "contlim_" + GraphType + "_with_" + std::to_string(ReferenceN) + "_oscillators_";
     std::string DiscreteSignatureName = "discrete_" + GraphType + "_with_" + std::to_string(n) + "_oscillators_";
