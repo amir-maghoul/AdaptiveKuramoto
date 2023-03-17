@@ -8,6 +8,7 @@
 #include <sstream>
 #include <iomanip>
 #include <string>
+#include <filesystem>
 
 inline std::vector<Eigen::MatrixXd> ReadData(std::string file_name, unsigned int n, bool isMatrix){
     std::vector<Eigen::MatrixXd> result;
@@ -40,6 +41,20 @@ inline std::vector<Eigen::MatrixXd> ReadData(std::string file_name, unsigned int
     return result;
 }
 
+inline void WriteError(std::string FileName, std::vector<double> Error){
+    std::cout << "Writing error..." << std::endl;
+    std::fstream File;
+    File.open(FileName, std::ios_base::out);
+
+    for (size_t i = 0; i < Error.size(); ++i)
+    {
+        File << Error.at(i) << ",";    
+        File << "\n";
+    } 
+    File.close();
+
+}
+
 inline void WriteData(std::string file_name, std::vector<Eigen::MatrixXd> matrix)
 {
     std::cout << "Writing matrix..."<< std::endl;
@@ -65,7 +80,6 @@ inline void WriteVector(std::string file_name, std::vector<Eigen::MatrixXd> vect
 
     for (size_t i = 0; i < vector.size(); ++i)
     {
-        std::cout << vector.size() << std::endl;
         file << vector.at(i) << ",";    
         file << "\n";
     } 
