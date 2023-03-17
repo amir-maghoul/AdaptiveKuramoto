@@ -1,3 +1,9 @@
+/* This module has to compensate low performance of error analysis in Python. To my surprise though, this 
+was slower than Python counterpart. My guess is that I still dont know the background operations of Eigen library
+which make this slow. The newer Python algorithm is actually super fast. So I recommend using the Python code. 
+I have uploaded this just in case for some user if the need arises. I will try to implement the same Python algorithm
+here later, to be able to compare them.*/
+
 
 #include <include/Headers/continuous_extension.h>
 
@@ -24,13 +30,15 @@
 */
 
 Eigen::MatrixXd DiscretizedContinuousExtension1D(Eigen::VectorXd Matrix, int N){
+
     const int n = Matrix.size();
 
     Eigen::VectorXd t1 = Eigen::VectorXd::LinSpaced(n+1, 0.0, 1.0);                         ///< First subdivision of the interval [0, 1]
     Eigen::VectorXd t = Eigen::VectorXd::LinSpaced(N, 0.0, 1.0);                            ///< Second subdivision of the interval
 
     Eigen::VectorXd result(N);                                                              ///< Initialization of the result as zeros
-    result.setZero();
+    result.setZero();                                                                       ///< Initialization of the result as zeros
+
 
     for (size_t i=1; i < t1.size();++i){
         result = (t.array() < t1[i] && t.array() >= t1[i-1]).select(Matrix(i-1), result);   ///< Find sub-intervals in t1 on which each element of t
@@ -55,6 +63,7 @@ Eigen::MatrixXd DiscretizedContinuousExtension1D(Eigen::VectorXd Matrix, int N){
  * 
 */
 Eigen::MatrixXd DiscretizedContinuousExtension2D(Eigen::MatrixXd Matrix, int N){
+
     const int n = Matrix.rows();
     Eigen::VectorXd t1 = Eigen::VectorXd::LinSpaced(n+1, 0.0, 1.0);                         ///< First subdivision of the interval [0, 1]
     Eigen::VectorXd t = Eigen::VectorXd::LinSpaced(N, 0.0, 1.0);                            ///< Second subdivision of the interval
@@ -63,22 +72,25 @@ Eigen::MatrixXd DiscretizedContinuousExtension2D(Eigen::MatrixXd Matrix, int N){
     Eigen::MatrixXd XX = t.replicate(1, N).transpose();                                     ///< Meshgrid x values from discretized interval
     Eigen::MatrixXd YY = t.replicate(1, N);                                                 ///< Meshgrid y values from discretized interval
 
+    // Initialize the result
+    Eigen::MatrixXd result(N,N);
+    result.setZero();
+
+    const int rows = result.rows();
+    const int cols = result.cols();
 
     // Logical indexing matrices
     Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic> idx1;                               ///< Initializing the logical indexing matrices
     Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic> idx2;
     Eigen::Matrix<bool, Eigen::Dynamic, Eigen::Dynamic> idx;
 
-    // Initialize the result
-    Eigen::MatrixXd result(N,N);
-    result.setZero();
 
     for (size_t i=1; i<t1.size();++i){
         for (size_t j=1; j<t1.size();++j){
             idx1 = (XX.array() < t1[i] && XX.array() >= t1[i-1]);                           ///< Find sub-intervals on which each element of t in XX lands.
             idx2 = (YY.array() < t1[j] && YY.array() >= t1[j-1]);                           ///< Find sub-intervals on which each element of t in YY lands.
             // logical AND of indices
-            idx = idx1.cwiseProduct(idx2);                                                  ///< Find the intersection of subintervals by logical AND of both indices.
+            idx.noalias() = idx1.cwiseProduct(idx2);                                                  ///< Find the intersection of subintervals by logical AND of both indices.
 
             result = (idx).select(Matrix(j-1, i-1), result);
         }
@@ -89,5 +101,4 @@ Eigen::MatrixXd DiscretizedContinuousExtension2D(Eigen::MatrixXd Matrix, int N){
     return result;
 
 }
-
 
