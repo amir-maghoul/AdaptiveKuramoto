@@ -1,4 +1,4 @@
-/* This module has to compensate low performance of error analysis in Python. To my surprise though, this 
+/* This module has been written to compensate low performance of error analysis in Python. To my surprise though, this 
 was slower than Python counterpart. My guess is that I still dont know the background operations of Eigen library
 which make this slow. The newer Python algorithm is actually super fast. So I recommend using the Python code. 
 I have uploaded this just in case for some user if the need arises. I will try to implement the same Python algorithm
@@ -6,6 +6,9 @@ here later, to be able to compare them.*/
 
 
 #include <include/Headers/continuous_extension.h>
+
+/* PLEASE READ THE MODULE COMMENTS ABOVE FIRST */
+/***********************************************/
 
 /**
  * Calculate the discretized continuous extension of a given 1D vector over the inteval [0, 1].
