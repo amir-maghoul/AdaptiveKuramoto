@@ -184,8 +184,7 @@ def timewise_max_error_with_reference(disc_weight, contlim_weight, disc_phis, co
 
 def compare_with_reference(n_array, reference_n, tend, num_steps, path, graph_type, error_type="total"):
     print("Reading data...")
-    overall_l1_error = np.zeros((len(n)))
-    overall_l2_error = np.zeros((len(n)))
+    overall_l1_error = np.zeros((len(n_array)))
     file_loc = path + f"contlim_{graph_type}_with_{reference_n}_oscillators_tend_{tend}.txt"
     cont_weights = read_matrix_to_array(file_loc, reference_n)
     file_loc = path + f"contlim_{graph_type}_with_{reference_n}_oscillators_phases_tend_{tend}.txt"
