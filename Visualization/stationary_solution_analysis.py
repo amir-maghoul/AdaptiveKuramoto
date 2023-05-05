@@ -41,7 +41,7 @@ def stationary_solution_phi(t, x, omega, phi_tilde, a, b):
 def stationary_solution_weights(x, y, phi_tilde, b):
     """ Computer the weight values for the exact stationary solutions."""
 
-    return np.sin(phi_tilde(x) - phi_tilde(y) + b)
+    return -np.sin(phi_tilde(x) - phi_tilde(y) + b)
 
 def discretize_phi(t_array, x_array, omega, phi_tilde, a=0, b=0):
     xx, tt = np.meshgrid(x_array, t_array)
