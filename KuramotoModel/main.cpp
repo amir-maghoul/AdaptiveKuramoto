@@ -102,13 +102,21 @@ int main(){
     // std::vector<double> tend =  {5, 10, 20, 40, 50, 75, 100, 150, 200, 300, 500, 750, 1000};
 
     auto Phi = [](double x){return PhiTilde(x);};
-    std::vector<double> tend =  {40, 300};
+    std::vector<double> tend =  {40};
     vector<int> n = {3, 5, 7, 10, 15, 20, 25, 30, 50, 100, 150, 200, 250};//, 300, 350, 400, 500};
+    // vector<int> n = {300, 350};//, 300, 350, 400, 500};
+
+    // std::vector<double> tend =  {40};
+    // vector<int> n = {3};//, 300, 350, 400, 500};
+
+    // DiscreteExactSimulation(n.at(0), 0, 0, tend.at(0), 1, Phi);
+
+
 
 
     for (size_t j=0;j<tend.size();++j){
         for (size_t i=0; i<n.size();++i){
-            DiscreteExactSimulation(n.at(i), 0, 0, tend.at(j), 1, Phi);
+            DiscreteExactSimulation(n.at(i), 0, 0, tend.at(j), 1);
         }}
 
 

@@ -55,8 +55,8 @@ inline double SinusoidalGraph(double x, double y){
 }
 
 /** Sinus graph for stationary solution*/
-inline double SinusGraph(double x, double y, double b){
-    return sin(x - y + b);
+inline double SinusGraph(double x, double y, double b, double k){
+    return -sin(k*M_PI*(x - y + b));
 }
 
 /*

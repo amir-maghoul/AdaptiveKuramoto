@@ -167,3 +167,34 @@ void DiscreteErdosReyniGraphSimulation(int n, double a, double b, double tend, d
 
 }
 
+void DiscreteExactSimulation(int n, double a, double b, double tend, unsigned int jump){
+
+    double k = 1;
+    auto w = [](double x){return ZeroFunction(x);};
+    auto phi = [](double x){return PhiTilde(x);};
+    auto K = [b, k](double x, double y){return SinusGraph(x, y, b, k);};
+
+    ContinuumLimit ContSystem;
+    ContSystem.d = n;
+    // Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    Eigen::VectorXd W0 = ContSystem.DiscretizePhases(w);
+    Eigen::VectorXd PHI = ContSystem.DiscretizePhases(phi);
+    Eigen::MatrixXd K0 = ContSystem.DiscretizeWeights(K);
+
+    AdaptiveKuramoto system(W0, K0);
+    system.n = n;
+    system.num_steps = (int) tend*100;
+    system.ro = 1;
+    system.epsilon = 0.01;
+    system.t0 = 0;
+    system.t_end = tend;
+
+    std::vector<std::vector<Eigen::MatrixXd>> output = system.run(PHI, a, b, jump);
+    std::string file_loc1 = "txt_outputs/discrete_exact_with_" + std::to_string(n) + "_oscillators_tend_" + std::to_string((int) system.t_end) + ".txt";
+    std::string file_loc2 = "txt_outputs/discrete_exact_with_" + std::to_string(n) + "_oscillators_phases_tend_" + std::to_string((int) system.t_end) + ".txt";
+
+    WriteData(file_loc2, output[0]);
+    WriteData(file_loc1, output[1]);
+
+}
+
