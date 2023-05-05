@@ -8,7 +8,11 @@
 #include "examples/headers/ds_examples.h"
 #include "examples/headers/cl_examples.h"
 #include "examples/headers/ds_examples_ring.h"
+#include "examples/headers/discrete_graphs.h"
+#include "include/Headers/continuous_extension.h"
+#include "include/Headers/analysis.h"
 #include <eigen/Dense>
+#include <typeinfo>
 #include <vector>
 #include <typeinfo>
 #include <iostream>
@@ -36,31 +40,124 @@ int main(){
 
     // std::vector<int> n = {50, 100, 150, 200, 250, 300, 400, 500, 600, 700, 800, 900};
     // std::vector<int> n = {300, 400, 500, 600, 700, 800, 900, 1000, 1100};
-    std::vector<int> n = {3, 5, 7, 10, 15, 20, 25, 30, 50, 100, 150, 200, 250};//, 300, 350, 400, 500};
-    // std::vector<int> n = {20, 25, 50};
+    // std::vector<int> n = {3, 5, 7, 10, 15, 20, 25, 30, 50, 100, 150, 200, 250};//, 300, 350, 400, 500};
+    // n = {250};
+    // std::vector<int> n = {300, 350, 400};
     // std::vector<int> n = {200};
 
+    // std::vector<double> tend = {300, 500};
 
-    // std::vector<int> n = {3, 5, 7, 10};
+    // std::vector<double> error0;
+    // std::vector<double> error1;
+    // std::vector<double> error2;
+    // int t = 1;
+    // string file_loc = "/home/amir/testfile.csv";
+    // string file_loc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/ComparisonRing/SineFrequencies/a_0.3pi_b_n0.53pi/tend_5/contlim_ring_with_7_oscillators_tend_5.txt";
+    // std::vector<Eigen::MatrixXd> result = read_data(file_loc, 3, false);
+    // std::vector<Eigen::MatrixXd> result = ReadData(file_loc, 7, true);
 
-    std::vector<double> error0;
-    std::vector<double> error1;
-    std::vector<double> error2;
-    int t = 1;
+    // string file_loc2 = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/ComparisonRing/SineFrequencies/a_0.3pi_b_n0.53pi/tend_5/discrete_ring_with_3_oscillators_tend_5.txt";
+    // std::vector<Eigen::MatrixXd> result3 = ReadData(file_loc2, 3, true);
 
-    std::vector<double> tend =  {5, 10, 20, 40, 50, 75, 100, 150, 200, 300, 500, 750, 1000};
+    // std::vector<MatrixXd> Error = WeightError(result3, result);
+
+    // string file_loc3 = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/ComparisonRing/SineFrequencies/a_0.3pi_b_n0.53pi/tend_5/discrete_ring_with_3_oscillators_phases_tend_5.txt";
+    // std::vector<Eigen::MatrixXd> result3 = ReadData(file_loc3, 3, false);
+
+    // cout << result3.at(0) << endl;
+
+    // Eigen::MatrixXd vectorrr = DiscretizedContinuousExtension1D(result3.at(0), 5);
+
+
+
+
+    // std::string ReadFileLoc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/ComparisonRing/SineFrequencies/a_0.3pi_b_n0.53pi/";
+    // ReadConvertWrite(ReadFileLoc, ReadFileLoc, "ring", 3, 5, true, 5);
+
+
+    // vector<int> n = {3, 5, 7, 10, 15, 20, 25, 30, 50, 100, 150, 200, 250};//, 300, 350, 400, 500};
+    // vector<int> n = {10};//, 200, 250};//, 300, 350, 400, 500};
+
+    // int ReferenceN = 250;
+    // string GraphType = "ring";
+    // string FileLoc = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/ComparisonRing/SineFrequencies/a_0.3pi_b_n0.53pi/";
+    // double tend = 5;
+
+
+    // vector<double> Error(n.size());
+    // Error = SingleTimeAnalysis(n, tend, ReferenceN, GraphType, FileLoc);
+
+
+
+
+
+
+
+
+    // VectorXd matrix3 = DiscretizedContinuousExtension2D(result.at(1), 7);
+    // cout << x << endl;
+    // cout << matrix3 << endl;
+
+    // cout << result.at(2) << endl;
+    // std::vector<double> tend =  {5, 10, 20, 40, 50, 75, 100, 150, 200, 300, 500, 750, 1000};
+
+    auto Phi = [](double x){return PhiTilde(x);};
+    std::vector<double> tend =  {40, 300};
+    vector<int> n = {3, 5, 7, 10, 15, 20, 25, 30, 50, 100, 150, 200, 250};//, 300, 350, 400, 500};
+
 
     for (size_t j=0;j<tend.size();++j){
         for (size_t i=0; i<n.size();++i){
-            DiscreteRingGraphSimulation(n.at(i), 0, 0, tend.at(j));
-            ContinuumLimitRingGraphSimulation(n.at(i), 0, 0, tend.at(j));
+            DiscreteExactSimulation(n.at(i), 0, 0, tend.at(j), 1, Phi);
         }}
+
+
+
+
+    // DiscreteErdosReyniSimulation(50, 0, 0, 10000, 0.5, 100);
+    // DiscreteRingGraphSimulation(50, 0, 0, 10000, 0.1)
+    // DiscreteRandomSimulation(50, 0, 0, 10000);
+    // DiscreteRingGraphSimulation(50, 0, 0, 10000, 0.1, 100);
+
+    // ContinuumLimitErdosReyniGraphSimulation(50, 0, 0, 10000, 0.5, 100);
+    // ContinuumLimitRingGraphSimulation(50, 0, 0, 10000, 0.1, 100);
+    // ContinuumLimitCosGraphSimulation(50, 0, 0, 10000, 100);
+
+    // ContinuumLimitErdosReyniGraphSimulation(50, 0.3*M_PI, -0.53*M_PI, 10000, 0.5, 100);
+    // ContinuumLimitRingGraphSimulation(50, 0.3*M_PI, -0.53*M_PI, 10000, 0.1, 100);
+    // ContinuumLimitCosGraphSimulation(50, 0.3*M_PI, -0.53*M_PI, 10000, 100);
+
+    // DiscreteErdosReyniGraphSimulation(50, 0.3*M_PI, -0.53*M_PI, 10000, 0.5, 100);
+    // DiscreteCosSimulation(50, 0.3*M_PI, -0.53*M_PI, 10000, 100);
+    // DiscreteRingGraphSimulation(50, 0.3*M_PI, -0.53*M_PI, 10000, 0.1, 100);
+
+    // ContinuumLimitErdosReyniGraphSimulation(50, 0, 0, 1000, 0.5);
+    // DiscreteCosSimulation(50, 0, 0, 10000, 100);
 
     // for (size_t j=0;j<tend.size();++j){
     //     for (size_t i=0; i<n.size();++i){
-    //         DiscreteCosSimulation(n.at(i), 0, 0, tend.at(j));
-    //         ContinuumLimitCosGraphSimulation(n.at(i), 0, 0, tend.at(j));
+    //         DiscreteErdosReyniGraphSimulation(n.at(i), 0, 0, tend.at(j), 0.5, 1);
+    //         ContinuumLimitErdosReyniGraphSimulation(n.at(i), 0, 0, tend.at(j), 0.5, 1);
     //     }}
+
+    // tend =  {5, 10, 20, 40, 50, 75, 100, 150, 200, 300, 500, 750};
+    // tend =  {5, 10, 20, 40, 50, 75, 100, 150, 200, 300, 500};
+    // tend = {500};
+
+
+    // for (size_t j=0;j<tend.size();++j){
+    //     for (size_t i=0; i<n.size();++i){
+    //         DiscreteCosSimulation(n.at(i), 0.3*M_PI, -0.53*M_PI, tend.at(j), 1);
+    //         ContinuumLimitCosGraphSimulation(n.at(i), 0.3*M_PI, -0.53*M_PI, tend.at(j), 1);
+    //     }}
+    
+    // for (size_t j=0;j<tend.size();++j){
+    //     for (size_t i=0; i<n.size();++i){
+    //         // DiscreteRingGraphSimulation(n.at(i), 0.3*M_PI, -0.53*M_PI, tend.at(j), 0.1, 1);
+    //         ContinuumLimitRingGraphSimulation(n.at(i), 0.3*M_PI, -0.53*M_PI, tend.at(j), 0.1, 1);
+    //     }}
+
+    
     // for (size_t i=0; i<n.size();++i){
     //     std::vector<std::vector<std::vector<Eigen::MatrixXd>>> result = Comparison(n.at(i), 0, 0);
 

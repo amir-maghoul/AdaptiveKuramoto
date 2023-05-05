@@ -1,8 +1,8 @@
 from examples_continuum import *
 from examples_discrete import *
 from scipy.integrate import trapz
+from math import isclose
 import numpy.linalg as LA
-from numba import njit
 
 def weight_comparison(disc_weights, contlim_weights, t, n):
     """The L1 and L2 error of weights"""
@@ -75,67 +75,70 @@ def tend_dependence(tend_array, n_array, path, delay_type, graph_type):
     return distance_l1_matrix, distance_l2_matrix
 
 
+def discretized_cont_ext_1D(array, N):
+    """Creates an array of discretized continuous extension of an array on the interval
+    [0, 1]. The aim is to have an array with N elements (view this as discretized interval [0, 1]
+    discretized into N elements), which consists of values in the array assigned to each point.
+    For this, the function first discretizes the interval by two different 
+    discretization fineness, t with length N and t1 with length n=len(array) <= N. Then for each point x
+    in t, the function finds to which subinterval of t1, x belongs, then assigns the corresponding value
+    of the subinterval from the array to x.
+    The function also returns the number of repetitions of each value of array in the final extension.
+    This will be used for the 2D case
+    
+    Parameters
+    ----------
+    array : np.ndarray
+        the array which needs to be extended
+
+    N : int
+        the discretization fineness of the continuous extended array
 
 
+    Returns
+    -------
+    tuple
+        tuple(0) : np.ndarray
+            The discretized continuous extension of the input array
 
-def continuous_extension1D(x, array):
-    n = len(array)
-    t = np.linspace(0, 1, n+1)
-    if x == 0:
-        return array[0]
-    if x == 1:
-        return array[-1]
-    if any(t < x):
-        return array[max(np.where(t < x)[0])]
-    else:
-        raise ValueError("The given x is not in the [0, 1] interval ")
-
-def continuous_extension2D(x, y, array):
-    n = array.shape[0]
-    t = np.linspace(0, 1, n+1)
-    if x == 1 and y != 1:
-        return array[-1, max(np.where(t <= y)[0])]
-    elif x != 1 and y == 1:
-        return array[max(np.where(t <= x)[0]), -1]
-    elif x == 1 and y == 1:
-        return array[-1, -1]
-    else:
-        return array[max(np.where(t <= x)[0]), max(np.where(t <= y)[0])]
-
-def discretize(fun, N, dim):
+        tuple(1) : np.ndarray (len = len(array))
+            The number of repetition of each element of array in the final 
+            discretized continuous extension
+    
+    """
     t = np.linspace(0, 1, N)
-    if dim == 1:
-        return np.array([fun(x) for x in t])
-    elif dim == 2:
-        return np.array([fun(x, y) for x in t for y in t]).reshape((len(t), len(t)))
-    else:
-        raise ValueError("The input dimension can only be 1 or 2")
-
-def discretized_continuous_extension(matrix, N):
-    if matrix.ndim == 1:
-        f = lambda x : continuous_extension1D(x, matrix)
-    else:
-        if matrix.shape[0] != matrix.shape[1]:
-            raise ValueError("The weights of the discrete system must be a square matrix")
-        f = lambda x, y : continuous_extension2D(x, y, matrix)
-    result = discretize(f, N, matrix.ndim)
-    return result
-
-def discretized_cont_ext_1D(matrix, N):
-        t = np.linspace(0, 1, N)
-        n = len(matrix)
-        t1 = np.linspace(0, 1, n+1)
-        index_array = np.zeros((n), dtype=np.int64)
-        array = np.ones(len(t))
-        for i in range(1, len(t1)):
-            idx = np.where((t < t1[i]) & (t >= t1[i-1]))[0]
-            array[idx] = matrix[i-1]*array[idx]
-            index_array[i-1] = len(idx)
-        array[-1] = matrix[-1]
-        index_array[-1] += 1
-        return array, index_array
+    n = len(array)
+    t1 = np.linspace(0, 1, n+1)
+    repetition_array = np.zeros((n), dtype=np.int64)
+    cont_extension = np.ones(len(t))
+    for i in range(1, len(t1)):
+        idx = np.where((t < t1[i]) & (t >= t1[i-1]))[0]
+        cont_extension[idx] = array[i-1]*cont_extension[idx]
+        repetition_array[i-1] = len(idx)
+    cont_extension[-1] = array[-1]
+    repetition_array[-1] += 1
+    return cont_extension, repetition_array
 
 def discretized_cont_ext_2D(matrix, N):
+    """Compute discretized continuous extension of the input matrix on the box [0,1]x[0,1].
+    The result is an NxN matrix (view this as the box discretized in N points in each axis).
+    The logic is the same as 1D. See discretized_cont_ext_1D.
+    The function calls discretized_cont_ext_1D in x-direction. Then uses the repetition array
+    output of discretized_cont_ext_1D to copy the values in y-direction.
+
+    Parameters
+    ----------
+    matrix : np.ndarray 2D
+        the matrix which needs to be extended
+
+    N : int
+        the number of discretization points of the continuous extension
+
+    Returns
+    -------
+    np.ndarray of size NxN
+        the discretized continous extension 
+    """
     t = np.linspace(0, 1, N)
     n = matrix.shape[0]
     _, counts = discretized_cont_ext_1D(matrix[0, :], N)
@@ -144,31 +147,9 @@ def discretized_cont_ext_2D(matrix, N):
     array = temp.repeat(counts, axis=0)
     return array
 
-
-# def continuous_extension3D(matrix, N):
-#     copy = np.zeros((matrix.shape[0], N, N))
-#     for i in range(copy.shape[0]):
-#         copy[i, :, :] = discretized_continuous_extension2(matrix[i, :, :], N)
-#     return copy
-# def cont(aim_t_array, array):
-#     xx, yy = np.meshgrid(aim_t_array, aim_t_array)
-#     aim = np.zeros(xx.shape)
-#     n = array.shape[0]
-#     t = np.linspace(0, 1, n+1)
-#     for i in range(0, len(t)):
-#         for j in range(0, len(t)):
-#             idx1 = (xx < t1[i]) & (xx >= t1[i-1])
-#             idx2 = (yy < t1[j]) & (yy >= t1[j-1])
-#             idx = np.logical_and(idx1, idx2).nonzero()
-#             aim[idx] = array[j-1, i-1]
-#     aim[:, -1] = aim[:, -2]
-#     aim[-1, :] = aim[-2, :]
-#     return aim
-
-    
-
-
-
+# What comes below are the same as their counterparts above but this time every one of them are
+# computed using the continous extensions. The original ones are needed to compare numerical integration,
+# while the functions below are needed to calculate the convergence of discrete system to the continous system
 
 def weight_comparison_with_reference(disc_weights, contlim_weights, t, n, reference_n):
     """The L1 and L2 error of weights"""
@@ -219,87 +200,40 @@ def compare_with_reference(n_array, reference_n, tend, num_steps, path, graph_ty
         disc_phases = read_vector_to_array(file_loc)
         print("discrete data read")
 
-        # disc_weights = discritized_continuous_extension(disc_weights, reference_n)
-        # disc_phases = discritized_continuous_extension(disc_phases, reference_n)
-
-        # total_l1_error[i], total_l2_error[i] = total_error(disc_weights, cont_weights, disc_phases, cont_phases, t, n_, error_type)
         overall_l1_error[i] = timewise_max_error_with_reference(disc_weights, cont_weights, disc_phases, cont_phases, num_steps, n_, reference_n, error_type)
-    # return total_l1_error, total_l2_error, overall_l1_error, overall_l2_error
     return overall_l1_error
 
 
 
 if __name__ == "__main__":
-    n = 3
-    N = 7
-    x = np.arange(n)+1
-    # x = np.array([1, 2, 3, 4, 1, 5, 7, 1, 8])
-    # # x = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
-    # x = np.arange(0, n*n).reshape((n, n))
-    # print(x)
-    t1 = np.linspace(0, 1, n+1)
-    t2 = np.linspace(0, 1, N)
-    # tt, ff = np.meshgrid(t2, t2)
-    # print(tt < t1[1])
-    # print("t1=", t1)
-    # print("t2=", t2)
-    # def cont(aim_t_array, array):
-    #     xx, yy = np.meshgrid(aim_t_array, aim_t_array)
-    #     aim = np.zeros(xx.shape)
-    #     n = array.shape[0]
-    #     t = np.linspace(0, 1, n+1)
-    #     for i in range(0, len(t)):
-    #         for j in range(0, len(t)):
-    #             idx1 = (xx < t1[i]) & (xx >= t1[i-1])
-    #             idx2 = (yy < t1[j]) & (yy >= t1[j-1])
-    #             idx = np.logical_and(idx1, idx2).nonzero()
-    #             aim[idx] = array[j-1, i-1]
-    #     aim[:, -1] = aim[:, -2]
-    #     aim[-1, :] = aim[-2, :]
-    #     return aim
-
-        # if (xx == 1).nonzero() is not None and (yy != 1).nonzero() is not None:
-        #     aim[] array[-1, max(np.where(t <= y)[0])]
-        # elif x != 1 and y == 1:
-        #     return array[max(np.where(t <= x)[0]), -1]
-        # elif x == 1 and y == 1:
-        #     return array[-1, -1]
-        # else:
-        #     return array[max(np.where(t <= x)[0]), max(np.where(t <= y)[0])]
-        # array[idx1, idx2] = x[i-1]*array[idx]
-    # array[-1, -1] = x[-1, -1]
-    # print(array)
-    # y = cont(t2, x)
-    # print(y)
-    # print(discretized_continuous_extension2(x, N))
-    # print(discretized_continuous_extension(x, N))
-
-    # y = np.arange(9) + 1
-    # y =  np.array([1, 2, 3, 4, 1, 5, 7, 1, 8])
-    # print(x)
-    # print(discretized_cont_ext_1D(x, 5))
-    # print(discretized_cont_ext_2D(y.reshape(3, 3), 5))
-
-
-
 
     graph_type = "cos"
+    graph_type_raw_data_folder = "ComparisonCos/"
+    # graph_type_raw_data_folder = "ComparisonRing/"
+    # graph_type_raw_data_folder = "ComparisonErdosReyni/"
+
     delay_type = "a_0.3pi_b_n0.53pi/"
     # delay_type = "a_0_b_0/"
     error_type = "total"
     reference_n = 250
 
-    tend = 300
+    tend = 40
     num_steps = tend*10
-    n = np.array([5, 10, 25, 50, 100, 150])
+    n = np.array([5, 10, 25, 50, 100, 150, 200, 250])
 
-    path = f"/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/ComparisonCos/SineFrequencies/" + delay_type + f"tend_{tend}/"
-    overall_l1_error= compare_with_reference(n, reference_n, tend, num_steps, path, graph_type, error_type)
+    zero_frequency_path = "/media/amir/Elements/AdaptiveKuramoto/KuramotoModel/txt_outputs/" + graph_type_raw_data_folder + "ZeroFrequencies/"
+    sine_frequency_path = "/home/amir/AdaptiveKuramoto/KuramotoModel/txt_outputs/" + graph_type_raw_data_folder + "SineFrequencies/"
 
+    zero_freq_fileloc = zero_frequency_path + delay_type + f"tend_{tend}/"
+    sine_freq_fileloc = sine_frequency_path + delay_type + f"tend_{tend}/"
 
+    path = zero_freq_fileloc
+
+    overall_l1_error = compare_with_reference(n, reference_n, tend, num_steps, path, graph_type, error_type)
 
     plt.figure()
-    plt.loglog(n, overall_l1_error, label = "overall l1 error", linestyle= "dotted", linewidth=3)
+    print(overall_l1_error)
+    plt.loglog(n, overall_l1_error,  "-o", label = "overall l1 error", linewidth=3)
     plot_title = f"Overall error l1 vs l2 norm on weights for tend={tend}" 
     plt.xlabel("Number of oscillators")
     plt.ylabel("Error")

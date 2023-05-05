@@ -31,10 +31,15 @@ inline double RingLatticeGraph(double x, double y, double h){
     }
 };
 
-/** Erdos Reyni Graph of probability p
+/** Continuous Erdos Reyni Graph of probability p
 */
-inline double ErdosReyniGraph(double x, double y, double p){
+inline double ContinuousErdosReyniGraph(double x, double y, double p){
     return p;
+}
+
+/** Discrete Erdos Reyni Graph of probablity p*/
+inline double DiscreteErdosReyniGraph(double x){
+    return x;
 }
 
 /** Small World Graph of probabilty p and valid distance h
@@ -47,6 +52,11 @@ inline double SmallWorldGraph(double x, double y, double h, double p){
 */
 inline double SinusoidalGraph(double x, double y){
     return 0.5*(1+cos(2*M_PI*(x-y))) + 0.5;
+}
+
+/** Sinus graph for stationary solution*/
+inline double SinusGraph(double x, double y, double b){
+    return sin(x - y + b);
 }
 
 /*
@@ -82,6 +92,10 @@ inline double ExpFunction(double x){
 
 inline double NormalDistributionFunction(double x){
     return exp(-0.5*pow(x-0.5,2))/(sqrt(2*M_PI));
+}
+
+inline double PhiTilde(double x){
+    return M_PI*x;
 }
 
 #endif
