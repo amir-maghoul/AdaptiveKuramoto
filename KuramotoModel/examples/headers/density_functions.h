@@ -37,11 +37,6 @@ inline double ContinuousErdosReyniGraph(double x, double y, double p){
     return p;
 }
 
-/** Discrete Erdos Reyni Graph of probablity p*/
-inline double DiscreteErdosReyniGraph(double x){
-    return x;
-}
-
 /** Small World Graph of probabilty p and valid distance h
 */
 inline double SmallWorldGraph(double x, double y, double h, double p){
@@ -56,7 +51,8 @@ inline double SinusoidalGraph(double x, double y){
 
 /** Sinus graph for stationary solution*/
 inline double SinusGraph(double x, double y, double b, double k){
-    return -sin(k*M_PI*(x - y + b));
+    // return -sin(k*M_PI*(x - y + b));
+    return x - y;
 }
 
 /*
